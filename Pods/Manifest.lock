@@ -1,0 +1,16 @@
+PODS:
+  - ZHDropDownMenu (1.0.0)
+
+DEPENDENCIES:
+  - ZHDropDownMenu
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - ZHDropDownMenu
+
+SPEC CHECKSUMS:
+  ZHDropDownMenu: aa2917b07820b9eba3dc98066f85257017821b65
+
+PODFILE CHECKSUM: 8275027f916ab48b9e437a8c5afe21a830eafb80
+
+COCOAPODS: 1.5.3

@@ -1,0 +1,6 @@
+framework module Pods_accounting {
+  umbrella header "Pods-accounting-umbrella.h"
+
+  export *
+  module * { export * }
+}

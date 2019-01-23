@@ -7,6 +7,7 @@ target 'accounting' do
 
   # Pods for accounting
   pod 'ZHDropDownMenu'
+  pod 'SQLite.swift'
 
   target 'accountingTests' do
     inherit! :search_paths

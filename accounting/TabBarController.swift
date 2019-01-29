@@ -14,6 +14,9 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25.0), NSAttributedString.Key.foregroundColor : UIColor.black], for: .normal)
+        
+        // 設定起始頁面
+        // self.selectedIndex = 1
     }
     
 }

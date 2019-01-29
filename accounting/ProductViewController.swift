@@ -14,14 +14,6 @@ import SQLite
 let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
 // 連接 db 並宣告一個ㄧ名為 productDB 的 table
 let db = try? Connection("\(path)/db.sqlite")
-let productDB = Table("product")
-
-// table 中有哪一些欄位和型態
-let id = Expression<Int64>("id")
-let name = Expression<String>("name")
-let type = Expression<String>("type")
-let pages = Expression<Int64>("pages")
-let position = Expression<Int64>("position")
 
 struct Product {
     var id: Int64!
@@ -53,6 +45,15 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var vegetableMenu: ZHDropDownMenu!
     @IBOutlet weak var newProduct_btn: UIButton!
     @IBOutlet weak var tableView: UITableView!
+
+    let productDB = Table("product")
+    
+    // table 中有哪一些欄位和型態
+    let id = Expression<Int64>("id")
+    let name = Expression<String>("name")
+    let type = Expression<String>("type")
+    let pages = Expression<Int64>("pages")
+    let position = Expression<Int64>("position")
     
     var item = [Product]()
     var product = Product()
@@ -101,9 +102,8 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
         vegetableMenu.layer.cornerRadius = 5
         vegetableMenu.delegate = self // 設置代理
         
-        pagesMenu.options = ["1", "2", "3", "4", "5"]
+        pagesMenu.options = ["1", "2", "3", "4"]
         pagesMenu.showBorder = true
-        pagesMenu.editable = true
         pagesMenu.layer.cornerRadius = 5
         pagesMenu.delegate = self
         
@@ -195,42 +195,70 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func newProduct(_ sender: Any) {
-        product.name = productName.text!
-        // 將資料插入資料庫
-        let insert = productDB.insert(name <- productName.text!, type <- product.type, pages <- product.pages, position <- product.position)
-        if let rowId = try? db?.run(insert) {
-            print("插入成功：\(String(describing: rowId))")
-            product.id = rowId!
-        } else {
-            print("插入失敗")
+        
+        // 當有欄位為空得時候跳出警告訊息 upadte 中也相同
+        if(productName.text!.count == 0 || product.type.count == 0 || product.pages == 0 || product.position == 0) {
+            let alertController = UIAlertController(title: "不能有欄位為空\n請輸入完成後再次點選\n『新增商品』", message: "", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
         }
-        item.append(product)
-        pagesControllerLabel.text = ("\(pagesIndex + 1) / \((item.count - 1) / 8 + 1)")
-        if(pagesIndex == (item.count-1) / 8) {
-            //  將新元素插入表格正確位置
-            let tempt: IndexPath = IndexPath(row: (item.count-1)%8, section: 0)
-            tableView.insertRows(at: [tempt], with: .left)
+        // 當所選位置已存在商品時跳出警告訊息 update 中也相同
+        else if(try! (db?.scalar(productDB.filter(type == product.type && pages == product.pages && position == product.position).count))! > 0 ){
+            let alertController = UIAlertController(title: "所選的位置和頁數\n已存在商品請重新選擇", message: "", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
         }
-        print("\(product.name)     \(String(product.pages))     \(String(product.position))")
+        else {
+            product.name = productName.text!
+            // 將資料插入資料庫
+            let insert = productDB.insert(name <- productName.text!, type <- product.type, pages <- product.pages, position <- product.position)
+            if let rowId = try? db?.run(insert) {
+                print("插入成功：\(String(describing: rowId))")
+                product.id = rowId!
+            } else {
+                print("插入失敗")
+            }
+            item.append(product)
+            pagesControllerLabel.text = ("\(pagesIndex + 1) / \((item.count - 1) / 8 + 1)")
+            if(pagesIndex == (item.count-1) / 8) {
+                //  將新元素插入表格正確位置
+                let tempt: IndexPath = IndexPath(row: (item.count-1)%8, section: 0)
+                tableView.insertRows(at: [tempt], with: .left)
+            }
+            print("\(product.name)     \(String(product.pages))     \(String(product.position))")
+        }
     }
     
     @IBAction func updateProduct(_ sender: Any) {
-        updateBtn.isHidden = true
-        deleteBtn.isHidden = true
-        item[selectedRow!.row + 8 * pagesIndex].name = productName.text!
-        item[selectedRow!.row + 8 * pagesIndex].type = product.type
-        item[selectedRow!.row + 8 * pagesIndex].pages = product.pages
-        item[selectedRow!.row + 8 * pagesIndex].position = product.position
-        let modify = productDB.filter(id == item[selectedRow!.row + 8 * pagesIndex].id)
-        if let count = try? db?.run(modify.update(name <- productName.text!, type <- product.type, pages <- product.pages, position <- product.position)) {
-            print("修改 row 的個數：\(String(describing: count))")
-        } else {
-            print("修改失敗")
+        if(productName.text!.count == 0 || product.type.count == 0 || product.pages == 0 || product.position == 0) {
+            let alertController = UIAlertController(title: "不能有欄位為空\n請輸入完成後再次點選\n『新增商品』", message: "", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
         }
-        // 重新更新 table 中的 cell
-        tableView.reloadData()
-        tableView.deselectRow(at: selectedRow!, animated: true)
-        // 向右滑動出現刪除按鈕 : tableView.setEditing(true, animated: false)
+        else if(try! (db?.scalar(productDB.filter(type == product.type && pages == product.pages && position == product.position).count))! > 0 && !(item[selectedRow!.row + 8 * pagesIndex].pages == product.pages
+            && item[selectedRow!.row + 8 * pagesIndex].position == product.position)){
+            let alertController = UIAlertController(title: "所選的位置和頁數\n已存在商品請重新選擇", message: "", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
+        else {
+            updateBtn.isHidden = true
+            deleteBtn.isHidden = true
+            item[selectedRow!.row + 8 * pagesIndex].name = productName.text!
+            item[selectedRow!.row + 8 * pagesIndex].type = product.type
+            item[selectedRow!.row + 8 * pagesIndex].pages = product.pages
+            item[selectedRow!.row + 8 * pagesIndex].position = product.position
+            let modify = productDB.filter(id == item[selectedRow!.row + 8 * pagesIndex].id)
+            if let count = try? db?.run(modify.update(name <- productName.text!, type <- product.type, pages <- product.pages, position <- product.position)) {
+                print("修改 row 的個數：\(String(describing: count))")
+            } else {
+                print("修改失敗")
+            }
+            // 重新更新 table 中的 cell
+            tableView.reloadData()
+            tableView.deselectRow(at: selectedRow!, animated: true)
+            // 向右滑動出現刪除按鈕 : tableView.setEditing(true, animated: false)
+        }
     }
     
     @IBAction func deleteProduct(_ sender: Any) {

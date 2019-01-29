@@ -21,6 +21,9 @@
 		DD3B293721F06B52007A10FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD3B293521F06B52007A10FB /* LaunchScreen.storyboard */; };
 		DD3B294221F06B52007A10FB /* accountingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3B294121F06B52007A10FB /* accountingTests.swift */; };
 		DD3B294D21F06B52007A10FB /* accountingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3B294C21F06B52007A10FB /* accountingUITests.swift */; };
+		DDA4A5B021FECDCB00F2DB82 /* OrderPopOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4A5AF21FECDCA00F2DB82 /* OrderPopOverView.swift */; };
+		DDA4A5B22200252600F2DB82 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4A5B12200252500F2DB82 /* Setting.swift */; };
+		DDA4A5B4220030E700F2DB82 /* EditContactTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4A5B3220030E700F2DB82 /* EditContactTableTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +69,9 @@
 		DD3B294821F06B52007A10FB /* accountingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = accountingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD3B294C21F06B52007A10FB /* accountingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = accountingUITests.swift; sourceTree = "<group>"; };
 		DD3B294E21F06B52007A10FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DDA4A5AF21FECDCA00F2DB82 /* OrderPopOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderPopOverView.swift; sourceTree = "<group>"; };
+		DDA4A5B12200252500F2DB82 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		DDA4A5B3220030E700F2DB82 /* EditContactTableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditContactTableTableViewController.swift; sourceTree = "<group>"; };
 		ED550331ED125361DAF79183 /* Pods-accounting.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-accounting.release.xcconfig"; path = "Pods/Target Support Files/Pods-accounting/Pods-accounting.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,11 +152,14 @@
 			isa = PBXGroup;
 			children = (
 				DD3B292A21F06B50007A10FB /* AppDelegate.swift */,
+				DDA4A5B3220030E700F2DB82 /* EditContactTableTableViewController.swift */,
 				DD3B292C21F06B50007A10FB /* ContactViewController.swift */,
 				DD156CA121F1D30E009577E6 /* ProductViewController.swift */,
 				DD156C9F21F19609009577E6 /* TabBarController.swift */,
 				DD3B292E21F06B50007A10FB /* OrderViewController.swift */,
+				DDA4A5AF21FECDCA00F2DB82 /* OrderPopOverView.swift */,
 				DD156CA321F2315F009577E6 /* Record.swift */,
+				DDA4A5B12200252500F2DB82 /* Setting.swift */,
 				DD3B293021F06B50007A10FB /* Main.storyboard */,
 				DD3B293321F06B52007A10FB /* Assets.xcassets */,
 				DD3B293521F06B52007A10FB /* LaunchScreen.storyboard */,
@@ -396,7 +405,10 @@
 				DD156CA021F19609009577E6 /* TabBarController.swift in Sources */,
 				DD156CA421F2315F009577E6 /* Record.swift in Sources */,
 				DD3B292B21F06B50007A10FB /* AppDelegate.swift in Sources */,
+				DDA4A5B4220030E700F2DB82 /* EditContactTableTableViewController.swift in Sources */,
+				DDA4A5B021FECDCB00F2DB82 /* OrderPopOverView.swift in Sources */,
 				DD156CA221F1D30E009577E6 /* ProductViewController.swift in Sources */,
+				DDA4A5B22200252600F2DB82 /* Setting.swift in Sources */,
 				DD3B292D21F06B50007A10FB /* ContactViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -575,7 +587,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = accounting/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = university.accounting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -590,7 +605,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = accounting/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = university.accounting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -606,7 +624,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = accountingTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = university.accountingTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -623,7 +645,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = accountingTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = university.accountingTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -639,7 +665,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = accountingUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = university.accountingUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -655,7 +685,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = accountingUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = university.accountingUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;

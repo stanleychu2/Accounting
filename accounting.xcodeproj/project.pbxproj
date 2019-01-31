@@ -21,6 +21,8 @@
 		DD3B293721F06B52007A10FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD3B293521F06B52007A10FB /* LaunchScreen.storyboard */; };
 		DD3B294221F06B52007A10FB /* accountingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3B294121F06B52007A10FB /* accountingTests.swift */; };
 		DD3B294D21F06B52007A10FB /* accountingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3B294C21F06B52007A10FB /* accountingUITests.swift */; };
+		DD524CD92202F9600055F986 /* PosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD524CD82202F9600055F986 /* PosViewController.swift */; };
+		DD524CDD22030CD40055F986 /* OrderContactPopOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD524CDC22030CD40055F986 /* OrderContactPopOver.swift */; };
 		DDA4A5B021FECDCB00F2DB82 /* OrderPopOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4A5AF21FECDCA00F2DB82 /* OrderPopOverView.swift */; };
 		DDA4A5B22200252600F2DB82 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4A5B12200252500F2DB82 /* Setting.swift */; };
 		DDA4A5B4220030E700F2DB82 /* EditContactTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4A5B3220030E700F2DB82 /* EditContactTableTableViewController.swift */; };
@@ -69,6 +71,8 @@
 		DD3B294821F06B52007A10FB /* accountingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = accountingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD3B294C21F06B52007A10FB /* accountingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = accountingUITests.swift; sourceTree = "<group>"; };
 		DD3B294E21F06B52007A10FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD524CD82202F9600055F986 /* PosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosViewController.swift; sourceTree = "<group>"; };
+		DD524CDC22030CD40055F986 /* OrderContactPopOver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderContactPopOver.swift; sourceTree = "<group>"; };
 		DDA4A5AF21FECDCA00F2DB82 /* OrderPopOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderPopOverView.swift; sourceTree = "<group>"; };
 		DDA4A5B12200252500F2DB82 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		DDA4A5B3220030E700F2DB82 /* EditContactTableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditContactTableTableViewController.swift; sourceTree = "<group>"; };
@@ -157,9 +161,11 @@
 				DD156CA121F1D30E009577E6 /* ProductViewController.swift */,
 				DD156C9F21F19609009577E6 /* TabBarController.swift */,
 				DD3B292E21F06B50007A10FB /* OrderViewController.swift */,
+				DD524CDC22030CD40055F986 /* OrderContactPopOver.swift */,
 				DDA4A5AF21FECDCA00F2DB82 /* OrderPopOverView.swift */,
 				DD156CA321F2315F009577E6 /* Record.swift */,
 				DDA4A5B12200252500F2DB82 /* Setting.swift */,
+				DD524CD82202F9600055F986 /* PosViewController.swift */,
 				DD3B293021F06B50007A10FB /* Main.storyboard */,
 				DD3B293321F06B52007A10FB /* Assets.xcassets */,
 				DD3B293521F06B52007A10FB /* LaunchScreen.storyboard */,
@@ -383,11 +389,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-accounting/Pods-accounting-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/ZHDropDownMenu/ZHDropDownMenu.framework",
+				"${BUILT_PRODUCTS_DIR}/iOSDropDown/iOSDropDown.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZHDropDownMenu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iOSDropDown.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -410,6 +418,8 @@
 				DD156CA221F1D30E009577E6 /* ProductViewController.swift in Sources */,
 				DDA4A5B22200252600F2DB82 /* Setting.swift in Sources */,
 				DD3B292D21F06B50007A10FB /* ContactViewController.swift in Sources */,
+				DD524CD92202F9600055F986 /* PosViewController.swift in Sources */,
+				DD524CDD22030CD40055F986 /* OrderContactPopOver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -586,7 +596,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 29DLPG3WRS;
+				DEVELOPMENT_TEAM = QSV9A9BSWN;
 				INFOPLIST_FILE = accounting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -595,7 +605,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = university.accounting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -605,7 +615,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 29DLPG3WRS;
+				DEVELOPMENT_TEAM = QSV9A9BSWN;
 				INFOPLIST_FILE = accounting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -614,7 +624,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = university.accounting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

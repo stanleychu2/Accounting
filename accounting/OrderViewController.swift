@@ -9,13 +9,27 @@
 import UIKit
 import SQLite
 
+struct OrderProduct {
+    var name: String = ""
+    var amount: Int!
+    var unitPrice: Int!
+}
+
 class collectionCell: UICollectionViewCell {
     
     @IBOutlet weak var collectionCellLabel: UILabel!
 }
 
-class OrderViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIPopoverPresentationControllerDelegate {
+class orderProductCell: UITableViewCell {
     
+    @IBOutlet weak var productNameLabel: UILabel!
+    @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var totalLabel: UILabel!
+}
+
+class OrderViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIPopoverPresentationControllerDelegate, popOverReturnDataDelegate, UITableViewDelegate, UITableViewDataSource, ContactpopOverReturnDataDelegate {
+    
+    @IBOutlet weak var totalMoneyView: UIView!
     @IBOutlet weak var pagesLabel: UILabel!
     @IBOutlet weak var otherBtn: UIButton!
     @IBOutlet weak var meatBtn: UIButton!
@@ -25,17 +39,26 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var moneySumLabel: UILabel!
     
     let productDB = Table("product")
     
-    // table 中有哪一些欄位和型態
+    // product table 中有哪一些欄位和型態
     let id = Expression<Int64>("id")
     let name = Expression<String>("name")
     let type = Expression<String>("type")
     let pages = Expression<Int64>("pages")
     let position = Expression<Int64>("position")
     
+    // order table 有哪些欄位(某些欄位名稱與 product 共用)
+    let amount = Expression<Int64>("amount")
+    let money = Expression<Int64>("money")
+    let date = Expression<Date>("date")
+    // 聯絡人欄位一開始為空『確認訂單』之後才有值
+    let contact = Expression<String?>("contact")
+    
     var item = [String](repeating: "", count: 25)
+    var orderProduct = [OrderProduct]()
     
     // ["青椒", "小白菜", "空心菜", "大陸妹", "A 菜",
     // "山蘇", "芥蘭菜", "菜心", "大黃瓜", "四季豆",
@@ -46,6 +69,7 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
     var selectedType = "蔬菜"
     var timer: Timer!
     var pagesIndex: Int64 = 1
+    
     // 只有第一次會進入畫面的時候執行
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +77,7 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
         let dbResult = productDB.filter(type == selectedType && pages == pagesIndex)
         for product in (try? db?.prepare(dbResult))!! {
             item[Int(product[position]) - 1] = product[name]
-            print("name: \(product[name])")
+//            print("name: \(product[name])")
         }
         
         var now = Date()
@@ -66,6 +90,8 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
         collectionView.dataSource = self
         collectionView.allowsMultipleSelection = false
         
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.layer.masksToBounds = true
         // table 的 seperator 上下左右不要有邊界
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -74,6 +100,9 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         tableHeader.layer.borderWidth = 0.5
         tableHeader.layer.borderColor = UIColor.gray.cgColor
+        
+        totalMoneyView.layer.borderWidth = 2
+        totalMoneyView.layer.borderColor = UIColor.gray.cgColor
         
         vegetableBtn.backgroundColor = #colorLiteral(red: 0.663232584, green: 0, blue: 0.4050840328, alpha: 1)
         
@@ -101,17 +130,41 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
         //  timer.invalidate() 直接摧毀 timer 的這個功能不能再開始
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
-//        <#code#>
-//    }
-    
     // 傳遞資料到不同的頁面
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "orderPopOverSegue") {
             let controller = segue.destination as? OrderPopOverView
             
+            // 設定回傳的代理為自己
+            controller?.delegate = self
             controller?.productName = item[(collectionView.indexPathsForSelectedItems?[0].row)!]
         }
+        else if(segue.identifier == "confirmOrderPopOverSegue") {
+            let controller = segue.destination as? OrderContactPopOver
+            
+            // 設定回傳的代理為自己
+            controller?.delegate = self
+        }
+    }
+    
+    func clearData() {
+        print("stanley")
+        
+        orderProduct = [OrderProduct]()
+        moneySumLabel.text = "$ 0"
+        tableView.reloadData()
+    }
+    
+    // popOver 回傳資料執行的 func
+    func popOverReturnData(productName: String, amount: Int, unitPrice: Int) {
+        print("name: \(productName) amount: \(amount) unitPrice: \(unitPrice)")
+        
+        orderProduct.append(OrderProduct(name: productName, amount: amount, unitPrice: unitPrice))
+        let tempt: IndexPath = IndexPath(row: orderProduct.count - 1, section: 0)
+        let index = moneySumLabel.text!.index(moneySumLabel.text!.endIndex, offsetBy: -1 * (moneySumLabel.text!.count - 2))
+        let moneySumSubstring = String(moneySumLabel.text![index...])
+        tableView.insertRows(at: [tempt], with: .left)
+        moneySumLabel.text = "$ " + String(amount * unitPrice + Int(moneySumSubstring)!)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -157,6 +210,21 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
         collectionView.reloadData()
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return orderProduct.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "orderProductCell") as! orderProductCell
+        
+        cell.productNameLabel.text = orderProduct[indexPath.row].name
+        cell.amountLabel.text = String(orderProduct[indexPath.row].amount)
+        cell.totalLabel.text = String(orderProduct[indexPath.row].amount * orderProduct[indexPath.row].unitPrice)
+        
+        return cell
+    }
+    
     @IBAction func previousPagesBtn(_ sender: UIButton) {
         if(pagesIndex > 1) {
             pagesIndex -= 1
@@ -200,6 +268,16 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
         selectedType = "雜項"
         
         updateCollection()
+    }
+    
+    @IBAction func clearOrderProduct(_ sender: UIButton) {
+        orderProduct = [OrderProduct]()
+        moneySumLabel.text = "$ 0"
+        tableView.reloadData()
+    }
+    
+    @IBAction func confirmOrder(_ sender: UIButton) {
+        performSegue(withIdentifier: "confirmOrderPopOverSegue", sender: nil)
     }
     
 }

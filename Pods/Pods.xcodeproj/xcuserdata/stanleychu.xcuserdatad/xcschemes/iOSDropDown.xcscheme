@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "04074AFC50061B9456C8BEB561DE3115"
-               BuildableName = "Pods_accounting.framework"
-               BlueprintName = "Pods-accounting"
+               BlueprintIdentifier = "0397BF5CFC2303592BFD85F38F2D6CC6"
+               BuildableName = "iOSDropDown.framework"
+               BlueprintName = "iOSDropDown"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "04074AFC50061B9456C8BEB561DE3115"
-            BuildableName = "Pods_accounting.framework"
-            BlueprintName = "Pods-accounting"
+            BlueprintIdentifier = "0397BF5CFC2303592BFD85F38F2D6CC6"
+            BuildableName = "iOSDropDown.framework"
+            BlueprintName = "iOSDropDown"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

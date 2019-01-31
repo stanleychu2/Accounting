@@ -84,7 +84,6 @@ class PosViewController: UIViewController{
         selectedType = "肉類"
         
         //updateCollection()
-        
     }
     
     @IBAction func chooseOthers(_ sender: Any) {

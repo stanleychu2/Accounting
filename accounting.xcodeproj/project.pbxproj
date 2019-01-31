@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22974C552202D749007CCEF7 /* PosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22974C542202D749007CCEF7 /* PosViewController.swift */; };
 		4DCA1ECF215C3D2983A6545F /* Pods_accountingUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B204C91540D5E1D11ECD4D40 /* Pods_accountingUITests.framework */; };
 		A35AA54346C40161E462FC34 /* Pods_accountingTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D569BBFEA623A59BA0D0A5 /* Pods_accountingTests.framework */; };
 		AD8C24EC4E4BD8AC61DB1AE9 /* Pods_accounting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BCC5C6FC08A9C3967AC08CE /* Pods_accounting.framework */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		1F13788D4B6209999F607649 /* Pods-accountingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-accountingTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-accountingTests/Pods-accountingTests.debug.xcconfig"; sourceTree = "<group>"; };
+		22974C542202D749007CCEF7 /* PosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosViewController.swift; sourceTree = "<group>"; };
 		590D3412352087C99970CD89 /* Pods-accounting.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-accounting.debug.xcconfig"; path = "Pods/Target Support Files/Pods-accounting/Pods-accounting.debug.xcconfig"; sourceTree = "<group>"; };
 		59CAD771A4216C8AEF6EF46B /* Pods-accountingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-accountingTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-accountingTests/Pods-accountingTests.release.xcconfig"; sourceTree = "<group>"; };
 		60D569BBFEA623A59BA0D0A5 /* Pods_accountingTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_accountingTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,6 +166,7 @@
 				DD3B293321F06B52007A10FB /* Assets.xcassets */,
 				DD3B293521F06B52007A10FB /* LaunchScreen.storyboard */,
 				DD3B293821F06B52007A10FB /* Info.plist */,
+				22974C542202D749007CCEF7 /* PosViewController.swift */,
 			);
 			path = accounting;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				DD156CA221F1D30E009577E6 /* ProductViewController.swift in Sources */,
 				DDA4A5B22200252600F2DB82 /* Setting.swift in Sources */,
 				DD3B292D21F06B50007A10FB /* ContactViewController.swift in Sources */,
+				22974C552202D749007CCEF7 /* PosViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

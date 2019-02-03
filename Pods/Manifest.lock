@@ -1,22 +1,26 @@
 PODS:
+  - iOSDropDown (0.2.7)
   - SQLite.swift (0.11.5):
     - SQLite.swift/standard (= 0.11.5)
   - SQLite.swift/standard (0.11.5)
   - ZHDropDownMenu (1.0.0)
 
 DEPENDENCIES:
+  - iOSDropDown
   - SQLite.swift
   - ZHDropDownMenu
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - iOSDropDown
     - SQLite.swift
     - ZHDropDownMenu
 
 SPEC CHECKSUMS:
+  iOSDropDown: 7a4cfc67d5166f319858747b63cd2f7760c4fb4b
   SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
   ZHDropDownMenu: aa2917b07820b9eba3dc98066f85257017821b65
 
-PODFILE CHECKSUM: 227d208e282be7fb9451200abad0d1e2eb3db671
+PODFILE CHECKSUM: 76b5cc8dde1e1fee5a91235ad45e6fb77dd49406
 
 COCOAPODS: 1.5.3

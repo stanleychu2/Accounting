@@ -135,7 +135,6 @@ class PosViewController: UIViewController, UICollectionViewDelegate, UICollectio
         selectedType = "肉類"
         
         //updateCollection()
-
     }
     
     @IBAction func chooseOthers(_ sender: Any) {
@@ -146,9 +145,4 @@ class PosViewController: UIViewController, UICollectionViewDelegate, UICollectio
         
         //updateCollection()
     }
-    
-    
-    
-
-    
 }

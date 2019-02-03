@@ -9,11 +9,25 @@
 import UIKit
 import ZHDropDownMenu
 import SQLite
+import iOSDropDown
 
-// 取得 sqlite 放置位置
-let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-// 連接 db 並宣告一個ㄧ名為 productDB 的 table
-let db = try? Connection("\(path)/db.sqlite")
+// 讓 dropDown 多了內部的 inset 
+class DropDownMenu: DropDown {
+        
+    let padding = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
+        
+    override open func textRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: padding)
+    }
+        
+    override open func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: padding)
+    }
+        
+    override open func editingRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: padding)
+    }
+}
 
 struct Product {
     var id: Int64!
@@ -31,21 +45,21 @@ class myCell: UITableViewCell {
     @IBOutlet weak var productPagesLabel: UILabel!
 }
 
-class ProductViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate {
+class ProductViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // 新增 outlet 可以設定樣式和做一些控制利用 contrl 拉到 view controller 裡
+    @IBOutlet weak var positionMenu: DropDownMenu!
+    @IBOutlet weak var pagesMenu: DropDownMenu!
+    @IBOutlet weak var VegetableMenu: DropDownMenu!
     @IBOutlet weak var pagesControllerLabel: UILabel!
     @IBOutlet weak var deleteBtn: UIButton!
     @IBOutlet weak var updateBtn: UIButton!
     @IBOutlet weak var tableHeaderAllView: UIView!
     @IBOutlet weak var tableHeaderUpView: UIView!
     @IBOutlet weak var productName: UITextField!
-    @IBOutlet weak var positionMenu: ZHDropDownMenu!
-    @IBOutlet weak var pagesMenu: ZHDropDownMenu!
-    @IBOutlet weak var vegetableMenu: ZHDropDownMenu!
     @IBOutlet weak var newProduct_btn: UIButton!
     @IBOutlet weak var tableView: UITableView!
-
+    
     let productDB = Table("product")
     
     // table 中有哪一些欄位和型態
@@ -96,59 +110,33 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
         // 設定頁碼和最大頁數
         pagesControllerLabel.text = ("\(pagesIndex + 1) / \((item.count - 1) / 8 + 1)")
         
-        vegetableMenu.options = ["蔬菜", "肉類", "雜項"] // 設置下拉式表單選項
-        vegetableMenu.showBorder = true
-        vegetableMenu.editable = false // 可編輯
-        vegetableMenu.layer.cornerRadius = 5
-        vegetableMenu.delegate = self // 設置代理
-        
-        pagesMenu.options = ["1", "2", "3", "4"]
-        pagesMenu.showBorder = true
-        pagesMenu.layer.cornerRadius = 5
-        pagesMenu.delegate = self
-        
-        positionMenu.options = ["1", "2", "3", "4", "5"]
-        positionMenu.showBorder = true
-        positionMenu.editable = true
-        positionMenu.layer.cornerRadius = 5
-        positionMenu.delegate = self
-    }
-
-    // 选择完后回调
-    func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
-        print("\(menu) choosed at index \(index)")
-        
-        switch menu {
-        case vegetableMenu:
-            product.type = vegetableMenu.options[index]
-            print(vegetableMenu.options[index])
-        case pagesMenu:
-            product.pages = Int64(pagesMenu.options[index])!
-            print(pagesMenu.options[index])
-        case positionMenu:
-            product.position = Int64(pagesMenu.options[index])!
-            print(pagesMenu.options[index])
-        default:
-            print("")
+        // 為了使下拉式選單不互相覆蓋必須讓他們在 storybord 中排列的順序上面顛倒，要放在最下面的需
+        // 放在 storybord 的最上面
+        // 下拉式選單選項
+        VegetableMenu.optionArray = ["蔬菜", "肉類", "雜項"]
+        // 當下拉式選單中的東西被選到時執行
+        VegetableMenu.didSelect{(selectedText , index ,id) in
+            print("Selected String: \(selectedText) \n index: \(index)")
+            
+            self.product.type = selectedText
         }
-    }
-    
-    // 编辑完成后回调
-    func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
-        print("\(menu) input text \(text)")
         
-        switch menu {
-        case vegetableMenu:
-            product.type = text
-            print(text)
-        case pagesMenu:
-            product.pages = Int64(text)!
-            print(text)
-        case positionMenu:
-            product.position = Int64(text)!
-            print(text)
-        default:
-            print("")
+        pagesMenu.optionArray = ["1", "2", "3", "4"]
+        pagesMenu.didSelect{(selectedText , index ,id) in
+            print("Selected String: \(selectedText) \n index: \(index)")
+            
+            self.product.pages = Int64(selectedText)!
+        }
+
+        positionMenu.optionArray = ["1", "2", "3", "4", "5",
+                                    "6", "7", "8", "9", "10",
+                                    "11", "12", "13", "14", "15",
+                                    "16", "17", "18", "19", "20",
+                                    "21", "22", "23", "24", "25"]
+        positionMenu.didSelect{(selectedText , index ,id) in
+            print("Selected String: \(selectedText) \n index: \(index)")
+            
+            self.product.position = Int64(selectedText)!
         }
     }
     
@@ -198,7 +186,7 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // 當有欄位為空得時候跳出警告訊息 upadte 中也相同
         if(productName.text!.count == 0 || product.type.count == 0 || product.pages == 0 || product.position == 0) {
-            let alertController = UIAlertController(title: "不能有欄位為空\n請輸入完成後再次點選\n『新增商品』", message: "", preferredStyle: UIAlertController.Style.alert)
+            let alertController = UIAlertController(title: "不能有欄位為空\n請輸入完成後再次點選", message: "", preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
@@ -222,7 +210,7 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
             pagesControllerLabel.text = ("\(pagesIndex + 1) / \((item.count - 1) / 8 + 1)")
             if(pagesIndex == (item.count-1) / 8) {
                 //  將新元素插入表格正確位置
-                let tempt: IndexPath = IndexPath(row: (item.count-1)%8, section: 0)
+                let tempt: IndexPath = IndexPath(row: (item.count - 1) % 8, section: 0)
                 tableView.insertRows(at: [tempt], with: .left)
             }
             print("\(product.name)     \(String(product.pages))     \(String(product.position))")
@@ -231,7 +219,7 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func updateProduct(_ sender: Any) {
         if(productName.text!.count == 0 || product.type.count == 0 || product.pages == 0 || product.position == 0) {
-            let alertController = UIAlertController(title: "不能有欄位為空\n請輸入完成後再次點選\n『新增商品』", message: "", preferredStyle: UIAlertController.Style.alert)
+            let alertController = UIAlertController(title: "不能有欄位為空\n請輸入完成後再次點選", message: "", preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }

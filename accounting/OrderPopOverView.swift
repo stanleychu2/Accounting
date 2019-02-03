@@ -7,17 +7,104 @@
 //
 
 import UIKit
+import SQLite
 
-class OrderPopOverView: UIViewController {
+@objc protocol popOverReturnDataDelegate {
+    func popOverReturnData(productName: String, amount: Int, unitPrice: Int)
+}
+
+class OrderPopOverView: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var productNameLabel: UILabel!
+    @IBOutlet weak var orderAmountInput: UITextField!
+    @IBOutlet weak var unitPriceInput: UITextField!
+    @IBOutlet weak var totalPriceLabel: UILabel!
     
     var productName: String!
-    
+    var selectedInput: UITextField!
+    weak var delegate: popOverReturnDataDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         productNameLabel.text = productName
-        // Do any additional setup after loading the view.
+        
+        self.orderAmountInput.delegate = self
+        self.unitPriceInput.delegate = self
+    }
+    
+    // 禁止用除了旁邊小鍵盤之外的方法更改
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        return false
+    }
+    
+    // 偵測目前選到的是哪一個 input 元件
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        // 防止原生鍵盤跳出，目前沒什麼功效
+        textField.resignFirstResponder()
+        
+        if(textField == orderAmountInput){
+            selectedInput = orderAmountInput
+        }
+        else if(textField == unitPriceInput){
+            selectedInput = unitPriceInput
+        }
+
+        return true
+    }
+    
+    @IBAction func typeNumber(_ sender: UIButton) {
+        
+        //  一開始使用者都沒有選 input 元件的話便會造成 selectedInput 為空
+        if(selectedInput != nil) {
+            switch sender.tag {
+                
+                case 0:
+                    selectedInput.text! += "0"
+                case 1:
+                    selectedInput.text! += "1"
+                case 2:
+                    selectedInput.text! += "2"
+                case 3:
+                    selectedInput.text! += "3"
+                case 4:
+                    selectedInput.text! += "4"
+                case 5:
+                    selectedInput.text! += "5"
+                case 6:
+                    selectedInput.text! += "6"
+                case 7:
+                    selectedInput.text! += "7"
+                case 8:
+                    selectedInput.text! += "8"
+                case 9:
+                    selectedInput.text! += "9"
+                case 10:
+                    selectedInput.text! = ""
+                case 11:
+                    if(selectedInput.text!.count > 0) {
+                        selectedInput.text = String(selectedInput.text!.prefix(selectedInput.text!.count - 1))
+                    }
+                default:
+                    print("error no such number button")
+            }
+            
+            if(orderAmountInput.text != "" && unitPriceInput.text != "") {
+                totalPriceLabel.text = "$ " + String(Int(orderAmountInput.text!)! * Int(unitPriceInput.text!)!)
+            }
+            else {
+                totalPriceLabel.text = "$ 0"
+            }
+        }
+    }
+    
+    @IBAction func newOrder(_ sender: UIButton) {
+        
+        // 回傳時執行 orderViewController 的 popOverReturnData func
+        delegate?.popOverReturnData(productName: productName, amount: Int(orderAmountInput.text!)!, unitPrice: Int(unitPriceInput.text!)!)
+        // 點擊按鈕之後關閉 popOver 的動畫
+        presentingViewController!.dismiss(animated: true, completion: nil)
     }
 }

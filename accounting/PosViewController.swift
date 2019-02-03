@@ -19,7 +19,9 @@ class ProductCollectionCell: UICollectionViewCell{
     
 }
 
-class PosViewController: UIViewController{
+class PosViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource{
+    
+    
     
     @IBOutlet weak var ContactCollectionView: UICollectionView!
     @IBOutlet weak var ContactCollectionViewLayout: UICollectionViewFlowLayout!
@@ -36,6 +38,7 @@ class PosViewController: UIViewController{
     var item = [String](repeating: "", count: 25)
     var pagesIndex: Int64 = 1
     var selectedType = "蔬菜"
+    var people = ["AAA","BBB","CCC","DDD","EEE"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,8 +50,56 @@ class PosViewController: UIViewController{
         ContactCollectionView.layer.borderWidth = 1
         ContactCollectionView.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         // Do any additional setup after loading the view.
+        
+        ContactCollectionView.delegate = self
+        ContactCollectionView.dataSource = self
+        ProductCollectionView.delegate = self
+        ProductCollectionView.dataSource = self
+        
+        self.view.addSubview(ContactCollectionView)
+        self.view.addSubview(ProductCollectionView)
     }
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if collectionView == self.ContactCollectionView{
+            return 1
+        }
+        else{ //collectionView == self.ProductCollectionView
+            return 1
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == self.ContactCollectionView{
+            return people.count
+        }
+        else{ //collectionView == self.ProductCollectionView
+            return item.count
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == ContactCollectionView{
+            let contactCell = collectionView.dequeueReusableCell(withReuseIdentifier: "contactCell", for: indexPath) as! ContactCollectionCell
+                contactCell.layer.cornerRadius = 5
+                contactCell.layer.borderColor = UIColor.black.cgColor
+                contactCell.backgroundColor = #colorLiteral(red: 0.9024838209, green: 0.6174634099, blue: 0.1791247427, alpha: 1)
+            
+                contactCell.cellLabel.textColor = UIColor.white
+                contactCell.cellLabel.text = people[indexPath.row]
+            return contactCell
+        }
+        else{
+            let productCell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProductCollectionCell
+                productCell.layer.cornerRadius = 5
+                productCell.layer.borderColor = UIColor.black.cgColor
+                productCell.backgroundColor = (item[indexPath.row] == "") ? UIColor.gray : #colorLiteral(red: 0.9024838209, green: 0.6174634099, blue: 0.1791247427, alpha: 1)
+            
+                productCell.cellLabel.textColor = UIColor.white
+                productCell.cellLabel.text = item[indexPath.row]
+            return productCell
+        }
+    }
     
     @IBAction func previousPage(_ sender: Any) {
         if(pagesIndex > 1) {

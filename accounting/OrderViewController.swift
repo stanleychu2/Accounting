@@ -10,9 +10,12 @@ import UIKit
 import SQLite
 
 struct OrderProduct {
+    //var id: Int64!
+    //var contact: String = ""
     var name: String = ""
     var amount: Int!
     var unitPrice: Int!
+    //var date: Date
 }
 
 class collectionCell: UICollectionViewCell {
@@ -42,7 +45,8 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
     @IBOutlet weak var moneySumLabel: UILabel!
     
     let productDB = Table("product")
-    
+    let orderDB = Table("order")
+    let contactDB = Table("contact")
     // product table 中有哪一些欄位和型態
     let id = Expression<Int64>("id")
     let name = Expression<String>("name")
@@ -51,6 +55,7 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
     let position = Expression<Int64>("position")
     
     // order table 有哪些欄位(某些欄位名稱與 product 共用)
+    let product = Expression<String>("product")
     let amount = Expression<Int64>("amount")
     let money = Expression<Int64>("money")
     let date = Expression<Date>("date")
@@ -73,6 +78,15 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
     // 只有第一次會進入畫面的時候執行
     override func viewDidLoad() {
         super.viewDidLoad()
+        //建立order table
+        try! db?.run(orderDB.create(ifNotExists: true, block: { (table) in
+            table.column(id, primaryKey: true)
+            table.column(contact)
+            table.column(product)
+            table.column(amount)
+            table.column(money)
+            table.column(date)
+        }))
         
         let dbResult = productDB.filter(type == selectedType && pages == pagesIndex)
         for product in (try? db?.prepare(dbResult))!! {

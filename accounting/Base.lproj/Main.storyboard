@@ -296,24 +296,84 @@
                         <rect key="frame" x="0.0" y="0.0" width="650" height="500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHj-Og-793">
-                                <rect key="frame" x="0.0" y="0.0" width="650" height="500"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="聯絡人" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zb4-5g-R7v">
+                                <rect key="frame" x="265" y="33" width="121" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="Simulator Screen Shot - iPad Pro (9.7-inch) - 2019-01-31 at 17.45.46"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqn-yO-CmI">
+                                <rect key="frame" x="32" y="79" width="62" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="上一頁"/>
                                 <connections>
-                                    <action selector="con:" destination="nJd-ks-aBV" eventType="touchUpInside" id="S6E-cY-Frb"/>
-                                    <action selector="confirmOrderBtn:" destination="giJ-4U-Gl0" eventType="touchUpInside" id="riA-Sy-YJL"/>
+                                    <action selector="previousPage:" destination="nJd-ks-aBV" eventType="touchUpInside" id="uFJ-vR-rMZ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hz0-rs-eIL">
+                                <rect key="frame" x="536" y="79" width="62" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="下一頁"/>
+                                <connections>
+                                    <action selector="nextPage:" destination="nJd-ks-aBV" eventType="touchUpInside" id="ayA-tp-i9l"/>
+                                </connections>
+                            </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bhw-KL-tEM">
+                                <rect key="frame" x="20" y="120" width="610" height="357"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="5" id="Cqr-UC-Alh">
+                                    <size key="itemSize" width="90" height="48"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="fnE-J5-leM" customClass="OrderContactCollectionViewCell" customModule="accounting" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="90" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="90" height="48"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNp-se-dso">
+                                                    <rect key="frame" x="0.0" y="0.0" width="87" height="46"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <connections>
+                                            <outlet property="cellLabel" destination="FNp-se-dso" id="gJ0-fF-HXq"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ngj-kT-tNv">
+                                <rect key="frame" x="306" y="94" width="38" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="sgk-GE-vBO"/>
                     </view>
                     <value key="contentSizeForViewInPopover" type="size" width="650" height="500"/>
                     <size key="freeformSize" width="650" height="500"/>
+                    <connections>
+                        <outlet property="collectionView" destination="Bhw-KL-tEM" id="2sy-zH-gkW"/>
+                        <outlet property="collectionViewLayout" destination="Cqr-UC-Alh" id="wvM-25-yEL"/>
+                        <outlet property="pageLabel" destination="ngj-kT-tNv" id="PZN-rF-BYJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x6n-yD-s8M" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="giJ-4U-Gl0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1655.859375" y="1437.5"/>
         </scene>
@@ -1850,7 +1910,6 @@
     </scenes>
     <resources>
         <image name="POS" width="32" height="32"/>
-        <image name="Simulator Screen Shot - iPad Pro (9.7-inch) - 2019-01-31 at 17.45.46" width="2016" height="1358"/>
         <image name="contacts" width="30" height="30"/>
         <image name="downArrow" width="72" height="72"/>
         <image name="edit" width="225" height="226"/>

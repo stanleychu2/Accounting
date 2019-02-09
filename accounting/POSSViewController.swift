@@ -58,6 +58,8 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         self.view.addSubview(ContactCollectionView)
         self.view.addSubview(ProductCollectionView)
+
+        vegetableBtn.backgroundColor = #colorLiteral(red: 0.663232584, green: 0, blue: 0.4050840328, alpha: 1)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

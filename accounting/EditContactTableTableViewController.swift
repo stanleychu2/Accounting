@@ -17,6 +17,7 @@ class EditContactTableViewController: UITableViewController {
     @IBOutlet weak var emailLabel: UITextField!
     @IBOutlet weak var lineidLabel: UITextField!
     @IBOutlet weak var faxLabel: UITextField!
+    @IBOutlet var editTableview: UITableView!
     
     
     
@@ -45,7 +46,7 @@ class EditContactTableViewController: UITableViewController {
         emailLabel.text = contact.email
         lineidLabel.text = contact.lineId
         faxLabel.text = contact.fax
-        
+        editTableview.allowsSelection = false;
     }
     
     @IBAction func goback(_ sender: Any) {

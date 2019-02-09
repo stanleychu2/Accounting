@@ -1896,10 +1896,12 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="cellphoneLabel" destination="h28-Zi-Ssn" id="QNP-hE-hQC"/>
+                        <outlet property="editTableview" destination="xWx-6s-wMD" id="gt5-4u-H6t"/>
                         <outlet property="emailLabel" destination="1zW-bR-zUg" id="LSh-x8-gbU"/>
                         <outlet property="faxLabel" destination="jRa-fv-iDK" id="0Vx-1p-kKi"/>
                         <outlet property="lineidLabel" destination="088-sD-wa1" id="3Za-4z-vbR"/>
                         <outlet property="nameLabel" destination="Ei4-0x-rQZ" id="xVj-C5-YsA"/>
+                        <outlet property="tableView" destination="xWx-6s-wMD" id="Gca-ew-TAT"/>
                         <outlet property="telephoneLabel" destination="nuW-Kt-XFo" id="3KS-0j-3ef"/>
                     </connections>
                 </tableViewController>

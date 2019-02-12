@@ -10,7 +10,7 @@ import UIKit
 import ZHDropDownMenu
 import SQLite
 
-let orderDB = Table("order")
+//let orderDB = Table("order")
 
 let time = Expression<TimeInterval>("time")
 let orderNumber = Expression<String>("orderNumber")
@@ -47,7 +47,7 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        /*
         // 創建 table 只會在第一次時執行
         try! db?.run(orderDB.create(ifNotExists: true, block: { (table) in
             table.column(orderNumber, primaryKey: true)
@@ -65,7 +65,7 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 orderName: holdOneRecord[orderName],
                 price: holdOneRecord[price]))
         }
-        
+        */
         orderTable.delegate = self
         orderTable.dataSource = self
         orderTable.layer.masksToBounds = true

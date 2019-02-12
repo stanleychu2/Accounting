@@ -9,6 +9,11 @@
 import UIKit
 import SQLite
 
+struct contactForOrder{
+    var name: String = ""
+    var id: String = ""
+}
+
 class ContactCollectionCell: UICollectionViewCell{
     @IBOutlet weak var cellLabel: UILabel!
     
@@ -19,10 +24,19 @@ class ProductCollectionCell: UICollectionViewCell{
     
 }
 
-class POSSViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource{
+class ProducttableCell: UITableViewCell{
+    
+    @IBOutlet weak var productNameLabel: UILabel!
+    @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var totalLabel: UILabel!
+    
+}
+
+class POSSViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource{
     
     
-    
+    @IBOutlet weak var totalMoneyView: UIView!
     @IBOutlet weak var ContactCollectionView: UICollectionView!
     @IBOutlet weak var ContactCollectionViewLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var ProductCollectionView: UICollectionView!
@@ -34,14 +48,45 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var vegetableBtn: UIButton!
     @IBOutlet weak var meatBtn: UIButton!
     @IBOutlet weak var otherBtn: UIButton!
+    @IBOutlet weak var sumMoneyLabel: UILabel!
+    
+    let productDB = Table("product")
+    let orderDB = Table("order")
     
     var item = [String](repeating: "", count: 25)
     var pagesIndex: Int64 = 1
     var selectedType = "蔬菜"
-    var people = ["AAA","BBB","CCC","DDD","EEE","FFF"]
+    var people = [contactForOrder]()
+    var orderProduct = [OrderProduct]()
+    // product table 中有哪一些欄位和型態
+    let id = Expression<Int64>("id")
+    let name = Expression<String>("name")
+    let type = Expression<String>("type")
+    let pages = Expression<Int64>("pages")
+    let position = Expression<Int64>("position")
+    // order table 有哪些欄位(某些欄位名稱與 product 共用)
+    let contactName = Expression<String>("contactName")
+    let productName = Expression<String>("productName")
+    let amount = Expression<Int64>("amount")
+    let money = Expression<Int64>("money")
+    let date = Expression<Date>("date")
+    let unit = Expression<String>("unit")
+    let serialNum = Expression<String>("serialNum")
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let dbResult = productDB.filter(type == selectedType && pages == pagesIndex)
+        for product in (try? db?.prepare(dbResult))!! {
+            item[Int(product[position]) - 1] = product[name]
+            //            print("name: \(product[name])")
+        }
+        let distinct = orderDB.group(serialNum)
+        for order in (try? db?.prepare(distinct))!! {
+            people.append(contactForOrder(name: order[contactName], id: order[serialNum]))
+            //print(order[serialNum])
+        }
         OrderTableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         OrderTableView.layer.borderColor = UIColor.gray.cgColor
         OrderTableView.layer.borderWidth = 2.0
@@ -49,8 +94,11 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         OrderTableHeader.layer.borderColor = UIColor.gray.cgColor
         ContactCollectionView.layer.borderWidth = 1
         ContactCollectionView.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        totalMoneyView.layer.borderWidth = 2
+        totalMoneyView.layer.borderColor = UIColor.gray.cgColor
         // Do any additional setup after loading the view.
-        
+        OrderTableView.delegate = self
+        OrderTableView.dataSource = self
         ContactCollectionView.delegate = self
         ContactCollectionView.dataSource = self
         ProductCollectionView.delegate = self
@@ -60,6 +108,31 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.view.addSubview(ProductCollectionView)
 
         vegetableBtn.backgroundColor = #colorLiteral(red: 0.663232584, green: 0, blue: 0.4050840328, alpha: 1)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        updateContactCollection()
+        updateProductCollection()
+    }
+    
+    func updateContactCollection(){
+        people = [contactForOrder]()
+        let distinct = orderDB.group(serialNum)
+        for order in (try? db?.prepare(distinct))!! {
+            people.append(contactForOrder(name: order[contactName], id: order[serialNum]))
+            //print(order[serialNum])
+        }
+        ContactCollectionView.reloadData()
+    }
+    
+    func updateProductCollection() {
+        
+        item = [String](repeating: "", count: 25)
+        let dbResult = productDB.filter(type == selectedType && pages == pagesIndex)
+        for product in (try? db?.prepare(dbResult))!! {
+            item[Int(product[position]) - 1] = product[name]
+        }
+        ProductCollectionView.reloadData()
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -73,6 +146,8 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.ContactCollectionView{
+            print("!!")
+            print(people.count)
             return people.count
         }
         else{ //collectionView == self.ProductCollectionView
@@ -88,7 +163,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
             contactCell.backgroundColor = #colorLiteral(red: 0.9024838209, green: 0.6174634099, blue: 0.1791247427, alpha: 1)
             
             contactCell.cellLabel.textColor = UIColor.white
-            contactCell.cellLabel.text = people[indexPath.row]
+            contactCell.cellLabel.text = people[indexPath.row].name
             return contactCell
         }
         else{
@@ -103,12 +178,47 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == self.ContactCollectionView{
+            orderProduct = [OrderProduct]()
+            let dbResult = orderDB.filter(contactName == people[indexPath.row].name && serialNum == people[indexPath.row].id)
+            for order in (try? db?.prepare(dbResult))!! {
+                orderProduct.append(OrderProduct(name: order[productName], amount: Int(order[amount]), unitPrice: Int(order[money])))
+            }
+            print("???")
+            print(orderProduct)
+            OrderTableView.reloadData()
+            
+        }
+        else{ //collectionView == self.ProductCollectionView
+           
+        }
+        
+        
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("@@")
+        print(orderProduct.count)
+        return orderProduct.count
+    }
+    
+   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! ProducttableCell
+    
+        cell.productNameLabel.text = orderProduct[indexPath.row].name
+        cell.amountLabel.text = String(orderProduct[indexPath.row].amount)
+        cell.totalLabel.text = String(orderProduct[indexPath.row].amount * orderProduct[indexPath.row].unitPrice)
+        cell.priceLabel.text = String(orderProduct[indexPath.row].unitPrice)
+        return cell
+    }
+ 
     @IBAction func previousPage(_ sender: Any) {
         if(pagesIndex > 1) {
             pagesIndex -= 1
             pageLabel.text = "\(pagesIndex) / 4"
             
-            //updateCollection()
+            updateProductCollection()
         }
     }
     
@@ -117,7 +227,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
             pagesIndex += 1
             pageLabel.text = "\(pagesIndex) / 4"
             
-            //updateCollection()
+            updateProductCollection()
         }
     }
     
@@ -127,7 +237,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         otherBtn.backgroundColor = UIColor.lightGray
         selectedType = "蔬菜"
         
-        //updateCollection()
+        updateProductCollection()
     }
     
     @IBAction func chooseMeat(_ sender: Any) {
@@ -136,7 +246,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         otherBtn.backgroundColor = UIColor.lightGray
         selectedType = "肉類"
         
-        //updateCollection()
+        updateProductCollection()
     }
     
     @IBAction func chooseOthers(_ sender: Any) {
@@ -145,6 +255,6 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         otherBtn.backgroundColor = #colorLiteral(red: 0.663232584, green: 0, blue: 0.4050840328, alpha: 1)
         selectedType = "雜項"
         
-        //updateCollection()
+        updateProductCollection()
     }
 }

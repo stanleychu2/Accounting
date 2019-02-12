@@ -44,7 +44,7 @@ class ContactViewController: UIViewController, UICollectionViewDelegate, UIColle
     let cellphone = Expression<String>("cellphone")
     let email = Expression<String>("email")
     let lineId = Expression<String>("lineId")
-    let fax = Expression<String>("fax")
+    //let fax = Expression<String>("fax")
     
     
     override func viewDidLoad() {

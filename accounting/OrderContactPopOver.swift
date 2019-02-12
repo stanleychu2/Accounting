@@ -9,7 +9,9 @@
 import UIKit
 import SQLite
 
+// 宣告回傳協定
 @objc protocol ContactpopOverReturnDataDelegate {
+    func contactPopOverReturnData(contact: String)
     func clearData()
 }
 
@@ -74,10 +76,11 @@ class OrderContactPopOver: UIViewController,UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        print(10)
+        let cell = collectionView.cellForItem(at: indexPath)  as! OrderContactCollectionViewCell
+        // 回傳時執行 orderViewController 的 contactPopOverReturnData func
+        delegate?.contactPopOverReturnData(contact: String(cell.cellLabel.text!))
+        // 回傳時執行 orderViewController 的 clearData func
         delegate?.clearData()
-        print(11)
         presentingViewController!.dismiss(animated: true, completion: nil)
         
     }

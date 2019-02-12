@@ -10,12 +10,11 @@ import UIKit
 import SQLite
 
 struct OrderProduct {
-    //var id: Int64!
-    //var contact: String = ""
+    
     var name: String = ""
     var amount: Int!
     var unitPrice: Int!
-    //var date: Date
+   
 }
 
 class collectionCell: UICollectionViewCell {
@@ -28,6 +27,7 @@ class orderProductCell: UITableViewCell {
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
 }
 
 class OrderViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIPopoverPresentationControllerDelegate, popOverReturnDataDelegate, UITableViewDelegate, UITableViewDataSource, ContactpopOverReturnDataDelegate {
@@ -55,10 +55,13 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
     let position = Expression<Int64>("position")
     
     // order table 有哪些欄位(某些欄位名稱與 product 共用)
-    let product = Expression<String>("product")
+    let contactName = Expression<String>("contactName")
+    let productName = Expression<String>("productName")
     let amount = Expression<Int64>("amount")
     let money = Expression<Int64>("money")
     let date = Expression<Date>("date")
+    let unit = Expression<String>("unit")
+    let serialNum = Expression<String>("serialNum")
     // 聯絡人欄位一開始為空『確認訂單』之後才有值
     let contact = Expression<String?>("contact")
     
@@ -81,11 +84,13 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
         //建立order table
         try! db?.run(orderDB.create(ifNotExists: true, block: { (table) in
             table.column(id, primaryKey: true)
-            table.column(contact)
-            table.column(product)
+            table.column(contactName)
+            table.column(productName)
             table.column(amount)
             table.column(money)
             table.column(date)
+            table.column(unit)
+            table.column(serialNum)
         }))
         
         let dbResult = productDB.filter(type == selectedType && pages == pagesIndex)
@@ -162,7 +167,7 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     func clearData() {
-        print("stanley")
+        print("clear data")
         
         orderProduct = [OrderProduct]()
         moneySumLabel.text = "$ 0"
@@ -179,6 +184,26 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
         let moneySumSubstring = String(moneySumLabel.text![index...])
         tableView.insertRows(at: [tempt], with: .left)
         moneySumLabel.text = "$ " + String(amount * unitPrice + Int(moneySumSubstring)!)
+    }
+    
+    // contactPopOver 回傳資料執行的func
+    func contactPopOverReturnData(contact: String){
+        
+        let now = Date()
+        print("contact: \(contact)")
+        let uuid = UUID().uuidString
+        print(uuid)
+        for o in orderProduct{
+            print("name: \(o.name) amount: \(o.amount ?? 0)")
+            print("insert")
+            print(now)
+            let insert = orderDB.insert(contactName <- contact, productName <- o.name, amount <- Int64(o.amount ?? 0), money <- Int64(o.unitPrice ?? 0), date <- now, unit <- "", serialNum <- uuid)
+            if let rowId = try? db?.run(insert) {
+                print("插入成功：\(String(describing: rowId))")
+            } else {
+                print("插入失敗")
+            }
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -235,7 +260,7 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
         cell.productNameLabel.text = orderProduct[indexPath.row].name
         cell.amountLabel.text = String(orderProduct[indexPath.row].amount)
         cell.totalLabel.text = String(orderProduct[indexPath.row].amount * orderProduct[indexPath.row].unitPrice)
-        
+        cell.priceLabel.text = String(orderProduct[indexPath.row].unitPrice)
         return cell
     }
     

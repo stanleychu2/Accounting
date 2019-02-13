@@ -67,11 +67,12 @@ class OrderContactPopOver: UIViewController,UICollectionViewDelegate, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! OrderContactCollectionViewCell
+        
         // Configure the cell
         cell.layer.cornerRadius = 3
         cell.cellLabel.text = people[36 * pagesIndex + indexPath.row].name
         cell.backgroundColor = #colorLiteral(red: 0.9024838209, green: 0.6174634099, blue: 0.1791247427, alpha: 1)
-        
+    
         return cell
     }
     

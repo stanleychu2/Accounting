@@ -31,6 +31,9 @@ class OrderPopOverView: UIViewController, UITextFieldDelegate {
         
         self.orderAmountInput.delegate = self
         self.unitPriceInput.delegate = self
+        
+        // 使 orderAmountInput 一進畫面時處於一個可編輯(Focus)的狀態
+        orderAmountInput.becomeFirstResponder()
     }
     
     // 禁止用除了旁邊小鍵盤之外的方法更改
@@ -102,9 +105,16 @@ class OrderPopOverView: UIViewController, UITextFieldDelegate {
     
     @IBAction func newOrder(_ sender: UIButton) {
         
-        // 回傳時執行 orderViewController 的 popOverReturnData func
-        delegate?.popOverReturnData(productName: productName, amount: Int(orderAmountInput.text!)!, unitPrice: Int(unitPriceInput.text!)!)
-        // 點擊按鈕之後關閉 popOver 的動畫
-        presentingViewController!.dismiss(animated: true, completion: nil)
+        if(orderAmountInput.text == "" || unitPriceInput.text == "") {
+            let alertController = UIAlertController(title: "不能有欄位為空\n請輸入完成後再次點選", message: "", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
+        else {
+            // 回傳時執行 orderViewController 的 popOverReturnData func
+            delegate?.popOverReturnData(productName: productName, amount: Int(orderAmountInput.text!)!, unitPrice: Int(unitPriceInput.text!)!)
+            // 點擊按鈕之後關閉 popOver 的動畫
+            presentingViewController!.dismiss(animated: true, completion: nil)
+        }
     }
 }

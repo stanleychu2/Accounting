@@ -176,6 +176,7 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     // popOver 回傳資料執行的 func
     func popOverReturnData(productName: String, amount: Int, unitPrice: Int) {
+        
         print("name: \(productName) amount: \(amount) unitPrice: \(unitPrice)")
         
         orderProduct.append(OrderProduct(name: productName, amount: amount, unitPrice: unitPrice))

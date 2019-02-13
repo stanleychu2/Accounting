@@ -214,6 +214,17 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
                 tableView.insertRows(at: [tempt], with: .left)
             }
             print("\(product.name)     \(String(product.pages))     \(String(product.position))")
+            // 新增商品之後清空欄位內容
+            productName.text = ""
+            VegetableMenu.text = ""
+            VegetableMenu.selectedIndex = 0
+            pagesMenu.text = ""
+            pagesMenu.selectedIndex = 0
+            positionMenu.text = ""
+            positionMenu.selectedIndex = 0
+            product.type = ""
+            product.pages = 0
+            product.position = 0
         }
     }
     
@@ -246,6 +257,17 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
             tableView.reloadData()
             tableView.deselectRow(at: selectedRow!, animated: true)
             // 向右滑動出現刪除按鈕 : tableView.setEditing(true, animated: false)
+            // 更新商品之後清空欄位內容
+            productName.text = ""
+            VegetableMenu.text = ""
+            VegetableMenu.selectedIndex = 0
+            pagesMenu.text = ""
+            pagesMenu.selectedIndex = 0
+            positionMenu.text = ""
+            positionMenu.selectedIndex = 0
+            product.type = ""
+            product.pages = 0
+            product.position = 0
         }
     }
     

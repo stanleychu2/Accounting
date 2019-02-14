@@ -87,15 +87,19 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
             people.append(contactForOrder(name: order[contactName], id: order[serialNum]))
             //print(order[serialNum])
         }
+        
+        totalMoneyView.layer.borderWidth = 2
+        totalMoneyView.layer.borderColor = UIColor.lightGray.cgColor
+        
         OrderTableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        OrderTableView.layer.borderColor = UIColor.gray.cgColor
-        OrderTableView.layer.borderWidth = 2.0
-        OrderTableHeader.layer.borderWidth = 0.5
-        OrderTableHeader.layer.borderColor = UIColor.gray.cgColor
+        OrderTableView.layer.borderColor = UIColor.lightGray.cgColor
+        OrderTableView.layer.borderWidth = 2
+        OrderTableHeader.layer.borderWidth = 3
+        OrderTableHeader.layer.borderColor = UIColor.lightGray.cgColor
         ContactCollectionView.layer.borderWidth = 1
         ContactCollectionView.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         totalMoneyView.layer.borderWidth = 2
-        totalMoneyView.layer.borderColor = UIColor.gray.cgColor
+        totalMoneyView.layer.borderColor = UIColor.lightGray.cgColor
         // Do any additional setup after loading the view.
         OrderTableView.delegate = self
         OrderTableView.dataSource = self

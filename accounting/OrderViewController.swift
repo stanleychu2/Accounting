@@ -114,14 +114,14 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
         tableView.layer.masksToBounds = true
         // table 的 seperator 上下左右不要有邊界
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        tableView.layer.borderColor = UIColor.gray.cgColor
-        tableView.layer.borderWidth = 2.0
+        tableView.layer.borderColor = UIColor.lightGray.cgColor
+        tableView.layer.borderWidth = 2
         
-        tableHeader.layer.borderWidth = 0.5
-        tableHeader.layer.borderColor = UIColor.gray.cgColor
+        tableHeader.layer.borderWidth = 3
+        tableHeader.layer.borderColor = UIColor.lightGray.cgColor
         
         totalMoneyView.layer.borderWidth = 2
-        totalMoneyView.layer.borderColor = UIColor.gray.cgColor
+        totalMoneyView.layer.borderColor = UIColor.lightGray.cgColor
         
         vegetableBtn.backgroundColor = #colorLiteral(red: 0.663232584, green: 0, blue: 0.4050840328, alpha: 1)
         

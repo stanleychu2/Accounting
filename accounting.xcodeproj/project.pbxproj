@@ -165,11 +165,11 @@
 				DDA4A5AF21FECDCA00F2DB82 /* OrderPopOverView.swift */,
 				DD156CA321F2315F009577E6 /* Record.swift */,
 				DDA4A5B12200252500F2DB82 /* Setting.swift */,
+				2281020E2206D1BE008E91A5 /* POSSViewController.swift */,
 				DD3B293021F06B50007A10FB /* Main.storyboard */,
 				DD3B293321F06B52007A10FB /* Assets.xcassets */,
 				DD3B293521F06B52007A10FB /* LaunchScreen.storyboard */,
 				DD3B293821F06B52007A10FB /* Info.plist */,
-				2281020E2206D1BE008E91A5 /* POSSViewController.swift */,
 			);
 			path = accounting;
 			sourceTree = "<group>";

@@ -33,7 +33,7 @@ class ProducttableCell: UITableViewCell{
     
 }
 
-class POSSViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource{
+class POSSViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource, POSSPopOverReturnDataDelegate{
     
     
     @IBOutlet weak var totalMoneyView: UIView!
@@ -114,7 +114,27 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         vegetableBtn.backgroundColor = #colorLiteral(red: 0.663232584, green: 0, blue: 0.4050840328, alpha: 1)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "POSSPopOverSegue") {
+            let controller = segue.destination as? POSSPopOverView
+            
+            // 設定回傳的代理為自己
+            controller?.delegate = self
+            //傳遞商品名稱
+            controller?.product = item[(ProductCollectionView.indexPathsForSelectedItems?[0].row)!]
+            //傳遞交易聯絡人名字
+            controller?.contact = people[(ContactCollectionView.indexPathsForSelectedItems?[0].row)!].name
+            //傳遞交易序號
+            controller?.uuid = people[(ContactCollectionView.indexPathsForSelectedItems?[0].row)!].id
+            
+        }
+        else {
+            
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
+        
         updateContactCollection()
         updateProductCollection()
     }
@@ -138,6 +158,17 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         ProductCollectionView.reloadData()
     }
+    //更新訂單table 需要給參數：聯絡人名字 交易序號
+    func updateOrderTableView(name: String, uuid: String) {
+        
+        orderProduct = [OrderProduct]()
+        let dbResult = orderDB.filter(contactName == name && serialNum == uuid)
+        for order in (try? db?.prepare(dbResult))!! {
+            orderProduct.append(OrderProduct(name: order[productName], amount: Int(order[amount]), unitPrice: Int(order[money])))
+        }
+        OrderTableView.reloadData()
+        print("reload POS orderTableview")
+    }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         if collectionView == self.ContactCollectionView{
@@ -150,8 +181,6 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.ContactCollectionView{
-            print("!!")
-            print(people.count)
             return people.count
         }
         else{ //collectionView == self.ProductCollectionView
@@ -184,26 +213,21 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == self.ContactCollectionView{
-            orderProduct = [OrderProduct]()
-            let dbResult = orderDB.filter(contactName == people[indexPath.row].name && serialNum == people[indexPath.row].id)
-            for order in (try? db?.prepare(dbResult))!! {
-                orderProduct.append(OrderProduct(name: order[productName], amount: Int(order[amount]), unitPrice: Int(order[money])))
-            }
-            print("???")
-            print(orderProduct)
-            OrderTableView.reloadData()
             
+            let n = people[indexPath.row].name
+            let id = people[indexPath.row].id
+            updateOrderTableView(name: n, uuid: id)
         }
         else{ //collectionView == self.ProductCollectionView
-           
+            if(item[indexPath.row] != "") {
+                print(item[indexPath.row])
+                performSegue(withIdentifier: "POSSPopOverSegue", sender: nil)
+            }
         }
-        
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("@@")
-        print(orderProduct.count)
+        
         return orderProduct.count
     }
     

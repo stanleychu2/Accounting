@@ -27,8 +27,12 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
     
     var product: String!
     var contact: String!
+    var number: String = ""
+    var price: String = ""
+    //var unitstring: String = ""
     var uuid: String!
     var selectedInput: UITextField!
+    var modify: Bool = true
     var orderProduct = [OrderProduct]()
     weak var delegate: POSSPopOverReturnDataDelegate?
     // order table 有哪些欄位(某些欄位名稱與 product 共用)
@@ -44,7 +48,9 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
 
         super.viewDidLoad()
         productNameLabel.text = product
-        
+        amountInput.text = number
+        unitPriceInput.text = price
+        //unitInput.text = unitstring
         self.amountInput.delegate = self
         self.unitPriceInput.delegate = self
         
@@ -125,22 +131,38 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func updateOrder(_ sender: Any) {
+        
         if(amountInput.text == "" || unitPriceInput.text == "" || unitInput.text == "") {
             let alertController = UIAlertController(title: "不能有欄位為空\n請輸入完成後再次點選", message: "", preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
-        }
-        else {
-            let insert = orderDB.insert(contactName <- contact, productName <- product, amount <- Int64(amountInput.text!) ?? 0, money <- Int64(unitPriceInput.text!) ?? 0, date <- Date(), unit <- unitInput.text ?? "", serialNum <- uuid)
-            if let rowId = try? db?.run(insert) {
-                print("插入成功：\(String(describing: rowId))")
-            } else {
-                print("插入失敗")
+        }else {
+
+            if(modify){
+                print("modify")
+                let modify = orderDB.filter(contactName == contact && serialNum == uuid)
+                if let count = try? db?.run(modify.update(contactName <- contact, productName <- product, amount <- Int64(amountInput.text!) ?? 0, money <- Int64(unitPriceInput.text!) ?? 0, date <- Date(), unit <- unitInput.text ?? "", serialNum <- uuid)) {
+                    print("修改 row 的個數：\(String(describing: count))")
+                } else {
+                    print("修改失敗")
+                }
+                delegate?.updateOrderTableView(name: contact, uuid: uuid)
+                presentingViewController!.dismiss(animated: true, completion: nil)
+            }else{
+                print("insert")
+                let insert = orderDB.insert(contactName <- contact, productName <- product, amount <- Int64(amountInput.text!) ?? 0, money <- Int64(unitPriceInput.text!) ?? 0, date <- Date(), unit <- unitInput.text ?? "", serialNum <- uuid)
+                if let rowId = try? db?.run(insert) {
+                    print("插入成功：\(String(describing: rowId))")
+                } else {
+                    print("插入失敗")
+                }
+                //更新orderTableView
+                delegate?.updateOrderTableView(name: contact, uuid: uuid)
+                presentingViewController!.dismiss(animated: true, completion: nil)
             }
-            //更新orderTableView
-            delegate?.updateOrderTableView(name: contact, uuid: uuid)
-            presentingViewController!.dismiss(animated: true, completion: nil)
         }
+        
+        
     }
     
 }

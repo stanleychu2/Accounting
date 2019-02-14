@@ -932,6 +932,9 @@
                         <segue destination="3C5-ms-llM" kind="popoverPresentation" identifier="POSSPopOverSegue" popoverAnchorView="aOf-E3-biN" id="lZ2-rd-egg">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES"/>
                         </segue>
+                        <segue destination="3C5-ms-llM" kind="popoverPresentation" identifier="POSSTablePopOver" popoverAnchorView="aOf-E3-biN" id="hWX-cO-48E">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES"/>
+                        </segue>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MXB-Go-RnE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2268,6 +2271,7 @@
         <image name="setting" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="hWX-cO-48E"/>
         <segue reference="tPT-ls-RLd"/>
     </inferredMetricsTieBreakers>
 </document>

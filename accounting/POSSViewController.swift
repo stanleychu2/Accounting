@@ -56,8 +56,11 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var item = [String](repeating: "", count: 25)
     var pagesIndex: Int64 = 1
     var selectedType = "蔬菜"
+    var selectedContact = ""
+    var selectedUUID = ""
     var people = [contactForOrder]()
     var orderProduct = [OrderProduct]()
+    var selectedRow: IndexPath!
     // product table 中有哪一些欄位和型態
     let id = Expression<Int64>("id")
     let name = Expression<String>("name")
@@ -82,10 +85,18 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
             item[Int(product[position]) - 1] = product[name]
             //            print("name: \(product[name])")
         }
+        
         let distinct = orderDB.group(serialNum)
         for order in (try? db?.prepare(distinct))!! {
             people.append(contactForOrder(name: order[contactName], id: order[serialNum]))
             //print(order[serialNum])
+        }
+        //訂單初始為第一個聯絡人
+        selectedContact = people[0].name
+        selectedUUID = people[0].id
+        let dbResult2 = orderDB.filter(contactName == selectedContact && serialNum == selectedUUID)
+        for order in (try? db?.prepare(dbResult2))!! {
+            orderProduct.append(OrderProduct(name: order[productName], amount: Int(order[amount]), unitPrice: Int(order[money])))
         }
         
         totalMoneyView.layer.borderWidth = 2
@@ -118,17 +129,36 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if(segue.identifier == "POSSPopOverSegue") {
             let controller = segue.destination as? POSSPopOverView
             
+            //新增
+            controller?.modify = false
             // 設定回傳的代理為自己
             controller?.delegate = self
             //傳遞商品名稱
             controller?.product = item[(ProductCollectionView.indexPathsForSelectedItems?[0].row)!]
             //傳遞交易聯絡人名字
-            controller?.contact = people[(ContactCollectionView.indexPathsForSelectedItems?[0].row)!].name
+            controller?.contact = selectedContact
             //傳遞交易序號
-            controller?.uuid = people[(ContactCollectionView.indexPathsForSelectedItems?[0].row)!].id
-            
+            controller?.uuid = selectedUUID
         }
-        else {
+        else if(segue.identifier == "POSSTablePopOver"){
+            let controller = segue.destination as? POSSPopOverView
+            
+            //更新
+            controller?.modify = true
+            // 設定回傳的代理為自己
+            controller?.delegate = self
+            //傳遞商品名稱
+            controller?.product = String(orderProduct[selectedRow.row].name)
+            //傳遞交易聯絡人名字
+            controller?.contact = selectedContact
+            //傳遞交易序號
+            controller?.uuid = selectedUUID
+            //傳遞數量
+            controller?.number = String(orderProduct[selectedRow.row].amount)
+            //傳遞金額
+            controller?.price = String(orderProduct[selectedRow.row].unitPrice)
+            //傳遞單位
+            
             
         }
     }
@@ -193,8 +223,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
             let contactCell = collectionView.dequeueReusableCell(withReuseIdentifier: "contactCell", for: indexPath) as! ContactCollectionCell
             contactCell.layer.cornerRadius = 5
             contactCell.layer.borderColor = UIColor.black.cgColor
-            contactCell.backgroundColor = #colorLiteral(red: 0.9024838209, green: 0.6174634099, blue: 0.1791247427, alpha: 1)
-            
+            contactCell.backgroundColor = (people[indexPath.row].name == selectedContact && people[indexPath.row].id == selectedUUID) ? #colorLiteral(red: 0.9024838209, green: 0.6174634099, blue: 0.1791247427, alpha: 1) : UIColor.gray
             contactCell.cellLabel.textColor = UIColor.white
             contactCell.cellLabel.text = people[indexPath.row].name
             return contactCell
@@ -214,11 +243,13 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == self.ContactCollectionView{
             
-            let n = people[indexPath.row].name
-            let id = people[indexPath.row].id
-            updateOrderTableView(name: n, uuid: id)
+            selectedContact = people[indexPath.row].name
+            selectedUUID = people[indexPath.row].id
+            updateOrderTableView(name: selectedContact, uuid: selectedUUID)
+            updateContactCollection()
         }
         else{ //collectionView == self.ProductCollectionView
+            
             if(item[indexPath.row] != "") {
                 print(item[indexPath.row])
                 performSegue(withIdentifier: "POSSPopOverSegue", sender: nil)
@@ -226,12 +257,18 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        selectedRow = indexPath
+        performSegue(withIdentifier: "POSSTablePopOver", sender: nil)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return orderProduct.count
     }
     
-   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! ProducttableCell
     
         cell.productNameLabel.text = orderProduct[indexPath.row].name

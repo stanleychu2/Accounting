@@ -168,11 +168,11 @@
 				DD156CA321F2315F009577E6 /* Record.swift */,
 				DDA4A5B12200252500F2DB82 /* Setting.swift */,
 				2281020E2206D1BE008E91A5 /* POSSViewController.swift */,
+				22A1CCB622155A250088A32E /* POSSPopOverView.swift */,
 				DD3B293021F06B50007A10FB /* Main.storyboard */,
 				DD3B293321F06B52007A10FB /* Assets.xcassets */,
 				DD3B293521F06B52007A10FB /* LaunchScreen.storyboard */,
 				DD3B293821F06B52007A10FB /* Info.plist */,
-				22A1CCB622155A250088A32E /* POSSPopOverView.swift */,
 			);
 			path = accounting;
 			sourceTree = "<group>";
@@ -600,13 +600,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 29DLPG3WRS;
+				DEVELOPMENT_TEAM = QSV9A9BSWN;
 				INFOPLIST_FILE = accounting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = university.accounting;
+				PRODUCT_BUNDLE_IDENTIFIER = Accounting0320;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -619,13 +619,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 29DLPG3WRS;
+				DEVELOPMENT_TEAM = QSV9A9BSWN;
 				INFOPLIST_FILE = accounting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = university.accounting;
+				PRODUCT_BUNDLE_IDENTIFIER = Accounting0320;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 2;

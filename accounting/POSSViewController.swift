@@ -108,7 +108,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 sumMoney += Int(order[amount] * order[money])
             }
         }
-        sumMoneyLabel.text = "$"+String(sumMoney)
+        sumMoneyLabel.text = "$ "+String(sumMoney)
         totalMoneyView.layer.borderWidth = 2
         totalMoneyView.layer.borderColor = UIColor.lightGray.cgColor
         
@@ -209,7 +209,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
             orderProduct.append(OrderProduct(id: Int(order[id]), name: order[productName], amount: Int(order[amount]), unitPrice: Int(order[money])))
             sumMoney += Int(order[amount] * order[money])
         }
-        sumMoneyLabel.text = "$"+String(sumMoney)
+        sumMoneyLabel.text = "$ "+String(sumMoney)
         OrderTableView.reloadData()
         print("reload POS orderTableview")
     }

@@ -49,6 +49,11 @@ class EditContactTableViewController: UITableViewController {
         editTableview.allowsSelection = false;
     }
     
+    // 點擊空白處縮起鍵盤停止編輯 在這一頁還有一點問題不會消失
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     @IBAction func goback(_ sender: Any) {
         view.endEditing(true)
         dismiss(animated: true)

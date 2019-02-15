@@ -71,14 +71,18 @@ class Setting: UIViewController, UITableViewDelegate, UITableViewDataSource{
             shopSetting = shop(id: Int(setting[onlyID]), shopName: setting[shopName], phoneNumber: setting[phoneNumber], cellPhoneNumber: setting[cellPhoneNumber], email: setting[email], lineID: setting[lineID], faxNumber: setting[faxNumber], address: setting[address])
         }
         
+        userSettingTable.allowsSelection = false
         saveButton.layer.cornerRadius = 10
         userSettingTable.delegate = self
         userSettingTable.dataSource = self
         userSettingTable.layer.masksToBounds = true
         userSettingTable.layer.borderColor = UIColor.gray.cgColor
         userSettingTable.layer.borderWidth = 2.0
-        
-        
+    }
+    
+    // 點擊空白處縮起鍵盤停止編輯
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     @IBAction func save(_ sender: Any) {

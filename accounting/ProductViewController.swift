@@ -140,6 +140,11 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    // 點擊空白處縮起鍵盤停止編輯
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

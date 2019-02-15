@@ -36,17 +36,19 @@ class OrderPopOverView: UIViewController, UITextFieldDelegate {
         orderAmountInput.becomeFirstResponder()
     }
     
+    // 點擊空白處縮起鍵盤停止編輯
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     // 禁止用除了旁邊小鍵盤之外的方法更改
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-
+        
         return false
     }
     
     // 偵測目前選到的是哪一個 input 元件
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        
-        // 防止原生鍵盤跳出，目前沒什麼功效
-        textField.resignFirstResponder()
         
         if(textField == orderAmountInput){
             selectedInput = orderAmountInput
@@ -54,8 +56,8 @@ class OrderPopOverView: UIViewController, UITextFieldDelegate {
         else if(textField == unitPriceInput){
             selectedInput = unitPriceInput
         }
-
-        return true
+        
+        return false
     }
     
     @IBAction func typeNumber(_ sender: UIButton) {

@@ -80,6 +80,11 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // 點擊空白處縮起鍵盤停止編輯
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     // 禁止用除了旁邊小鍵盤之外的方法更改
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
@@ -88,9 +93,6 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
 
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
-        // 防止原生鍵盤跳出，目前沒什麼功效
-        textField.resignFirstResponder()
-        
         if(textField == amountInput){
             selectedInput = amountInput
         }
@@ -98,7 +100,7 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
             selectedInput = unitPriceInput
         }
         
-        return true
+        return false
     }
 
     @IBAction func typeNumber(_ sender: UIButton) {

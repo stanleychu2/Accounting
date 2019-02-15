@@ -76,7 +76,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     let date = Expression<Date>("date")
     let unit = Expression<String>("unit")
     let serialNum = Expression<String>("serialNum")
-    
+    let finish = Expression<Bool>("finish")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,18 +87,26 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
             //            print("name: \(product[name])")
         }
         
-        let distinct = orderDB.group(serialNum)
+        
+        let distinct = orderDB.filter(finish == false).group(serialNum)
         for order in (try? db?.prepare(distinct))!! {
             people.append(contactForOrder(name: order[contactName], id: order[serialNum]))
-            //print(order[serialNum])
+            //print(order)
         }
         //訂單初始為第一個聯絡人
-        selectedContact = people[0].name
-        selectedUUID = people[0].id
-        let dbResult2 = orderDB.filter(contactName == selectedContact && serialNum == selectedUUID)
-        for order in (try? db?.prepare(dbResult2))!! {
-            orderProduct.append(OrderProduct(id: Int(order[id]), name: order[productName], amount: Int(order[amount]), unitPrice: Int(order[money])))
-            sumMoney += Int(order[amount] * order[money])
+        if(people.isEmpty){
+            print("people is empty")
+            selectedContact = ""
+            selectedUUID = ""
+        }else{
+            print("people is not empty")
+            selectedContact = people[0].name
+            selectedUUID = people[0].id
+            let dbResult2 = orderDB.filter(contactName == selectedContact && serialNum == selectedUUID)
+            for order in (try? db?.prepare(dbResult2))!! {
+                orderProduct.append(OrderProduct(id: Int(order[id]), name: order[productName], amount: Int(order[amount]), unitPrice: Int(order[money])))
+                sumMoney += Int(order[amount] * order[money])
+            }
         }
         sumMoneyLabel.text = "$"+String(sumMoney)
         totalMoneyView.layer.borderWidth = 2
@@ -174,7 +182,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func updateContactCollection(){
         people = [contactForOrder]()
-        let distinct = orderDB.group(serialNum)
+        let distinct = orderDB.filter(finish == false).group(serialNum)
         for order in (try? db?.prepare(distinct))!! {
             people.append(contactForOrder(name: order[contactName], id: order[serialNum]))
             //print(order[serialNum])
@@ -337,9 +345,27 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         } else {
             print("刪除失敗")
         }
-        //orderProduct = [OrderProduct]()
-        //sumMoneyLabel.text = "$ 0"
-        //OrderTableView.reloadData()
+        
         updateOrderTableView(name: selectedContact, uuid: selectedUUID)
+        updateContactCollection()
+        selectedContact = ""
+        selectedUUID = ""
+    }
+    
+    @IBAction func printOrder(_ sender: Any) {
+        let modify = orderDB.filter(contactName == selectedContact && serialNum == selectedUUID)
+        print(modify)
+        if let count = try? db?.run(modify.update(finish <- true)) {
+            print("修改 row 的個數：\(String(describing: count))")
+        } else {
+            print("修改失敗")
+        }
+        updateOrderTableView(name: selectedContact, uuid: selectedUUID)
+        updateContactCollection()
+        selectedContact = ""
+        selectedUUID = ""
+        orderProduct = [OrderProduct]()
+        sumMoneyLabel.text = "$ 0"
+        OrderTableView.reloadData()
     }
 }

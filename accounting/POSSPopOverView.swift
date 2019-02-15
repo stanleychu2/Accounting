@@ -22,6 +22,7 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var unitPriceInput: UITextField!
     @IBOutlet weak var unitInput: DropDownMenu!
     @IBOutlet weak var totalMoney: UILabel!
+    @IBOutlet weak var deleteBtn: UIButton!
     
     let orderDB = Table("order")
     
@@ -45,6 +46,7 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
     let date = Expression<Date>("date")
     let unit = Expression<String>("unit")
     let serialNum = Expression<String>("serialNum")
+    let finish = Expression<Bool>("finish")
     
     override func viewDidLoad() {
 
@@ -60,6 +62,7 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
                unitInput.text = p[unit]
             }
             totalMoney.text = "$ " + String(Int(amountInput.text!)! * Int(unitPriceInput.text!)!)
+            deleteBtn.isHidden = false
         }
         
         self.amountInput.delegate = self
@@ -153,7 +156,7 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
                 print("modify")
                 let modify = orderDB.filter(id == Int64(productId))
                 print(modify)
-                if let count = try? db?.run(modify.update(contactName <- contact, productName <- product, amount <- Int64(amountInput.text!) ?? 0, money <- Int64(unitPriceInput.text!) ?? 0, date <- Date(), unit <- unitInput.text ?? "", serialNum <- uuid)) {
+                if let count = try? db?.run(modify.update(amount <- Int64(amountInput.text!) ?? 0, money <- Int64(unitPriceInput.text!) ?? 0, date <- Date(), unit <- unitInput.text ?? "", serialNum <- uuid, finish <- false)) {
                     print("修改 row 的個數：\(String(describing: count))")
                 } else {
                     print("修改失敗")
@@ -162,7 +165,7 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
                 presentingViewController!.dismiss(animated: true, completion: nil)
             }else{
                 print("insert")
-                let insert = orderDB.insert(contactName <- contact, productName <- product, amount <- Int64(amountInput.text!) ?? 0, money <- Int64(unitPriceInput.text!) ?? 0, date <- Date(), unit <- unitInput.text ?? "", serialNum <- uuid)
+                let insert = orderDB.insert(contactName <- contact, productName <- product, amount <- Int64(amountInput.text!) ?? 0, money <- Int64(unitPriceInput.text!) ?? 0, date <- Date(), unit <- unitInput.text ?? "", serialNum <- uuid, finish <- false)
                 if let rowId = try? db?.run(insert) {
                     print("插入成功：\(String(describing: rowId))")
                 } else {
@@ -173,8 +176,18 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
                 presentingViewController!.dismiss(animated: true, completion: nil)
             }
         }
-        
-        
     }
     
+    @IBAction func deleteOrder(_ sender: Any) {
+        
+        let cancel = orderDB.filter(id == Int64(productId))
+        if let count = try? db?.run(cancel.delete()) {
+            print("刪除 row 個數為：\(String(describing: count))")
+        } else {
+            print("刪除失敗")
+        }
+        //更新orderTableView
+        delegate?.updateOrderTableView(name: contact, uuid: uuid)
+        presentingViewController!.dismiss(animated: true, completion: nil)
+    }
 }

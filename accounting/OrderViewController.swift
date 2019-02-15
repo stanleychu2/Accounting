@@ -63,6 +63,7 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
     let date = Expression<Date>("date")
     let unit = Expression<String>("unit")
     let serialNum = Expression<String>("serialNum")
+    let finish = Expression<Bool>("finish")
     // 聯絡人欄位一開始為空『確認訂單』之後才有值
     let contact = Expression<String?>("contact")
     
@@ -92,6 +93,7 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
             table.column(date)
             table.column(unit)
             table.column(serialNum)
+            table.column(finish)
         }))
         
         let dbResult = productDB.filter(type == selectedType && pages == pagesIndex)
@@ -199,7 +201,7 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
             print("name: \(o.name) amount: \(o.amount ?? 0)")
             print("insert")
             print(now)
-            let insert = orderDB.insert(contactName <- contact, productName <- o.name, amount <- Int64(o.amount ?? 0), money <- Int64(o.unitPrice ?? 0), date <- now, unit <- "", serialNum <- uuid)
+            let insert = orderDB.insert(contactName <- contact, productName <- o.name, amount <- Int64(o.amount ?? 0), money <- Int64(o.unitPrice ?? 0), date <- now, unit <- "", serialNum <- uuid, finish <- false)
             if let rowId = try? db?.run(insert) {
                 print("插入成功：\(String(describing: rowId))")
             } else {

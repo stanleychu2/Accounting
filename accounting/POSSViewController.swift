@@ -61,6 +61,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var people = [contactForOrder]()
     var orderProduct = [OrderProduct]()
     var selectedRow: IndexPath!
+    var sumMoney: Int = 0
     // product table 中有哪一些欄位和型態
     let id = Expression<Int64>("id")
     let name = Expression<String>("name")
@@ -96,9 +97,10 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         selectedUUID = people[0].id
         let dbResult2 = orderDB.filter(contactName == selectedContact && serialNum == selectedUUID)
         for order in (try? db?.prepare(dbResult2))!! {
-            orderProduct.append(OrderProduct(name: order[productName], amount: Int(order[amount]), unitPrice: Int(order[money])))
+            orderProduct.append(OrderProduct(id: Int(order[id]), name: order[productName], amount: Int(order[amount]), unitPrice: Int(order[money])))
+            sumMoney += Int(order[amount] * order[money])
         }
-        
+        sumMoneyLabel.text = "$"+String(sumMoney)
         totalMoneyView.layer.borderWidth = 2
         totalMoneyView.layer.borderColor = UIColor.lightGray.cgColor
         
@@ -157,8 +159,9 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
             controller?.number = String(orderProduct[selectedRow.row].amount)
             //傳遞金額
             controller?.price = String(orderProduct[selectedRow.row].unitPrice)
-            //傳遞單位
-            
+            //傳遞id
+            controller?.productId = orderProduct[selectedRow.row].id
+            //傳遞unit
             
         }
     }
@@ -191,11 +194,14 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     //更新訂單table 需要給參數：聯絡人名字 交易序號
     func updateOrderTableView(name: String, uuid: String) {
         
+        sumMoney = 0
         orderProduct = [OrderProduct]()
         let dbResult = orderDB.filter(contactName == name && serialNum == uuid)
         for order in (try? db?.prepare(dbResult))!! {
-            orderProduct.append(OrderProduct(name: order[productName], amount: Int(order[amount]), unitPrice: Int(order[money])))
+            orderProduct.append(OrderProduct(id: Int(order[id]), name: order[productName], amount: Int(order[amount]), unitPrice: Int(order[money])))
+            sumMoney += Int(order[amount] * order[money])
         }
+        sumMoneyLabel.text = "$"+String(sumMoney)
         OrderTableView.reloadData()
         print("reload POS orderTableview")
     }
@@ -321,5 +327,19 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         selectedType = "雜項"
         
         updateProductCollection()
+    }
+    
+    @IBAction func clearData(_ sender: Any) {
+        
+        let cancel = orderDB.filter(contactName == selectedContact && serialNum == selectedUUID)
+        if let count = try? db?.run(cancel.delete()) {
+            print("刪除 row 個數為：\(String(describing: count))")
+        } else {
+            print("刪除失敗")
+        }
+        //orderProduct = [OrderProduct]()
+        //sumMoneyLabel.text = "$ 0"
+        //OrderTableView.reloadData()
+        updateOrderTableView(name: selectedContact, uuid: selectedUUID)
     }
 }

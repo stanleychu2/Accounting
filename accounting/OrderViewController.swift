@@ -11,6 +11,7 @@ import SQLite
 
 struct OrderProduct {
     
+    var id: Int!
     var name: String = ""
     var amount: Int!
     var unitPrice: Int!
@@ -179,7 +180,7 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         print("name: \(productName) amount: \(amount) unitPrice: \(unitPrice)")
         
-        orderProduct.append(OrderProduct(name: productName, amount: amount, unitPrice: unitPrice))
+        orderProduct.append(OrderProduct(id: -1, name: productName, amount: amount, unitPrice: unitPrice))
         let tempt: IndexPath = IndexPath(row: orderProduct.count - 1, section: 0)
         let index = moneySumLabel.text!.index(moneySumLabel.text!.endIndex, offsetBy: -1 * (moneySumLabel.text!.count - 2))
         let moneySumSubstring = String(moneySumLabel.text![index...])

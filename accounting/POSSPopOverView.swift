@@ -29,13 +29,15 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
     var contact: String!
     var number: String = ""
     var price: String = ""
-    //var unitstring: String = ""
+    var productId: Int = -1
+    var unitString:String = ""
     var uuid: String!
     var selectedInput: UITextField!
     var modify: Bool = true
     var orderProduct = [OrderProduct]()
     weak var delegate: POSSPopOverReturnDataDelegate?
     // order table 有哪些欄位(某些欄位名稱與 product 共用)
+    let id = Expression<Int64>("id")
     let contactName = Expression<String>("contactName")
     let productName = Expression<String>("productName")
     let amount = Expression<Int64>("amount")
@@ -47,10 +49,19 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
 
         super.viewDidLoad()
+        
         productNameLabel.text = product
         amountInput.text = number
         unitPriceInput.text = price
-        //unitInput.text = unitstring
+        
+        if (productId != -1){ // 點選table訂單
+            let u = orderDB.filter(id == Int64(productId)).select(unit)
+            for p in (try? db?.prepare(u))!! {
+               unitInput.text = p[unit]
+            }
+            totalMoney.text = "$ " + String(Int(amountInput.text!)! * Int(unitPriceInput.text!)!)
+        }
+        
         self.amountInput.delegate = self
         self.unitPriceInput.delegate = self
         
@@ -140,7 +151,8 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
 
             if(modify){
                 print("modify")
-                let modify = orderDB.filter(contactName == contact && serialNum == uuid)
+                let modify = orderDB.filter(id == Int64(productId))
+                print(modify)
                 if let count = try? db?.run(modify.update(contactName <- contact, productName <- product, amount <- Int64(amountInput.text!) ?? 0, money <- Int64(unitPriceInput.text!) ?? 0, date <- Date(), unit <- unitInput.text ?? "", serialNum <- uuid)) {
                     print("修改 row 的個數：\(String(describing: count))")
                 } else {

@@ -13,6 +13,7 @@ import SQLite
 
 @objc protocol POSSPopOverReturnDataDelegate {
     func updateOrderTableView(name: String, uuid: String)
+    func updateContactCollection()
 }
 
 class POSSPopOverView: UIViewController, UITextFieldDelegate {
@@ -188,6 +189,7 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
         }
         //更新orderTableView
         delegate?.updateOrderTableView(name: contact, uuid: uuid)
+        delegate?.updateContactCollection()
         presentingViewController!.dismiss(animated: true, completion: nil)
     }
 }

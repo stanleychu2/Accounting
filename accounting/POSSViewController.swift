@@ -80,34 +80,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let dbResult = productDB.filter(type == selectedType && pages == pagesIndex)
-        for product in (try? db?.prepare(dbResult))!! {
-            item[Int(product[position]) - 1] = product[name]
-            //            print("name: \(product[name])")
-        }
-        
-        
-        let distinct = orderDB.filter(finish == false).group(serialNum)
-        for order in (try? db?.prepare(distinct))!! {
-            people.append(contactForOrder(name: order[contactName], id: order[serialNum]))
-            //print(order)
-        }
-        //訂單初始為第一個聯絡人
-        if(people.isEmpty){
-            print("people is empty")
-            selectedContact = ""
-            selectedUUID = ""
-        }else{
-            print("people is not empty")
-            selectedContact = people[0].name
-            selectedUUID = people[0].id
-            let dbResult2 = orderDB.filter(contactName == selectedContact && serialNum == selectedUUID)
-            for order in (try? db?.prepare(dbResult2))!! {
-                orderProduct.append(OrderProduct(id: Int(order[id]), name: order[productName], amount: Int(order[amount]), unitPrice: Int(order[money])))
-                sumMoney += Int(order[amount] * order[money])
-            }
-        }
+
         sumMoneyLabel.text = "$ "+String(sumMoney)
         totalMoneyView.layer.borderWidth = 2
         totalMoneyView.layer.borderColor = UIColor.lightGray.cgColor
@@ -175,9 +148,20 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
         updateContactCollection()
         updateProductCollection()
+        //訂單初始為第一個聯絡人
+        if(people.isEmpty){
+            print("people is empty")
+            selectedContact = ""
+            selectedUUID = ""
+        }else{
+            print("people is not empty")
+            selectedContact = people[0].name
+            selectedUUID = people[0].id
+            
+        }
+        updateOrderTableView(name: selectedContact, uuid: selectedUUID)
     }
     
     func updateContactCollection(){
@@ -265,7 +249,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         else{ //collectionView == self.ProductCollectionView
             
             if(item[indexPath.row] != "") {
-                if(selectedContact == "" || selectedUUID == "") {
+                if(selectedContact == "" || selectedUUID == "" || orderProduct.isEmpty) {
                     let alertController = UIAlertController(title: "請先選擇聯絡人", message: "", preferredStyle: UIAlertController.Style.alert)
                     alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
                     self.present(alertController, animated: true, completion: nil)

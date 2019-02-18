@@ -36,10 +36,6 @@ class EditContactTableViewController: UITableViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        print(contactDB)
-        print("\(String(contact.name))")
-        print("!!!")
-        print(edit)
         nameLabel.text = contact.name
         telephoneLabel.text = contact.telephone
         cellphoneLabel.text = contact.cellphone

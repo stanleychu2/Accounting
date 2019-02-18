@@ -52,12 +52,6 @@ class ContactViewController: UIViewController, UICollectionViewDelegate, UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        // 從資料庫contactDB中拿出所有 contact 放到 people 裡
-        for contact in (try? db?.prepare(contactDB))!! {
-            people.append(Contact(id: contact[id], name: contact[name], telephone: contact[telephone], cellphone: contact[cellphone], email: contact[email], lineId: contact[lineId], fax: contact[fax]))
-        }
-        
         collectionView.layer.borderWidth = 1
         collectionView.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         collectionViewLayout.headerReferenceSize = CGSize(width: 700, height: 40)
@@ -68,6 +62,19 @@ class ContactViewController: UIViewController, UICollectionViewDelegate, UIColle
         // 設定頁碼和最大頁數
         pageLabel.text = ("\(pagesIndex + 1) / \((people.count - 1) / 36 + 1)")
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        updateCollection()
+        
+    }
+    func updateCollection(){
+        people = [Contact]()
+        for contact in (try? db?.prepare(contactDB))!! {
+            people.append(Contact(id: contact[id], name: contact[name], telephone: contact[telephone], cellphone: contact[cellphone], email: contact[email], lineId: contact[lineId], fax: contact[fax]))
+        }
+        pageLabel.text = ("\(pagesIndex + 1) / \((people.count - 1) / 36 + 1)")
+        collectionView.reloadData()
     }
     
     @IBAction func upPage(_ sender: Any) {
@@ -121,18 +128,7 @@ class ContactViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        updateCollection()
-        
-    }
-    func updateCollection(){
-        people = [Contact]()
-        for contact in (try? db?.prepare(contactDB))!! {
-            people.append(Contact(id: contact[id], name: contact[name], telephone: contact[telephone], cellphone: contact[cellphone], email: contact[email], lineId: contact[lineId], fax: contact[fax]))
-        }
-        pageLabel.text = ("\(pagesIndex + 1) / \((people.count - 1) / 36 + 1)")
-        collectionView.reloadData()
-    }
+    
     
 }
 

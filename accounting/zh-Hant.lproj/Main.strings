@@ -1,0 +1,468 @@
+
+/* Class = "UIButton"; normalTitle = "Clear"; ObjectID = "02R-kD-JPo"; */
+"02R-kD-JPo.normalTitle" = "Clear";
+
+/* Class = "UIButton"; normalTitle = "Del"; ObjectID = "0Li-9d-2bg"; */
+"0Li-9d-2bg.normalTitle" = "Del";
+
+/* Class = "UILabel"; text = "連絡信箱"; ObjectID = "1Gq-NK-oca"; */
+"1Gq-NK-oca.text" = "連絡信箱";
+
+/* Class = "UILabel"; text = "傳真號碼"; ObjectID = "1Ml-Xs-bEe"; */
+"1Ml-Xs-bEe.text" = "傳真號碼";
+
+/* Class = "UIViewController"; title = "Product"; ObjectID = "1l2-rc-69D"; */
+"1l2-rc-69D.title" = "Product";
+
+/* Class = "UITabBarItem"; title = "設定"; ObjectID = "2K7-Gd-QZV"; */
+"2K7-Gd-QZV.title" = "設定";
+
+/* Class = "UILabel"; text = "數量"; ObjectID = "2Z9-LB-yFq"; */
+"2Z9-LB-yFq.text" = "數量";
+
+/* Class = "UITableViewSection"; footerTitle = " "; ObjectID = "2yr-6i-RrI"; */
+"2yr-6i-RrI.footerTitle" = " ";
+
+/* Class = "UIViewController"; title = "POSSPopOver"; ObjectID = "3C5-ms-llM"; */
+"3C5-ms-llM.title" = "POSSPopOver";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "3mg-x9-4W7"; */
+"3mg-x9-4W7.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "6"; ObjectID = "49G-xd-DfC"; */
+"49G-xd-DfC.normalTitle" = "6";
+
+/* Class = "UIButton"; normalTitle = "9"; ObjectID = "4d2-P3-Wyh"; */
+"4d2-P3-Wyh.normalTitle" = "9";
+
+/* Class = "UIButton"; normalTitle = "1"; ObjectID = "5mi-hm-noW"; */
+"5mi-hm-noW.normalTitle" = "1";
+
+/* Class = "UILabel"; text = "聯絡人"; ObjectID = "5zu-6a-AAV"; */
+"5zu-6a-AAV.text" = "聯絡人";
+
+/* Class = "UILabel"; text = "$ 0"; ObjectID = "73G-hl-V6b"; */
+"73G-hl-V6b.text" = "$ 0";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "7F3-3y-ecn"; */
+"7F3-3y-ecn.text" = "Label";
+
+/* Class = "UILabel"; text = "單價"; ObjectID = "7js-gZ-9y9"; */
+"7js-gZ-9y9.text" = "單價";
+
+/* Class = "UIButton"; normalTitle = "3"; ObjectID = "8ft-kl-qGm"; */
+"8ft-kl-qGm.normalTitle" = "3";
+
+/* Class = "UIViewController"; title = "Order"; ObjectID = "8rJ-Kc-sve"; */
+"8rJ-Kc-sve.title" = "Order";
+
+/* Class = "UIViewController"; title = "Pos"; ObjectID = "9gh-ZS-CyT"; */
+"9gh-ZS-CyT.title" = "Pos";
+
+/* Class = "UILabel"; text = "$ 0"; ObjectID = "BM8-rF-aGi"; */
+"BM8-rF-aGi.text" = "$ 0";
+
+/* Class = "UIButton"; normalTitle = "7"; ObjectID = "Bgd-x4-ntI"; */
+"Bgd-x4-ntI.normalTitle" = "7";
+
+/* Class = "UILabel"; text = "商品名稱"; ObjectID = "Bsc-7H-Qy2"; */
+"Bsc-7H-Qy2.text" = "商品名稱";
+
+/* Class = "UILabel"; text = "商品"; ObjectID = "CDx-sx-1gX"; */
+"CDx-sx-1gX.text" = "商品";
+
+/* Class = "UITextField"; placeholder = " 請選擇位置"; ObjectID = "CKG-Kr-6vJ"; */
+"CKG-Kr-6vJ.placeholder" = " 請選擇位置";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Dcm-yt-NiO"; */
+"Dcm-yt-NiO.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "Dsc-Kq-Ta5"; */
+"Dsc-Kq-Ta5.normalTitle" = "5";
+
+/* Class = "UILabel"; text = "金額"; ObjectID = "E7V-TF-qlg"; */
+"E7V-TF-qlg.text" = "金額";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "EIo-b9-M9C"; */
+"EIo-b9-M9C.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "FNp-se-dso"; */
+"FNp-se-dso.text" = "Label";
+
+/* Class = "UILabel"; text = "商品"; ObjectID = "FZq-7l-p0R"; */
+"FZq-7l-p0R.text" = "商品";
+
+/* Class = "UILabel"; text = "按鈕位置 : "; ObjectID = "Fxf-Uo-6qO"; */
+"Fxf-Uo-6qO.text" = "按鈕位置 : ";
+
+/* Class = "UILabel"; text = "單價"; ObjectID = "GJF-Yn-H59"; */
+"GJF-Yn-H59.text" = "單價";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "GJg-0t-tRl"; */
+"GJg-0t-tRl.text" = "Label";
+
+/* Class = "UITabBarItem"; title = "POS"; ObjectID = "ITV-dm-Pnh"; */
+"ITV-dm-Pnh.title" = "POS";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "IWq-bP-Ti2"; */
+"IWq-bP-Ti2.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "2"; ObjectID = "JV0-AX-gzG"; */
+"JV0-AX-gzG.normalTitle" = "2";
+
+/* Class = "UIButton"; normalTitle = "< 上一頁"; ObjectID = "KFA-z1-WrP"; */
+"KFA-z1-WrP.normalTitle" = "< 上一頁";
+
+/* Class = "UITextField"; placeholder = "輸入數量"; ObjectID = "KIV-gu-Fx7"; */
+"KIV-gu-Fx7.placeholder" = "輸入數量";
+
+/* Class = "UITabBarItem"; title = "商品"; ObjectID = "KTd-kS-3BY"; */
+"KTd-kS-3BY.title" = "商品";
+
+/* Class = "UIButton"; normalTitle = "2"; ObjectID = "KdD-1u-KO0"; */
+"KdD-1u-KO0.normalTitle" = "2";
+
+/* Class = "UIViewController"; title = "Contact"; ObjectID = "Kyu-1I-5ug"; */
+"Kyu-1I-5ug.title" = "Contact";
+
+/* Class = "UIButton"; normalTitle = "儲存"; ObjectID = "L3F-TV-sMC"; */
+"L3F-TV-sMC.normalTitle" = "儲存";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "LrC-T5-6wy"; */
+"LrC-T5-6wy.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "＋新增聯絡人"; ObjectID = "Lro-wJ-yWv"; */
+"Lro-wJ-yWv.normalTitle" = "＋新增聯絡人";
+
+/* Class = "UIButton"; normalTitle = "0"; ObjectID = "M08-Am-iwa"; */
+"M08-Am-iwa.normalTitle" = "0";
+
+/* Class = "UILabel"; text = "總計"; ObjectID = "NDN-Sk-x5y"; */
+"NDN-Sk-x5y.text" = "總計";
+
+/* Class = "UILabel"; text = "日期"; ObjectID = "NT6-Cf-Jch"; */
+"NT6-Cf-Jch.text" = "日期";
+
+/* Class = "UILabel"; text = "頁數"; ObjectID = "NdB-jD-tSf"; */
+"NdB-jD-tSf.text" = "頁數";
+
+/* Class = "UIButton"; normalTitle = "下一頁 >"; ObjectID = "P0W-Bf-snw"; */
+"P0W-Bf-snw.normalTitle" = "下一頁 >";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "PKR-O1-8Ga"; */
+"PKR-O1-8Ga.text" = "Label";
+
+/* Class = "UIViewController"; title = "Record"; ObjectID = "QXE-Bf-nt6"; */
+"QXE-Bf-nt6.title" = "Record";
+
+/* Class = "UILabel"; text = "商品種類 : "; ObjectID = "Qmj-rf-kqo"; */
+"Qmj-rf-kqo.text" = "商品種類 : ";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "SGu-Ln-hV7"; */
+"SGu-Ln-hV7.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "7"; ObjectID = "T5m-ww-ve8"; */
+"T5m-ww-ve8.normalTitle" = "7";
+
+/* Class = "UIViewController"; title = "OrderPopOver"; ObjectID = "TE7-dz-yOM"; */
+"TE7-dz-yOM.title" = "OrderPopOver";
+
+/* Class = "UITabBarItem"; title = "訂單"; ObjectID = "TLc-o0-e95"; */
+"TLc-o0-e95.title" = "訂單";
+
+/* Class = "UIButton"; normalTitle = "更新訂單"; ObjectID = "V1M-UO-PG5"; */
+"V1M-UO-PG5.normalTitle" = "更新訂單";
+
+/* Class = "UILabel"; text = "商品清單"; ObjectID = "V9v-4V-6FX"; */
+"V9v-4V-6FX.text" = "商品清單";
+
+/* Class = "UIButton"; normalTitle = "確認訂單"; ObjectID = "WGc-Kb-Zbs"; */
+"WGc-Kb-Zbs.normalTitle" = "確認訂單";
+
+/* Class = "UILabel"; text = "1 / 1"; ObjectID = "WRT-CL-Soc"; */
+"WRT-CL-Soc.text" = "1 / 1";
+
+/* Class = "UILabel"; text = "金額"; ObjectID = "XjR-IR-6DB"; */
+"XjR-IR-6DB.text" = "金額";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "YCe-1a-snO"; */
+"YCe-1a-snO.title" = "Title";
+
+/* Class = "UILabel"; text = "單價"; ObjectID = "YFe-eC-5td"; */
+"YFe-eC-5td.text" = "單價";
+
+/* Class = "UIButton"; normalTitle = "蔬菜"; ObjectID = "YdF-Uu-Vwi"; */
+"YdF-Uu-Vwi.normalTitle" = "蔬菜";
+
+/* Class = "UIButton"; normalTitle = "popover"; ObjectID = "Ydp-zc-pm4"; */
+"Ydp-zc-pm4.normalTitle" = "popover";
+
+/* Class = "UILabel"; text = "總額"; ObjectID = "Z9y-aB-KGY"; */
+"Z9y-aB-KGY.text" = "總額";
+
+/* Class = "UILabel"; text = "$ 0"; ObjectID = "ZhU-CS-Jw3"; */
+"ZhU-CS-Jw3.text" = "$ 0";
+
+/* Class = "UILabel"; text = "商品"; ObjectID = "Zke-d6-tWF"; */
+"Zke-d6-tWF.text" = "商品";
+
+/* Class = "UIButton"; normalTitle = "1"; ObjectID = "aC3-41-VXQ"; */
+"aC3-41-VXQ.normalTitle" = "1";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "aOf-E3-biN"; */
+"aOf-E3-biN.normalTitle" = "Button";
+
+/* Class = "UIButton"; disabledTitle = "更新"; ObjectID = "aOp-89-c1T"; */
+"aOp-89-c1T.disabledTitle" = "更新";
+
+/* Class = "UIButton"; normalTitle = "更新"; ObjectID = "aOp-89-c1T"; */
+"aOp-89-c1T.normalTitle" = "更新";
+
+/* Class = "UIButton"; disabledTitle = "刪除"; ObjectID = "avI-ue-ue8"; */
+"avI-ue-ue8.disabledTitle" = "刪除";
+
+/* Class = "UIButton"; normalTitle = "刪除"; ObjectID = "avI-ue-ue8"; */
+"avI-ue-ue8.normalTitle" = "刪除";
+
+/* Class = "UILabel"; text = "總計"; ObjectID = "bDv-rF-oSA"; */
+"bDv-rF-oSA.text" = "總計";
+
+/* Class = "UITextField"; placeholder = " 請選擇頁數"; ObjectID = "bJ4-BT-w41"; */
+"bJ4-BT-w41.placeholder" = " 請選擇頁數";
+
+/* Class = "UIButton"; normalTitle = "返回"; ObjectID = "c2f-HE-62N"; */
+"c2f-HE-62N.normalTitle" = "返回";
+
+/* Class = "UITextField"; placeholder = "請點擊並完成"; ObjectID = "cUO-4W-xFh"; */
+"cUO-4W-xFh.placeholder" = "請點擊並完成";
+
+/* Class = "UIButton"; normalTitle = "出單"; ObjectID = "ccb-eG-fHh"; */
+"ccb-eG-fHh.normalTitle" = "出單";
+
+/* Class = "UIButton"; normalTitle = "4"; ObjectID = "ccj-qP-CgK"; */
+"ccj-qP-CgK.normalTitle" = "4";
+
+/* Class = "UIButton"; normalTitle = "重設"; ObjectID = "cqV-j5-r9c"; */
+"cqV-j5-r9c.normalTitle" = "重設";
+
+/* Class = "UIButton"; normalTitle = "8"; ObjectID = "czU-Eg-lJ0"; */
+"czU-Eg-lJ0.normalTitle" = "8";
+
+/* Class = "UIButton"; normalTitle = "肉類"; ObjectID = "d1B-1V-tto"; */
+"d1B-1V-tto.normalTitle" = "肉類";
+
+/* Class = "UILabel"; text = "1 / 4"; ObjectID = "dDj-ZG-B0u"; */
+"dDj-ZG-B0u.text" = "1 / 4";
+
+/* Class = "UITextField"; placeholder = "輸入單價"; ObjectID = "dUc-ah-rqB"; */
+"dUc-ah-rqB.placeholder" = "輸入單價";
+
+/* Class = "UIButton"; normalTitle = "下一頁 >"; ObjectID = "eb0-k7-kfH"; */
+"eb0-k7-kfH.normalTitle" = "下一頁 >";
+
+/* Class = "UILabel"; text = "LINE ID"; ObjectID = "f7i-3P-y0R"; */
+"f7i-3P-y0R.text" = "LINE ID";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "fJR-7j-7Od"; */
+"fJR-7j-7Od.text" = "Label";
+
+/* Class = "UILabel"; text = "市話"; ObjectID = "fbd-FH-Qer"; */
+"fbd-FH-Qer.text" = "市話";
+
+/* Class = "UIButton"; normalTitle = "8"; ObjectID = "g6X-Yd-22I"; */
+"g6X-Yd-22I.normalTitle" = "8";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "g8J-4D-BIh"; */
+"g8J-4D-BIh.text" = "Label";
+
+/* Class = "UILabel"; text = "行動電話"; ObjectID = "gMi-or-tzH"; */
+"gMi-or-tzH.text" = "行動電話";
+
+/* Class = "UIButton"; normalTitle = "Del"; ObjectID = "gNG-RE-oeo"; */
+"gNG-RE-oeo.normalTitle" = "Del";
+
+/* Class = "UIButton"; normalTitle = "肉類"; ObjectID = "gno-bG-Tc0"; */
+"gno-bG-Tc0.normalTitle" = "肉類";
+
+/* Class = "UIButton"; normalTitle = "< 上一頁"; ObjectID = "hBW-3r-deQ"; */
+"hBW-3r-deQ.normalTitle" = "< 上一頁";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "hM9-lf-JYE"; */
+"hM9-lf-JYE.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "下一頁 >"; ObjectID = "hz0-rs-eIL"; */
+"hz0-rs-eIL.normalTitle" = "下一頁 >";
+
+/* Class = "UILabel"; text = "商品"; ObjectID = "i0O-X6-u4B"; */
+"i0O-X6-u4B.text" = "商品";
+
+/* Class = "UILabel"; text = "位置"; ObjectID = "iae-9g-2D9"; */
+"iae-9g-2D9.text" = "位置";
+
+/* Class = "UIButton"; normalTitle = "9"; ObjectID = "j7B-PU-qyN"; */
+"j7B-PU-qyN.normalTitle" = "9";
+
+/* Class = "UILabel"; text = "商品設定"; ObjectID = "j7a-Vi-XLW"; */
+"j7a-Vi-XLW.text" = "商品設定";
+
+/* Class = "UITableViewController"; title = "EditContact"; ObjectID = "jwj-2v-TLL"; */
+"jwj-2v-TLL.title" = "EditContact";
+
+/* Class = "UILabel"; text = "1 / 4"; ObjectID = "khh-JM-2qm"; */
+"khh-JM-2qm.text" = "1 / 4";
+
+/* Class = "UITabBarItem"; title = "聯絡人"; ObjectID = "l0Z-2i-3dV"; */
+"l0Z-2i-3dV.title" = "聯絡人";
+
+/* Class = "UIButton"; normalTitle = "two"; ObjectID = "lZh-PX-0OX"; */
+"lZh-PX-0OX.normalTitle" = "two";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "lpF-Le-wN5"; */
+"lpF-Le-wN5.text" = "Label";
+
+/* Class = "UILabel"; text = "商品設定"; ObjectID = "lwH-en-lsM"; */
+"lwH-en-lsM.text" = "商品設定";
+
+/* Class = "UIButton"; normalTitle = "雜項"; ObjectID = "m7P-hV-PmI"; */
+"m7P-hV-PmI.normalTitle" = "雜項";
+
+/* Class = "UIButton"; normalTitle = "新增至訂單"; ObjectID = "mFQ-l1-6CZ"; */
+"mFQ-l1-6CZ.normalTitle" = "新增至訂單";
+
+/* Class = "UILabel"; text = "數量"; ObjectID = "mPY-9T-rye"; */
+"mPY-9T-rye.text" = "數量";
+
+/* Class = "UIButton"; normalTitle = "雜項"; ObjectID = "mhP-Bs-NxV"; */
+"mhP-Bs-NxV.normalTitle" = "雜項";
+
+/* Class = "UITextField"; placeholder = "單位"; ObjectID = "moL-e1-jF8"; */
+"moL-e1-jF8.placeholder" = "單位";
+
+/* Class = "UIButton"; normalTitle = "< 上一頁"; ObjectID = "mqn-yO-CmI"; */
+"mqn-yO-CmI.normalTitle" = "< 上一頁";
+
+/* Class = "UIButton"; normalTitle = "下一頁 >"; ObjectID = "nC1-eQ-au9"; */
+"nC1-eQ-au9.normalTitle" = "下一頁 >";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "nFG-ig-CYR"; */
+"nFG-ig-CYR.text" = "Label";
+
+/* Class = "UIViewController"; title = "SelectContact"; ObjectID = "nJd-ks-aBV"; */
+"nJd-ks-aBV.title" = "SelectContact";
+
+/* Class = "UILabel"; text = "金額"; ObjectID = "nbB-do-MiP"; */
+"nbB-do-MiP.text" = "金額";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ngj-kT-tNv"; */
+"ngj-kT-tNv.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Clear"; ObjectID = "oaN-UH-0uK"; */
+"oaN-UH-0uK.normalTitle" = "Clear";
+
+/* Class = "UILabel"; text = "編輯聯絡人"; ObjectID = "op4-Pa-dkh"; */
+"op4-Pa-dkh.text" = "編輯聯絡人";
+
+/* Class = "UIViewController"; title = "Setting"; ObjectID = "otz-qd-YRn"; */
+"otz-qd-YRn.title" = "Setting";
+
+/* Class = "UITextField"; placeholder = " 請選擇種類"; ObjectID = "p7K-nY-mb0"; */
+"p7K-nY-mb0.placeholder" = " 請選擇種類";
+
+/* Class = "UIButton"; normalTitle = "6"; ObjectID = "pfy-PK-esM"; */
+"pfy-PK-esM.normalTitle" = "6";
+
+/* Class = "UIButton"; normalTitle = "< 上一頁"; ObjectID = "prG-gG-qJW"; */
+"prG-gG-qJW.normalTitle" = "< 上一頁";
+
+/* Class = "UILabel"; text = "總價"; ObjectID = "ptI-sA-2Mh"; */
+"ptI-sA-2Mh.text" = "總價";
+
+/* Class = "UISegmentedControl"; qQv-1h-8tP.segmentTitles[0] = "每日"; ObjectID = "qQv-1h-8tP"; */
+"qQv-1h-8tP.segmentTitles[0]" = "每日";
+
+/* Class = "UISegmentedControl"; qQv-1h-8tP.segmentTitles[1] = "每月"; ObjectID = "qQv-1h-8tP"; */
+"qQv-1h-8tP.segmentTitles[1]" = "每月";
+
+/* Class = "UILabel"; text = "按鈕頁數 : "; ObjectID = "rVs-hm-svt"; */
+"rVs-hm-svt.text" = "按鈕頁數 : ";
+
+/* Class = "UILabel"; text = "數量"; ObjectID = "s58-1k-UQf"; */
+"s58-1k-UQf.text" = "數量";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "tUh-zd-ffH"; */
+"tUh-zd-ffH.text" = "Label";
+
+/* Class = "UILabel"; text = "總價"; ObjectID = "uUY-GE-0AH"; */
+"uUY-GE-0AH.text" = "總價";
+
+/* Class = "UIButton"; normalTitle = "3"; ObjectID = "uhA-lg-Zeh"; */
+"uhA-lg-Zeh.normalTitle" = "3";
+
+/* Class = "UIButton"; normalTitle = "下一頁 >"; ObjectID = "urD-34-vui"; */
+"urD-34-vui.normalTitle" = "下一頁 >";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "uvr-O9-cB9"; */
+"uvr-O9-cB9.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "蔬菜"; ObjectID = "uxZ-xi-ez9"; */
+"uxZ-xi-ez9.normalTitle" = "蔬菜";
+
+/* Class = "UIButton"; normalTitle = "刪除"; ObjectID = "vND-eU-mBR"; */
+"vND-eU-mBR.normalTitle" = "刪除";
+
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "w0O-yv-T7P"; */
+"w0O-yv-T7P.normalTitle" = "5";
+
+/* Class = "UIButton"; normalTitle = "4"; ObjectID = "w2o-QL-cuM"; */
+"w2o-QL-cuM.normalTitle" = "4";
+
+/* Class = "UIButton"; normalTitle = "新增商品"; ObjectID = "wJE-m1-s2d"; */
+"wJE-m1-s2d.normalTitle" = "新增商品";
+
+/* Class = "UILabel"; text = "商品名稱 : "; ObjectID = "wON-nR-J5y"; */
+"wON-nR-J5y.text" = "商品名稱 : ";
+
+/* Class = "UITabBarItem"; title = "紀錄"; ObjectID = "wRs-Lv-VaM"; */
+"wRs-Lv-VaM.title" = "紀錄";
+
+/* Class = "UIButton"; normalTitle = "重設"; ObjectID = "wbN-Ux-qbB"; */
+"wbN-Ux-qbB.normalTitle" = "重設";
+
+/* Class = "UIButton"; normalTitle = "0"; ObjectID = "wog-bC-sqP"; */
+"wog-bC-sqP.normalTitle" = "0";
+
+/* Class = "UILabel"; text = "$ 0"; ObjectID = "x7j-Gd-s48"; */
+"x7j-Gd-s48.text" = "$ 0";
+
+/* Class = "UITextField"; placeholder = "輸入單價"; ObjectID = "xTW-Pk-L0c"; */
+"xTW-Pk-L0c.placeholder" = "輸入單價";
+
+/* Class = "UILabel"; text = "數量"; ObjectID = "xUj-ls-hZ1"; */
+"xUj-ls-hZ1.text" = "數量";
+
+/* Class = "UIButton"; normalTitle = "儲存"; ObjectID = "xcx-Ju-hN7"; */
+"xcx-Ju-hN7.normalTitle" = "儲存";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "xqH-1k-T28"; */
+"xqH-1k-T28.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "yfU-yZ-6NE"; */
+"yfU-yZ-6NE.text" = "Label";
+
+/* Class = "UILabel"; text = "單價"; ObjectID = "yis-5U-aTs"; */
+"yis-5U-aTs.text" = "單價";
+
+/* Class = "UITextField"; placeholder = "輸入數量"; ObjectID = "ytQ-5Q-fmX"; */
+"ytQ-5Q-fmX.placeholder" = "輸入數量";
+
+/* Class = "UILabel"; text = "姓名"; ObjectID = "yud-SW-qCP"; */
+"yud-SW-qCP.text" = "姓名";
+
+/* Class = "UILabel"; text = "聯絡人"; ObjectID = "zb4-5g-R7v"; */
+"zb4-5g-R7v.text" = "聯絡人";
+
+/* Class = "UIButton"; normalTitle = "< 上一頁"; ObjectID = "zrX-li-5Id"; */
+"zrX-li-5Id.normalTitle" = "< 上一頁";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "zyd-PC-92Q"; */
+"zyd-PC-92Q.text" = "Label";

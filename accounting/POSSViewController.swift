@@ -353,6 +353,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     @IBAction func printOrder(_ sender: Any) {
+        
         let modify = orderDB.filter(contactName == selectedContact && serialNum == selectedUUID)
         print(modify)
         if let count = try? db?.run(modify.update(finish <- true)) {
@@ -360,6 +361,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         } else {
             print("修改失敗")
         }
+        
         updateOrderTableView(name: selectedContact, uuid: selectedUUID)
         updateContactCollection()
         selectedContact = ""
@@ -367,5 +369,19 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         orderProduct = [OrderProduct]()
         sumMoneyLabel.text = "$ 0"
         OrderTableView.reloadData()
+        
+        // 以下是使印表機列印的程式
+        let printController = UIPrintInteractionController.shared
+        
+        let printInfo = UIPrintInfo(dictionary:nil)
+        printInfo.outputType = UIPrintInfo.OutputType.general
+        printInfo.jobName = "出單"
+        printController.printInfo = printInfo
+        
+        let formatter = UIMarkupTextPrintFormatter(markupText: "<h1>列印測試</h1>")
+        formatter.perPageContentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
+        printController.printFormatter = formatter
+        
+        printController.present(animated: true, completionHandler: nil)
     }
 }

@@ -77,15 +77,6 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 創建 table 只會在第一次時執行
-        try! db?.run(productDB.create(ifNotExists: true, block: { (table) in
-            table.column(id, primaryKey: true)
-            table.column(name)
-            table.column(type)
-            table.column(pages)
-            table.column(position)
-        }))
-        
         // 從資料庫中拿出所有 product 放到 item 裡
         for product in (try? db?.prepare(productDB))!! {
             item.append(Product(id: product[id], name: product[name], type: product[type], pages: product[pages], position: product[position]))

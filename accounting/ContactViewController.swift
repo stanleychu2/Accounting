@@ -10,7 +10,7 @@ import UIKit
 import SQLite
 
 
-let contactDB = Table("contact")
+
 
 struct Contact {
     var id: Int64!
@@ -33,10 +33,12 @@ class ContactViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var pageLabel: UILabel!
     
+    let contactDB = Table("contact")
     
     var people = [Contact]()
     var contact = Contact()
     var pagesIndex = 0
+    
     // table 中有哪一些欄位和型態
     let id = Expression<Int64>("id")
     let name = Expression<String>("name")
@@ -50,30 +52,11 @@ class ContactViewController: UIViewController, UICollectionViewDelegate, UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        try! db?.run(contactDB.create(ifNotExists: true, block: { (table) in
-            table.column(id, primaryKey: true)
-            table.column(name)
-            table.column(telephone)
-            table.column(cellphone)
-            table.column(email)
-            table.column(lineId)
-            table.column(fax)
-        }))
+        
         // 從資料庫contactDB中拿出所有 contact 放到 people 裡
         for contact in (try? db?.prepare(contactDB))!! {
             people.append(Contact(id: contact[id], name: contact[name], telephone: contact[telephone], cellphone: contact[cellphone], email: contact[email], lineId: contact[lineId], fax: contact[fax]))
         }
-        // 清空ocntactDB
-        /*
-         for i in people{
-         let cancel = contactDB.filter(id == i.id)
-         if let count = try? db?.run(cancel.delete()) {
-         print("刪除 row 個數為：\(String(describing: count))")
-         } else {
-         print("刪除失敗")
-         }
-         }
-         */
         
         collectionView.layer.borderWidth = 1
         collectionView.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)

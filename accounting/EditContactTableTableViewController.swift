@@ -19,7 +19,7 @@ class EditContactTableViewController: UITableViewController {
     @IBOutlet weak var faxLabel: UITextField!
     @IBOutlet var editTableview: UITableView!
     
-    
+    let contactDB = Table("contact")
     
     var contact = Contact()
     var edit: Bool = false

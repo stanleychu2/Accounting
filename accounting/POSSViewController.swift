@@ -265,8 +265,14 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         else{ //collectionView == self.ProductCollectionView
             
             if(item[indexPath.row] != "") {
-                print(item[indexPath.row])
-                performSegue(withIdentifier: "POSSPopOverSegue", sender: nil)
+                if(selectedContact == "" || selectedUUID == "") {
+                    let alertController = UIAlertController(title: "請先選擇聯絡人\n請輸入完成後再次點選", message: "", preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alertController, animated: true, completion: nil)
+                }else {
+                    print(item[indexPath.row])
+                    performSegue(withIdentifier: "POSSPopOverSegue", sender: nil)
+                }
             }
         }
     }
@@ -383,5 +389,6 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         printController.printFormatter = formatter
         
         printController.present(animated: true, completionHandler: nil)
+        
     }
 }

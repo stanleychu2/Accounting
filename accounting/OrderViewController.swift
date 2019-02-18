@@ -83,18 +83,6 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
     // 只有第一次會進入畫面的時候執行
     override func viewDidLoad() {
         super.viewDidLoad()
-        //建立order table
-        try! db?.run(orderDB.create(ifNotExists: true, block: { (table) in
-            table.column(id, primaryKey: true)
-            table.column(contactName)
-            table.column(productName)
-            table.column(amount)
-            table.column(money)
-            table.column(date)
-            table.column(unit)
-            table.column(serialNum)
-            table.column(finish)
-        }))
         
         let dbResult = productDB.filter(type == selectedType && pages == pagesIndex)
         for product in (try? db?.prepare(dbResult))!! {

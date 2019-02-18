@@ -9,18 +9,7 @@ import UIKit
 import ZHDropDownMenu
 import SQLite
 
-// 連接 db 並宣告一個ㄧ名為 productDB 的 table
-let settingDB = Table("setting")
 
-// table 中有哪一些欄位和型態
-let onlyID = Expression<Int64>("onlyID")
-let shopName = Expression<String>("shopName")
-let phoneNumber = Expression<String>("phoneNumber")
-let cellPhoneNumber = Expression<String>("cellPhoneNumber")
-let email = Expression<String>("email")
-let lineID = Expression<String>("lineID")
-let faxNumber = Expression<String>("faxNumber")
-let address = Expression<String>("address")
 
 
 class settingCell: UITableViewCell {
@@ -42,8 +31,20 @@ struct shop {
 class Setting: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     let fullScreenSize = UIScreen.main.bounds.size
+    // 連接 db 並宣告一個ㄧ名為 productDB 的 table
+    let settingDB = Table("setting")
     
+    // table 中有哪一些欄位和型態
+    let onlyID = Expression<Int64>("onlyID")
+    let shopName = Expression<String>("shopName")
+    let phoneNumber = Expression<String>("phoneNumber")
+    let cellPhoneNumber = Expression<String>("cellPhoneNumber")
+    let email = Expression<String>("email")
+    let lineID = Expression<String>("lineID")
+    let faxNumber = Expression<String>("faxNumber")
+    let address = Expression<String>("address")
     var shopSetting = shop()
+    
     var info = ["商家名稱","市話","行動電話","聯絡信箱","LINE ID","傳真號碼","地址"]
     
     let cellReuseIdentifier = "Cell"
@@ -53,18 +54,6 @@ class Setting: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // 創建 table 只會在第一次時執行
-        try! db?.run(settingDB.create(ifNotExists: true, block: { (table) in
-            table.column(onlyID, primaryKey: true)
-            table.column(shopName)
-            table.column(phoneNumber)
-            table.column(cellPhoneNumber)
-            table.column(email)
-            table.column(lineID)
-            table.column(faxNumber)
-            table.column(address)
-        }))
         
         // 從資料庫中拿出setting
         for setting in (try? db?.prepare(settingDB))!! {

@@ -26,6 +26,8 @@ class OrderContactPopOver: UIViewController,UICollectionViewDelegate, UICollecti
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var pageLabel: UILabel!
     
+    let contactDB = Table("contact")
+    
     var people = [Contact]()
     var contact = Contact()
     var pagesIndex = 0

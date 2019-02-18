@@ -139,37 +139,37 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if(segue.identifier == "POSSPopOverSegue") {
             let controller = segue.destination as? POSSPopOverView
             
-            //新增
+            // 新增
             controller?.modify = false
             // 設定回傳的代理為自己
             controller?.delegate = self
-            //傳遞商品名稱
+            // 傳遞商品名稱
             controller?.product = item[(ProductCollectionView.indexPathsForSelectedItems?[0].row)!]
-            //傳遞交易聯絡人名字
+            // 傳遞交易聯絡人名字
             controller?.contact = selectedContact
-            //傳遞交易序號
+            // 傳遞交易序號
             controller?.uuid = selectedUUID
         }
         else if(segue.identifier == "POSSTablePopOver"){
             let controller = segue.destination as? POSSPopOverView
             
-            //更新
+            // 更新
             controller?.modify = true
             // 設定回傳的代理為自己
             controller?.delegate = self
-            //傳遞商品名稱
+            // 傳遞商品名稱
             controller?.product = String(orderProduct[selectedRow.row].name)
-            //傳遞交易聯絡人名字
+            // 傳遞交易聯絡人名字
             controller?.contact = selectedContact
-            //傳遞交易序號
+            // 傳遞交易序號
             controller?.uuid = selectedUUID
-            //傳遞數量
+            // 傳遞數量
             controller?.number = String(orderProduct[selectedRow.row].amount)
-            //傳遞金額
+            // 傳遞金額
             controller?.price = String(orderProduct[selectedRow.row].unitPrice)
-            //傳遞id
+            // 傳遞id
             controller?.productId = orderProduct[selectedRow.row].id
-            //傳遞unit
+            // 傳遞unit
             
         }
     }
@@ -199,7 +199,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         ProductCollectionView.reloadData()
     }
-    //更新訂單table 需要給參數：聯絡人名字 交易序號
+    // 更新訂單table 需要給參數：聯絡人名字 交易序號
     func updateOrderTableView(name: String, uuid: String) {
         
         sumMoney = 0
@@ -266,7 +266,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
             if(item[indexPath.row] != "") {
                 if(selectedContact == "" || selectedUUID == "") {
-                    let alertController = UIAlertController(title: "請先選擇聯絡人\n請輸入完成後再次點選", message: "", preferredStyle: UIAlertController.Style.alert)
+                    let alertController = UIAlertController(title: "請先選擇聯絡人", message: "", preferredStyle: UIAlertController.Style.alert)
                     alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
                     self.present(alertController, animated: true, completion: nil)
                 }else {
@@ -360,35 +360,44 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     @IBAction func printOrder(_ sender: Any) {
         
-        let modify = orderDB.filter(contactName == selectedContact && serialNum == selectedUUID)
-        print(modify)
-        if let count = try? db?.run(modify.update(finish <- true)) {
-            print("修改 row 的個數：\(String(describing: count))")
-        } else {
-            print("修改失敗")
-        }
-        
-        updateOrderTableView(name: selectedContact, uuid: selectedUUID)
-        updateContactCollection()
-        selectedContact = ""
-        selectedUUID = ""
-        orderProduct = [OrderProduct]()
-        sumMoneyLabel.text = "$ 0"
-        OrderTableView.reloadData()
-        
         // 以下是使印表機列印的程式
         let printController = UIPrintInteractionController.shared
         
         let printInfo = UIPrintInfo(dictionary:nil)
-        printInfo.outputType = UIPrintInfo.OutputType.general
+        printInfo.outputType = UIPrintInfo.OutputType.grayscale
         printInfo.jobName = "出單"
         printController.printInfo = printInfo
+        printController.showsPaperSelectionForLoadedPapers = false
         
         let formatter = UIMarkupTextPrintFormatter(markupText: "<h1>列印測試</h1>")
         formatter.perPageContentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
         printController.printFormatter = formatter
         
-        printController.present(animated: true, completionHandler: nil)
-        
+        // 當成功列印時才更改 Order 的狀態為 finished
+        printController.present(animated: true) { (controller, success, error) -> Void in
+            
+            if(success){
+                print("列印成功")
+                
+                let modify = self.orderDB.filter(self.contactName == self.selectedContact && self.serialNum == self.selectedUUID)
+                print(modify)
+                if let count = try? db?.run(modify.update(self.finish <- true)) {
+                    print("修改 row 的個數：\(String(describing: count))")
+                } else {
+                    print("修改失敗")
+                }
+                
+                self.updateOrderTableView(name: self.selectedContact, uuid: self.selectedUUID)
+                self.updateContactCollection()
+                self.selectedContact = ""
+                self.selectedUUID = ""
+                self.orderProduct = [OrderProduct]()
+                self.sumMoneyLabel.text = "$ 0"
+                self.OrderTableView.reloadData()
+            }
+            else {
+                print("列印失敗")
+            }
+        }
     }
 }

@@ -60,7 +60,9 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
     let productName = Expression<String>("productName")
     let amount = Expression<Int64>("amount")
     let money = Expression<Int64>("money")
-    let date = Expression<Date>("date")
+    let year = Expression<String>("year")
+    let month = Expression<String>("month")
+    let day = Expression<String>("day")
     let unit = Expression<String>("unit")
     let serialNum = Expression<String>("serialNum")
     let finish = Expression<Bool>("finish")
@@ -182,6 +184,15 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
     func contactPopOverReturnData(contact: String){
         
         let now = Date()
+        let calendar = Calendar.current
+        
+        let _year = String(calendar.component(.year, from: now))
+        let _month = String(calendar.component(.month, from: now))
+        let _day = String(calendar.component(.day, from: now))
+        
+        print("time zone")
+        print(String(calendar.component(.hour, from: now)))
+        
         print("contact: \(contact)")
         let uuid = UUID().uuidString
         print(uuid)
@@ -189,7 +200,7 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
             print("name: \(o.name) amount: \(o.amount ?? 0)")
             print("insert")
             print(now)
-            let insert = orderDB.insert(contactName <- contact, productName <- o.name, amount <- Int64(o.amount ?? 0), money <- Int64(o.unitPrice ?? 0), date <- now, unit <- "", serialNum <- uuid, finish <- false)
+            let insert = orderDB.insert(contactName <- contact, productName <- o.name, amount <- Int64(o.amount ?? 0), money <- Int64(o.unitPrice ?? 0), year <- _year, day <- _day, month <- _month, unit <- "", serialNum <- uuid, finish <- false)
             if let rowId = try? db?.run(insert) {
                 print("插入成功：\(String(describing: rowId))")
             } else {

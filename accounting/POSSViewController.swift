@@ -33,8 +33,14 @@ class ProducttableCell: UITableViewCell{
     
 }
 
+@objc protocol UpdateRecordDelegate {
+    func notifyUpdate()
+}
+
+
 class POSSViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource, POSSPopOverReturnDataDelegate{
     
+    weak var delegate: UpdateRecordDelegate?
     
     @IBOutlet weak var totalMoneyView: UIView!
     @IBOutlet weak var ContactCollectionView: UICollectionView!
@@ -73,7 +79,9 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     let productName = Expression<String>("productName")
     let amount = Expression<Int64>("amount")
     let money = Expression<Int64>("money")
-    let date = Expression<Date>("date")
+    let year = Expression<String>("year")
+    let month = Expression<String>("month")
+    let day = Expression<String>("day")
     let unit = Expression<String>("unit")
     let serialNum = Expression<String>("serialNum")
     let finish = Expression<Bool>("finish")
@@ -344,6 +352,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     @IBAction func printOrder(_ sender: Any) {
         
+        
         // 以下是使印表機列印的程式
         let printController = UIPrintInteractionController.shared
         
@@ -362,6 +371,10 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
             if(success){
                 print("列印成功")
+                
+                //通知record更新紀錄
+                self.delegate?.notifyUpdate()
+
                 
                 let modify = self.orderDB.filter(self.contactName == self.selectedContact && self.serialNum == self.selectedUUID)
                 print(modify)

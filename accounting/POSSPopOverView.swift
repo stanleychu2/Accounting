@@ -44,7 +44,9 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
     let productName = Expression<String>("productName")
     let amount = Expression<Int64>("amount")
     let money = Expression<Int64>("money")
-    let date = Expression<Date>("date")
+    let year = Expression<String>("year")
+    let month = Expression<String>("month")
+    let day = Expression<String>("day")
     let unit = Expression<String>("unit")
     let serialNum = Expression<String>("serialNum")
     let finish = Expression<Bool>("finish")
@@ -155,11 +157,18 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
             self.present(alertController, animated: true, completion: nil)
         }else {
 
+            let now = Date()
+            let calendar = Calendar.current
+            
+            let _year = String(calendar.component(.year, from: now))
+            let _month = String(calendar.component(.month, from: now))
+            let _day = String(calendar.component(.day, from: now))
+            
             if(modify){
                 print("modify")
                 let modify = orderDB.filter(id == Int64(productId))
                 print(modify)
-                if let count = try? db?.run(modify.update(amount <- Int64(amountInput.text!) ?? 0, money <- Int64(unitPriceInput.text!) ?? 0, date <- Date(), unit <- unitInput.text ?? "", serialNum <- uuid, finish <- false)) {
+                if let count = try? db?.run(modify.update(amount <- Int64(amountInput.text!) ?? 0, money <- Int64(unitPriceInput.text!) ?? 0, year <- _year, day <- _day, month <- _month, unit <- unitInput.text ?? "", serialNum <- uuid, finish <- false)) {
                     print("修改 row 的個數：\(String(describing: count))")
                 } else {
                     print("修改失敗")
@@ -168,7 +177,7 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
                 presentingViewController!.dismiss(animated: true, completion: nil)
             }else{
                 print("insert")
-                let insert = orderDB.insert(contactName <- contact, productName <- product, amount <- Int64(amountInput.text!) ?? 0, money <- Int64(unitPriceInput.text!) ?? 0, date <- Date(), unit <- unitInput.text ?? "", serialNum <- uuid, finish <- false)
+                let insert = orderDB.insert(contactName <- contact, productName <- product, amount <- Int64(amountInput.text!) ?? 0, money <- Int64(unitPriceInput.text!) ?? 0, year <- _year, day <- _day, month <- _month, unit <- unitInput.text ?? "", serialNum <- uuid, finish <- false)
                 if let rowId = try? db?.run(insert) {
                     print("插入成功：\(String(describing: rowId))")
                 } else {

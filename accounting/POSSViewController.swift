@@ -369,7 +369,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         // 當成功列印時才更改 Order 的狀態為 finished
         printController.present(animated: true) { (controller, success, error) -> Void in
             
-            if(success){
+            //if(success){
                 print("列印成功")
                 
                 //通知record更新紀錄
@@ -391,10 +391,10 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 self.orderProduct = [OrderProduct]()
                 self.sumMoneyLabel.text = "$ 0"
                 self.OrderTableView.reloadData()
-            }
-            else {
+           // }
+          //  else {
                 print("列印失敗")
-            }
+           // }
         }
     }
 }

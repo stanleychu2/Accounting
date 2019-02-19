@@ -2314,7 +2314,7 @@
                         <outlet property="selectDate" destination="kFS-eJ-0Wh" id="u6X-kt-VuW"/>
                         <outlet property="switchDayOrMonth" destination="Elt-uU-dSk" id="JDr-IK-wwP"/>
                         <outlet property="totalPrice" destination="IEy-Bs-cNd" id="Ouf-Zd-VDF"/>
-                        <segue destination="nJd-ks-aBV" kind="popoverPresentation" popoverAnchorView="IZY-dL-Cqf" id="qR6-7T-9ev">
+                        <segue destination="nJd-ks-aBV" kind="popoverPresentation" identifier="recordPopOverSegue" popoverAnchorView="IZY-dL-Cqf" id="qR6-7T-9ev">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
                     </connections>
@@ -2325,13 +2325,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="POS" width="40" height="40"/>
-        <image name="contacts" width="40" height="40"/>
+        <image name="POS" width="32" height="32"/>
+        <image name="contacts" width="30" height="30"/>
         <image name="edit" width="225" height="226"/>
-        <image name="order" width="40" height="40"/>
-        <image name="product" width="40" height="40"/>
-        <image name="record" width="40" height="40"/>
-        <image name="setting" width="40" height="40"/>
+        <image name="order" width="32" height="32"/>
+        <image name="product" width="30" height="30"/>
+        <image name="record" width="30" height="30"/>
+        <image name="setting" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="hWX-cO-48E"/>

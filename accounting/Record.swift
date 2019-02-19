@@ -90,6 +90,10 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
         totalPrice.text = String(total)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        update()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allRecord.count
     }
@@ -129,7 +133,7 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
             allRecord.popLast()
         }
         
-        let filterName = orderDB.filter(contactName == contact /*&& finish == true*/)
+        let filterName = orderDB.filter(contactName == contact && finish == true)
         for holdOneRecord in (try? db?.prepare(filterName))!! {
             timeHold.year = Int(holdOneRecord[year])
             timeHold.month = Int(holdOneRecord[month])
@@ -141,6 +145,8 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
                 price: Int(holdOneRecord[amount] * holdOneRecord[money])))
         }
         
+        combineSameOrderNumber()
+        
         self.orderTable.reloadData()
     }
     func loadDB(){
@@ -151,7 +157,7 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
         let _day = String(calendar.component(.day, from: _date))
         
         
-        filterDate = orderDB.filter(year == _year && month == _month && day == _day /*&& finish == true*/)
+        filterDate = orderDB.filter(year == _year && month == _month && day == _day && finish == true)
         //拿出當日資料
         for holdOneRecord in (try? db?.prepare(filterDate))!! {
             timeHold.year = Int(holdOneRecord[year])
@@ -195,12 +201,12 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
         if(dformatter.dateFormat == "YYYY.MM.dd"){
             selectDate.text = _year + "." + _month + "." + _day
             
-            filterDate = orderDB.filter(year == _year && month == _month && day == _day /*&& finish == true*/)
+            filterDate = orderDB.filter(year == _year && month == _month && day == _day && finish == true)
             
             
         }
         else if(dformatter.dateFormat == "YYYY.MM"){
-            filterDate = orderDB.filter(year == _year && month == _month /*&& finish == true*/)
+            filterDate = orderDB.filter(year == _year && month == _month && finish == true)
             selectDate.text = _year + "." + _month
             
             

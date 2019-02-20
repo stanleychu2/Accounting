@@ -161,6 +161,23 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(item[indexPath.row + 8 * pagesIndex].id)
         print(item[indexPath.row + 8 * pagesIndex])
+        
+        let selectItem = productDB.filter(id == item[indexPath.row + 8 * pagesIndex].id)
+        for productItem in (try? db?.prepare(selectItem))!! {
+            productName.text = productItem[name]
+            VegetableMenu.selectedIndex = VegetableMenu.optionArray.firstIndex(of: productItem[type])
+            VegetableMenu.text = productItem[type]
+            pagesMenu.selectedIndex = pagesMenu.optionArray.firstIndex(of: String(productItem[pages]))
+            pagesMenu.text = String(productItem[pages])
+            positionMenu.selectedIndex = positionMenu.optionArray.firstIndex(of: String(productItem[position]))
+            positionMenu.text = String(productItem[position])
+            product.id = productItem[id]
+            product.name = productItem[name]
+            product.type = productItem[type]
+            product.pages = productItem[pages]
+            product.position = productItem[position]
+        }
+        
         updateBtn.isHidden = false
         deleteBtn.isHidden = false
         selectedRow = indexPath
@@ -225,6 +242,7 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func updateProduct(_ sender: Any) {
+        
         if(productName.text!.count == 0 || product.type.count == 0 || product.pages == 0 || product.position == 0) {
             let alertController = UIAlertController(title: "不能有欄位為空\n請輸入完成後再次點選", message: "", preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
@@ -237,6 +255,7 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.present(alertController, animated: true, completion: nil)
         }
         else {
+            product.name = productName.text!
             updateBtn.isHidden = true
             deleteBtn.isHidden = true
             item[selectedRow!.row + 8 * pagesIndex].name = productName.text!
@@ -268,6 +287,7 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func deleteProduct(_ sender: Any) {
+        
         updateBtn.isHidden = true
         deleteBtn.isHidden = true
         // 將資料從資料庫中刪除
@@ -284,5 +304,16 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.reloadData()
         // 刪除動畫: 但刪除會造成 row 個數改變產生問題
         // tableView.deleteRows(at: [selectedRow!], with: .fade)
+        // 刪除商品之後清空欄位內容
+        productName.text = ""
+        VegetableMenu.text = ""
+        VegetableMenu.selectedIndex = 0
+        pagesMenu.text = ""
+        pagesMenu.selectedIndex = 0
+        positionMenu.text = ""
+        positionMenu.selectedIndex = 0
+        product.type = ""
+        product.pages = 0
+        product.position = 0
     }
 }

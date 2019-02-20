@@ -369,16 +369,22 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         // 當成功列印時才更改 Order 的狀態為 finished
         printController.present(animated: true) { (controller, success, error) -> Void in
             
-            //if(success){
+            if(success){
                 print("列印成功")
                 
                 //通知record更新紀錄
                 self.delegate?.notifyUpdate()
 
-                
+                let now = Date()
+                let calendar = Calendar.current
+            
+                let _year = String(calendar.component(.year, from: now))
+                let _month = String(calendar.component(.month, from: now))
+                let _day = String(calendar.component(.day, from: now))
+            
                 let modify = self.orderDB.filter(self.contactName == self.selectedContact && self.serialNum == self.selectedUUID)
                 print(modify)
-                if let count = try? db?.run(modify.update(self.finish <- true)) {
+                if let count = try? db?.run(modify.update(self.finish <- true, self.year <- _year, self.day <- _day, self.month <- _month)) {
                     print("修改 row 的個數：\(String(describing: count))")
                 } else {
                     print("修改失敗")
@@ -391,10 +397,10 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 self.orderProduct = [OrderProduct]()
                 self.sumMoneyLabel.text = "$ 0"
                 self.OrderTableView.reloadData()
-           // }
-          //  else {
+            }
+            else {
                 print("列印失敗")
-           // }
+            }
         }
     }
 }

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="content-type">
+            <title>A simple, clean, and responsive HTML invoice template</title>
+            <style>
+                .invoice-table{
+                    table-layout: fixed;
+                    width: 100%;
+                }
+            .invoice-table td{
+                text-align: center;
+            }
+            .invoice-table td.right{
+                text-align: right;
+            }
+            .invoice-table .heading>td{
+                font-weight: 800;
+                background-color: lightgray;
+            }
+            </style>
+            </head>
+    <body>
+        <div class="invoice-box">
+            <table class="invoice-table" cellpadding="0" cellspacing="0" width="1000">
+                <tbody>
+                    <tr>
+                        <td class="title"> <img src="#LOGO_IMAGE#" style="background-color: #cdcdcd;">
+                            </td>
+                        <td class="right" colspan="4"> 交易單號 #: #INVOICE_NUMBER#<br>
+                            #INVOICE_DATE#<br>
+                            #DUE_DATE# </td>
+                    </tr>
+                    <tr>
+                        <td> #SENDER_INFO# </td>
+                        <td class="right" colspan="4"> #RECIPIENT_INFO# </td>
+                    </tr>
+                    <tr> <td> #SENDER_PHONE# </td> </tr>
+                    <tr class="heading">
+                        <td> 商品 </td>
+                        <td> 數量 </td>
+                        <td> 單位 </td>
+                        <td> 單價 </td>
+                        <td> 金額 </td>
+                    </tr>
+                    #ITEMS#
+                    <tr >
+                        <td class="right" colspan="5"> 總價 : #TOTAL_AMOUNT# </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </body>
+</html>

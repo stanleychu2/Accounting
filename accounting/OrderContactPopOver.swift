@@ -33,20 +33,18 @@ class OrderContactPopOver: UIViewController,UICollectionViewDelegate, UICollecti
     var pagesIndex = 0
     // table 中有哪一些欄位和型態
     let id = Expression<Int64>("id")
-    let company = Expression<String>("company")
     let name = Expression<String>("name")
     let telephone = Expression<String>("telephone")
     let cellphone = Expression<String>("cellphone")
     let email = Expression<String>("email")
     let lineId = Expression<String>("lineId")
     let fax = Expression<String>("fax")
-    let other = Expression<String>("other")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         for contact in (try? db?.prepare(contactDB))!! {
-            people.append(Contact(id: contact[id], company: contact[company], name: contact[name], telephone: contact[telephone], cellphone: contact[cellphone], email: contact[email], lineId: contact[lineId], fax: contact[fax], other: contact[other]))
+            people.append(Contact(id: contact[id], name: contact[name], telephone: contact[telephone], cellphone: contact[cellphone], email: contact[email], lineId: contact[lineId], fax: contact[fax]))
         }
         // Do any additional setup after loading the view.
         collectionView.layer.borderWidth = 1

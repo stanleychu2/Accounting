@@ -14,14 +14,12 @@ import SQLite
 
 struct Contact {
     var id: Int64!
-    var company: String = ""
     var name: String = ""
     var telephone: String = ""
     var cellphone: String = ""
     var email: String = ""
     var lineId: String = ""
     var fax: String = ""
-    var other: String = ""
 }
 
 class ContactCollectionViewCell: UICollectionViewCell {
@@ -43,14 +41,12 @@ class ContactViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     // table 中有哪一些欄位和型態
     let id = Expression<Int64>("id")
-    let company = Expression<String>("company")
     let name = Expression<String>("name")
     let telephone = Expression<String>("telephone")
     let cellphone = Expression<String>("cellphone")
     let email = Expression<String>("email")
     let lineId = Expression<String>("lineId")
-    let fax = Expression<String>("fax")
-    let other = Expression<String>("other")
+    //let fax = Expression<String>("fax")
     
     
     override func viewDidLoad() {
@@ -75,7 +71,7 @@ class ContactViewController: UIViewController, UICollectionViewDelegate, UIColle
     func updateCollection(){
         people = [Contact]()
         for contact in (try? db?.prepare(contactDB))!! {
-            people.append(Contact(id: contact[id], company: contact[company], name: contact[name], telephone: contact[telephone], cellphone: contact[cellphone], email: contact[email], lineId: contact[lineId], fax: contact[fax], other: contact[other]))
+            people.append(Contact(id: contact[id], name: contact[name], telephone: contact[telephone], cellphone: contact[cellphone], email: contact[email], lineId: contact[lineId], fax: contact[fax]))
         }
         pageLabel.text = ("\(pagesIndex + 1) / \((people.count - 1) / 36 + 1)")
         collectionView.reloadData()

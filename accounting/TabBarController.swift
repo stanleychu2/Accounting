@@ -14,7 +14,7 @@ let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMa
 
 // 連接 db 並宣告一個ㄧ名為 productDB 的 table
 let db = try? Connection("\(path)/db.sqlite")
-let fax = Expression<String>("fax")
+
 
 
 
@@ -23,12 +23,15 @@ class TabBarController: UITabBarController {
     //contact
     let contactDB = Table("contact")
     
+    let company = Expression<String>("company")
     let id = Expression<Int64>("id")
     let name = Expression<String>("name")
     let telephone = Expression<String>("telephone")
     let cellphone = Expression<String>("cellphone")
     let email = Expression<String>("email")
     let lineId = Expression<String>("lineId")
+    let fax = Expression<String>("fax")
+    let other = Expression<String>("other")
     
     //product
     let productDB = Table("product")
@@ -67,12 +70,14 @@ class TabBarController: UITabBarController {
         //create contact table
         try! db?.run(contactDB.create(ifNotExists: true, block: { (table) in
             table.column(id, primaryKey: true)
+            table.column(company)
             table.column(name)
             table.column(telephone)
             table.column(cellphone)
             table.column(email)
             table.column(lineId)
             table.column(fax)
+            table.column(other)
         }))
         //create product table
         try! db?.run(productDB.create(ifNotExists: true, block: { (table) in

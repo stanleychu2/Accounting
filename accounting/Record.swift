@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ZHDropDownMenu
 import SQLite
 
 let orderDB = Table("order")
@@ -21,12 +20,12 @@ class recordCell: UITableViewCell {
 
 
 class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, ContactpopOverReturnDataDelegate, UIPopoverPresentationControllerDelegate, UpdateRecordDelegate {
-
+    
     let id = Expression<Int64>("id")
     let contactName = Expression<String>("contactName")
     let amount = Expression<Int64>("amount")
     let money = Expression<Int64>("money")
-
+    
     //let date = Expression<Date>("date")
     let year = Expression<String>("year")
     let month = Expression<String>("month")
@@ -169,7 +168,7 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
                 orderName: holdOneRecord[contactName],
                 price: Int(holdOneRecord[amount] * holdOneRecord[money])))
         }
-
+        
         combineSameOrderNumber()
         
         selectDate.text = _year + "." + _month + "." + _day
@@ -183,7 +182,7 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
             // 設定回傳的代理為自己
             controller?.delegate = self
         }
-       
+        
     }
     
     func update() {
@@ -193,9 +192,6 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
         let _month = String(calendar.component(.month, from: _date))
         let _day = String(calendar.component(.day, from: _date))
         
-        print(_year)
-        print(_month)
-        print(_day)
         
         //顯示整日紀錄或整月紀錄
         if(dformatter.dateFormat == "YYYY.MM.dd"){
@@ -212,13 +208,11 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
             
         }
         var element = 0
-        print("before start, element = " + String(element))
         for holdOneRecord in (try? db?.prepare(filterDate))!! {
             timeHold.year = Int(holdOneRecord[year])
             timeHold.month = Int(holdOneRecord[month])
             timeHold.day = Int(holdOneRecord[day])
             if(element >= allRecord.count){
-                print("if")
                 allRecord.append(OrderRecord(
                     time: timeHold,
                     orderNumber: holdOneRecord[serialNum],
@@ -227,7 +221,6 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
                 
             }
             else if (element < allRecord.count){
-                print("else")
                 allRecord[element] = (OrderRecord(
                     time: timeHold,
                     orderNumber: holdOneRecord[serialNum],
@@ -239,7 +232,6 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
         
         while(allRecord.count > element){
             allRecord.popLast()
-            print("pop")
         }
         
         combineSameOrderNumber()
@@ -295,19 +287,28 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
     
     func combineSameOrderNumber(){
         for i in 0 ... allRecord.count {
-            //print(allRecord.count)
+            //print("all: \(allRecord.count)")
+            if(i >= allRecord.count){
+                break
+            }
+            //print("i: \(i) , price: \(allRecord[i].price) , number: \(allRecord[i].orderNumber)")
             for j in 0 ... allRecord.count {
                 if( j <= i){
                     continue
                 }
-                else if(i >= allRecord.count || j >= allRecord.count){
+                else if( j >= allRecord.count){
                     break
                 }
-                if(allRecord[i].orderNumber == allRecord[j].orderNumber){
-                    print(allRecord[i].orderNumber)
+                //print("j: \(j) , price: \(allRecord[j].price) , number: \(allRecord[j].orderNumber)")
+                while(allRecord[i].orderNumber == allRecord[j].orderNumber){
+                    //print("i: \(i) , price: \(allRecord[i].price)")
+                    //print("j: \(j) , price: \(allRecord[j].price)")
                     allRecord[i].price += allRecord[j].price
+                    //print("added price: \(allRecord[i].price)")
                     allRecord.remove(at: j)
-                    
+                    if( j >= allRecord.count){
+                        break
+                    }
                 }
             }
         }

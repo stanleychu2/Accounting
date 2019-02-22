@@ -6,7 +6,6 @@ target 'accounting' do
   use_frameworks!
 
   # Pods for accounting
-  pod 'ZHDropDownMenu'
   pod 'SQLite.swift'
   pod 'iOSDropDown'
 

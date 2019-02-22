@@ -6,11 +6,7 @@
 //  Copyright © 2019年 邱斯. All rights reserved.
 //
 import UIKit
-import ZHDropDownMenu
 import SQLite
-
-
-
 
 class settingCell: UITableViewCell {
     @IBOutlet weak var value: UITextField!

@@ -3,7 +3,7 @@
 //  accounting
 //
 //  Created by 徐胤桓 on 2019/1/24.
-//  Copyright © 2019年 邱斯. All rights reserved.
+//  Copyright © 2019年 邱斯,徐胤桓,陳則明. All rights reserved.
 //
 import UIKit
 import SQLite

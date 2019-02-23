@@ -2,8 +2,8 @@
 //  POSSPopOverView.swift
 //  accounting
 //
-//  Created by sam on 2019/2/14.
-//  Copyright © 2019 邱斯. All rights reserved.
+//  Created by 陳則明 on 2019/2/14.
+//  Copyright © 2019 邱斯,徐胤桓,陳則明. All rights reserved.
 //
 
 import UIKit

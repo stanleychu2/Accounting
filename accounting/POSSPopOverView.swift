@@ -72,7 +72,7 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
         
         amountInput.becomeFirstResponder()
         
-        unitInput.optionArray = ["公斤", "台斤", "件", "盒", "箱"]
+        unitInput.optionArray = ["公斤", "台斤", "件", "把", "盒", "箱"]
         // 當下拉式選單中的東西被選到時執行
         unitInput.didSelect{(selectedText , index ,id) in
             print("Selected String: \(selectedText) \n index: \(index)")

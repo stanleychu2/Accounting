@@ -50,7 +50,7 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
     @IBOutlet weak var nextTimer: UIButton!
     @IBOutlet weak var orderTable: UITableView!
     @IBOutlet weak var totalPrice: UILabel!
-    
+    @IBOutlet weak var displayName: UILabel!
     var switchDay: Bool = true
     var fromSwitch: Bool = true
     var total: Int = 0
@@ -59,6 +59,8 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
     var increaseMonth = 0
     var decreaseDay = 0
     var decreaseMonth = 0
+    
+    var name = "FFFFFF"
     
     var filterDate = orderDB
     
@@ -117,6 +119,11 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
         return cell
     }
     
+    @IBAction func resetFilter(_ sender: Any) {
+        name = "FFFFFF"
+        displayName.text = " "
+        update()
+    }
     @IBAction func chooseContact(_ sender: UIButton) {
         performSegue(withIdentifier: "recordPopOverSegue", sender: nil)
     }
@@ -132,7 +139,13 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
             allRecord.popLast()
         }
         
-        let filterName = orderDB.filter(contactName == contact && finish == true)
+        let _year = String(calendar.component(.year, from: _date))
+        let _month = String(calendar.component(.month, from: _date))
+        
+        let filterName = orderDB.filter(contactName == contact && finish == true && year == _year && month == _month)
+        name = contact
+        displayName.text = contact
+        print(displayName.text)
         for holdOneRecord in (try? db?.prepare(filterName))!! {
             timeHold.year = Int(holdOneRecord[year])
             timeHold.month = Int(holdOneRecord[month])
@@ -192,17 +205,26 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
         let _month = String(calendar.component(.month, from: _date))
         let _day = String(calendar.component(.day, from: _date))
         
-        
         //顯示整日紀錄或整月紀錄
         if(dformatter.dateFormat == "YYYY.MM.dd"){
             selectDate.text = _year + "." + _month + "." + _day
             
-            filterDate = orderDB.filter(year == _year && month == _month && day == _day && finish == true)
-            
+            if(name == "FFFFFF"){
+                filterDate = orderDB.filter(year == _year && month == _month && day == _day && finish == true)
+            }
+            else{
+                filterDate = orderDB.filter(year == _year && month == _month && day == _day && finish == true && contactName == name)
+            }
             
         }
         else if(dformatter.dateFormat == "YYYY.MM"){
-            filterDate = orderDB.filter(year == _year && month == _month && finish == true)
+            if(name == "FFFFFF"){
+                filterDate = orderDB.filter(year == _year && month == _month && finish == true)
+            }
+            else{
+                filterDate = orderDB.filter(year == _year && month == _month && finish == true && contactName == name)
+            }
+            
             selectDate.text = _year + "." + _month
             
             

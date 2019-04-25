@@ -31,6 +31,7 @@ class DropDownMenu: DropDown {
 struct Product {
     var id: Int64!
     var name: String = ""
+    var money: Int64 = 0
     var type: String = ""
     var pages: Int64 = 0
     var position: Int64 = 0
@@ -44,18 +45,19 @@ class myCell: UITableViewCell {
     @IBOutlet weak var productPagesLabel: UILabel!
 }
 
-class ProductViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ProductViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     // 新增 outlet 可以設定樣式和做一些控制利用 contrl 拉到 view controller 裡
-    @IBOutlet weak var positionMenu: DropDownMenu!
-    @IBOutlet weak var pagesMenu: DropDownMenu!
     @IBOutlet weak var VegetableMenu: DropDownMenu!
+    @IBOutlet weak var productPage: UITextField!
+    @IBOutlet weak var productPosition: UITextField!
     @IBOutlet weak var pagesControllerLabel: UILabel!
     @IBOutlet weak var deleteBtn: UIButton!
     @IBOutlet weak var updateBtn: UIButton!
     @IBOutlet weak var tableHeaderAllView: UIView!
     @IBOutlet weak var tableHeaderUpView: UIView!
     @IBOutlet weak var productName: UITextField!
+    @IBOutlet weak var productPrice: UITextField!
     @IBOutlet weak var newProduct_btn: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
@@ -65,6 +67,7 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
     let id = Expression<Int64>("id")
     let name = Expression<String>("name")
     let type = Expression<String>("type")
+    let money = Expression<Int64>("money")
     let pages = Expression<Int64>("pages")
     let position = Expression<Int64>("position")
     
@@ -78,7 +81,7 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // 從資料庫中拿出所有 product 放到 item 裡
         for product in (try? db?.prepare(productDB))!! {
-            item.append(Product(id: product[id], name: product[name], type: product[type], pages: product[pages], position: product[position]))
+            item.append(Product(id: product[id], name: product[name], money: product[money], type: product[type], pages: product[pages], position: product[position]))
         }
         
         tableView.delegate = self
@@ -86,6 +89,11 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.layer.masksToBounds = true
         tableView.layer.borderColor = UIColor.gray.cgColor
         tableView.layer.borderWidth = 2.0
+        
+        productName.delegate = self
+        productPage.delegate = self
+        productPosition.delegate = self
+        productPrice.delegate = self
         
         newProduct_btn.layer.cornerRadius = 10
         deleteBtn.layer.cornerRadius = 10
@@ -96,6 +104,9 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableHeaderUpView.layer.borderWidth = 0.5
         tableHeaderUpView.layer.borderColor = UIColor.gray.cgColor
+        
+        // 設立鍵盤監聽器
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         // 設定頁碼和最大頁數
         pagesControllerLabel.text = ("\(pagesIndex + 1) / \((item.count - 1) / 8 + 1)")
@@ -111,23 +122,22 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.product.type = selectedText
         }
         
-        pagesMenu.optionArray = ["1", "2", "3", "4"]
-        pagesMenu.didSelect{(selectedText , index ,id) in
-            print("Selected String: \(selectedText) \n index: \(index)")
-            
-            self.product.pages = Int64(selectedText)!
-        }
-
-        positionMenu.optionArray = ["1", "2", "3", "4", "5",
-                                    "6", "7", "8", "9", "10",
-                                    "11", "12", "13", "14", "15",
-                                    "16", "17", "18", "19", "20",
-                                    "21", "22", "23", "24", "25"]
-        positionMenu.didSelect{(selectedText , index ,id) in
-            print("Selected String: \(selectedText) \n index: \(index)")
-            
-            self.product.position = Int64(selectedText)!
-        }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        UIView.animate(withDuration: 0.8, animations: {
+            self.view.frame = CGRect(x: 0, y: -230, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        })
+    }
+    
+    // 監聽鍵盤隱藏的動作，並執行 func 中的內容
+    @objc func keyboardWillHide(notification: NSNotification) {
+        print("hello")
+        
+        UIView.animate(withDuration: 0.3, animations: {
+        self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        })
     }
     
     // 點擊空白處縮起鍵盤停止編輯
@@ -164,12 +174,11 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
         let selectItem = productDB.filter(id == item[indexPath.row + 8 * pagesIndex].id)
         for productItem in (try? db?.prepare(selectItem))!! {
             productName.text = productItem[name]
+            productPrice.text = String(productItem[money])
             VegetableMenu.selectedIndex = VegetableMenu.optionArray.firstIndex(of: productItem[type])
             VegetableMenu.text = productItem[type]
-            pagesMenu.selectedIndex = pagesMenu.optionArray.firstIndex(of: String(productItem[pages]))
-            pagesMenu.text = String(productItem[pages])
-            positionMenu.selectedIndex = positionMenu.optionArray.firstIndex(of: String(productItem[position]))
-            positionMenu.text = String(productItem[position])
+            productPage.text = String(productItem[pages])
+            productPosition.text = String(productItem[position])
             product.id = productItem[id]
             product.name = productItem[name]
             product.type = productItem[type]
@@ -195,23 +204,44 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func newProduct(_ sender: Any) {
+        let formatter =  NumberFormatter()
+        let samePos = productDB.filter(type == product.type && pages == product.pages && position == product.position)
+        var isSamePos = false
+        for _ in (try? db?.prepare(samePos))!! {
+            isSamePos = true
+            break
+        }
         
         // 當有欄位為空得時候跳出警告訊息 upadte 中也相同
-        if(productName.text!.count == 0 || product.type.count == 0 || product.pages == 0 || product.position == 0) {
+        if(productName.text!.count == 0 || product.type.count == 0 || productPage.text!.count == 0 || productPosition.text!.count == 0) {
             let alertController = UIAlertController(title: "不能有欄位為空\n請輸入完成後再次點選", message: "", preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
         // 當所選位置已存在商品時跳出警告訊息 update 中也相同
-        else if(try! (db?.scalar(productDB.filter(type == product.type && pages == product.pages && position == product.position).count))! > 0 ){
+        else if(isSamePos){
             let alertController = UIAlertController(title: "所選的位置和頁數\n已存在商品請重新選擇", message: "", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
+        else if(formatter.number(from: productPrice.text!) == nil || formatter.number(from: productPage.text!) == nil || formatter.number(from: productPosition.text!) == nil){
+            let alertController = UIAlertController(title: "單價、頁數、位置請以數字輸入", message: "", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
+        else if(Int64(productPage.text!)! < 1 || Int64(productPage.text!)! > 4
+            || Int64(productPosition.text!)! < 1 || Int64(productPosition.text!)! > 25){
+            let alertController = UIAlertController(title: "請將以下欄位維持在範圍中\n頁數範圍：1 ~ 4\n位置範圍：1 ~ 25", message: "", preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
         else {
             product.name = productName.text!
+            product.money = Int64(productPrice.text!) ?? 0
+            product.pages = Int64(productPage.text!)!
+            product.position = Int64(productPosition.text!)!
             // 將資料插入資料庫
-            let insert = productDB.insert(name <- productName.text!, type <- product.type, pages <- product.pages, position <- product.position)
+            let insert = productDB.insert(name <- productName.text!, type <- product.type, money <- product.money ,pages <- product.pages, position <- product.position)
             if let rowId = try? db?.run(insert) {
                 print("插入成功：\(String(describing: rowId))")
                 product.id = rowId!
@@ -228,12 +258,11 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
             print("\(product.name)     \(String(product.pages))     \(String(product.position))")
             // 新增商品之後清空欄位內容
             productName.text = ""
+            productPrice.text = ""
             VegetableMenu.text = ""
             VegetableMenu.selectedIndex = 0
-            pagesMenu.text = ""
-            pagesMenu.selectedIndex = 0
-            positionMenu.text = ""
-            positionMenu.selectedIndex = 0
+            productPage.text = ""
+            productPosition.text = ""
             product.type = ""
             product.pages = 0
             product.position = 0
@@ -241,28 +270,50 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func updateProduct(_ sender: Any) {
+        let formatter =  NumberFormatter()
+        let samePos = productDB.filter(type == product.type && pages == product.pages && position == product.position)
+        var isSamePos = false
+        for _ in (try? db?.prepare(samePos))!! {
+            isSamePos = true
+            break
+        }
         
-        if(productName.text!.count == 0 || product.type.count == 0 || product.pages == 0 || product.position == 0) {
+        if(productName.text!.count == 0 || product.type.count == 0 || productPage.text!.count == 0 || productPosition.text!.count == 0) {
             let alertController = UIAlertController(title: "不能有欄位為空\n請輸入完成後再次點選", message: "", preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
-        else if(try! (db?.scalar(productDB.filter(type == product.type && pages == product.pages && position == product.position).count))! > 0 && !(item[selectedRow!.row + 8 * pagesIndex].pages == product.pages
+        else if(isSamePos && !(item[selectedRow!.row + 8 * pagesIndex].pages == product.pages
             && item[selectedRow!.row + 8 * pagesIndex].position == product.position)){
             let alertController = UIAlertController(title: "所選的位置和頁數\n已存在商品請重新選擇", message: "", preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
+        else if(formatter.number(from: productPrice.text!) == nil || formatter.number(from: productPage.text!) == nil || formatter.number(from: productPosition.text!) == nil){
+            let alertController = UIAlertController(title: "單價、頁數、位置請以數字輸入", message: "", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
+        else if(Int64(productPage.text!)! < 1 || Int64(productPage.text!)! > 4
+            || Int64(productPosition.text!)! < 1 || Int64(productPosition.text!)! > 25){
+            let alertController = UIAlertController(title: "請將以下欄位維持在範圍中\n頁數範圍：1 ~ 4\n位置範圍：1 ~ 25", message: "", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
         else {
             product.name = productName.text!
+            product.money = Int64(productPrice.text!) ?? 0
+            product.pages = Int64(productPage.text!)!
+            product.position = Int64(productPosition.text!)!
             updateBtn.isHidden = true
             deleteBtn.isHidden = true
             item[selectedRow!.row + 8 * pagesIndex].name = productName.text!
+            item[selectedRow!.row + 8 * pagesIndex].money = Int64(productPrice.text!) ?? 0
             item[selectedRow!.row + 8 * pagesIndex].type = product.type
             item[selectedRow!.row + 8 * pagesIndex].pages = product.pages
             item[selectedRow!.row + 8 * pagesIndex].position = product.position
             let modify = productDB.filter(id == item[selectedRow!.row + 8 * pagesIndex].id)
-            if let count = try? db?.run(modify.update(name <- productName.text!, type <- product.type, pages <- product.pages, position <- product.position)) {
+            if let count = try? db?.run(modify.update(name <- productName.text!, type <- product.type, money <- product.money ,pages <- product.pages, position <- product.position)) {
                 print("修改 row 的個數：\(String(describing: count))")
             } else {
                 print("修改失敗")
@@ -273,12 +324,11 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
             // 向右滑動出現刪除按鈕 : tableView.setEditing(true, animated: false)
             // 更新商品之後清空欄位內容
             productName.text = ""
+            productPrice.text = ""
             VegetableMenu.text = ""
             VegetableMenu.selectedIndex = 0
-            pagesMenu.text = ""
-            pagesMenu.selectedIndex = 0
-            positionMenu.text = ""
-            positionMenu.selectedIndex = 0
+            productPage.text = ""
+            productPosition.text = ""
             product.type = ""
             product.pages = 0
             product.position = 0
@@ -305,12 +355,11 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
         // tableView.deleteRows(at: [selectedRow!], with: .fade)
         // 刪除商品之後清空欄位內容
         productName.text = ""
+        productPrice.text = ""
         VegetableMenu.text = ""
         VegetableMenu.selectedIndex = 0
-        pagesMenu.text = ""
-        pagesMenu.selectedIndex = 0
-        positionMenu.text = ""
-        positionMenu.selectedIndex = 0
+        productPage.text = ""
+        productPosition.text = ""
         product.type = ""
         product.pages = 0
         product.position = 0

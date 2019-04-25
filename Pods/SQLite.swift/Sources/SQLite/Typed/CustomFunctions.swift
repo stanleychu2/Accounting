@@ -39,7 +39,7 @@ public extension Connection {
     ///     The assigned types must be explicit.
     ///
     /// - Returns: A closure returning an SQL expression to call the function.
-    public func createFunction<Z : Value>(_ function: String, deterministic: Bool = false, _ block: @escaping () -> Z) throws -> (() -> Expression<Z>) {
+    func createFunction<Z : Value>(_ function: String, deterministic: Bool = false, _ block: @escaping () -> Z) throws -> (() -> Expression<Z>) {
         let fn = try createFunction(function, 0, deterministic) { _ in block() }
         return { fn([]) }
     }

@@ -310,6 +310,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hant",
 			);
 			mainGroup = DD3B291E21F06B50007A10FB;
 			productRefGroup = DD3B292821F06B50007A10FB /* Products */;
@@ -628,7 +629,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 29DLPG3WRS;
+				DEVELOPMENT_TEAM = QSV9A9BSWN;
 				INFOPLIST_FILE = accounting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -647,7 +648,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 29DLPG3WRS;
+				DEVELOPMENT_TEAM = QSV9A9BSWN;
 				INFOPLIST_FILE = accounting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

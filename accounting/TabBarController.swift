@@ -83,6 +83,7 @@ class TabBarController: UITabBarController {
         try! db?.run(productDB.create(ifNotExists: true, block: { (table) in
             table.column(id, primaryKey: true)
             table.column(name)
+            table.column(money)
             table.column(type)
             table.column(pages)
             table.column(position)

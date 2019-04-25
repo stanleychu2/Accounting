@@ -133,7 +133,6 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // 監聽鍵盤隱藏的動作，並執行 func 中的內容
     @objc func keyboardWillHide(notification: NSNotification) {
-        print("hello")
         
         UIView.animate(withDuration: 0.3, animations: {
         self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
@@ -224,7 +223,7 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
             alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
-        else if(formatter.number(from: productPrice.text!) == nil || formatter.number(from: productPage.text!) == nil || formatter.number(from: productPosition.text!) == nil){
+        else if(productPrice.text! != "" && (formatter.number(from: productPrice.text!) == nil || formatter.number(from: productPage.text!) == nil || formatter.number(from: productPosition.text!) == nil)){
             let alertController = UIAlertController(title: "單價、頁數、位置請以數字輸入", message: "", preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
@@ -289,7 +288,7 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
             alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
-        else if(formatter.number(from: productPrice.text!) == nil || formatter.number(from: productPage.text!) == nil || formatter.number(from: productPosition.text!) == nil){
+        else if(productPrice.text! != "" && (formatter.number(from: productPrice.text!) == nil || formatter.number(from: productPage.text!) == nil || formatter.number(from: productPosition.text!) == nil)){
             let alertController = UIAlertController(title: "單價、頁數、位置請以數字輸入", message: "", preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)

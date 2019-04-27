@@ -12,7 +12,7 @@ import SQLite
 // 宣告回傳協定
 @objc protocol ContactpopOverReturnDataDelegate {
     func contactPopOverReturnData(contact: String)
-    func clearData()
+    //func clearData()
 }
 
 class OrderContactCollectionViewCell: UICollectionViewCell{
@@ -28,6 +28,7 @@ class OrderContactPopOver: UIViewController,UICollectionViewDelegate, UICollecti
     
     let contactDB = Table("contact")
     
+    var choose:String = ""
     var people = [Contact]()
     var contact = Contact()
     var pagesIndex = 0
@@ -75,7 +76,13 @@ class OrderContactPopOver: UIViewController,UICollectionViewDelegate, UICollecti
         // Configure the cell
         cell.layer.cornerRadius = 3
         cell.cellLabel.text = people[36 * pagesIndex + indexPath.row].name
-        cell.backgroundColor = #colorLiteral(red: 0.9024838209, green: 0.6174634099, blue: 0.1791247427, alpha: 1)
+        if(choose != " " && choose == cell.cellLabel.text){
+            cell.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        }else{
+            cell.backgroundColor = #colorLiteral(red: 0.9024838209, green: 0.6174634099, blue: 0.1791247427, alpha: 1)
+        }
+        
+        
     
         return cell
     }
@@ -85,7 +92,7 @@ class OrderContactPopOver: UIViewController,UICollectionViewDelegate, UICollecti
         // 回傳時執行 orderViewController 的 contactPopOverReturnData func
         delegate?.contactPopOverReturnData(contact: String(cell.cellLabel.text!))
         // 回傳時執行 orderViewController 的 clearData func
-        delegate?.clearData()
+        //delegate?.clearData()
         presentingViewController!.dismiss(animated: true, completion: nil)
         
     }

@@ -115,7 +115,7 @@ class InvoiceComposer: NSObject {
                 itemHTMLContent = itemHTMLContent.replacingOccurrences(of: "#UNIT#", with: allUnit[i])
                 
                 // Format each item's price as a currency value.
-                itemHTMLContent = itemHTMLContent.replacingOccurrences(of: "#PRICE#", with: String(items[i].amount * items[i].unitPrice))
+                itemHTMLContent = itemHTMLContent.replacingOccurrences(of: "#PRICE#", with: String((items[i].amount * Float64(items[i].unitPrice)).rounded()))
                 
                 // Add the item's HTML code to the general items string.
                 allItems += itemHTMLContent

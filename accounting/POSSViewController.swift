@@ -77,7 +77,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     // order table 有哪些欄位(某些欄位名稱與 product 共用)
     let contactName = Expression<String>("contactName")
     let productName = Expression<String>("productName")
-    let amount = Expression<Int64>("amount")
+    let amount = Expression<Float64>("amount")
     let money = Expression<Int64>("money")
     let year = Expression<String>("year")
     let month = Expression<String>("month")
@@ -128,6 +128,11 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
             controller?.delegate = self
             // 傳遞商品名稱
             controller?.product = item[(ProductCollectionView.indexPathsForSelectedItems?[0].row)!]
+            //傳遞商品單價
+            let a = productDB.filter(name == item[(ProductCollectionView.indexPathsForSelectedItems?[0].row)!])
+            for product in (try? db?.prepare(a))!!{
+                controller?.price = String(product[money])
+            }
             // 傳遞交易聯絡人名字
             controller?.contact = selectedContact
             // 傳遞交易序號
@@ -200,8 +205,8 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         orderProduct = [OrderProduct]()
         let dbResult = orderDB.filter(contactName == name && serialNum == uuid)
         for order in (try? db?.prepare(dbResult))!! {
-            orderProduct.append(OrderProduct(id: Int(order[id]), name: order[productName], amount: Int(order[amount]), unitPrice: Int(order[money])))
-            sumMoney += Int(order[amount] * order[money])
+            orderProduct.append(OrderProduct(id: Int(order[id]), name: order[productName], amount: Float64(order[amount]), unitPrice: Int(order[money])))
+            sumMoney += Int((order[amount] * Float64(order[money])).rounded())
         }
         sumMoneyLabel.text = "$ "+String(sumMoney)
         OrderTableView.reloadData()
@@ -287,7 +292,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
         cell.productNameLabel.text = orderProduct[indexPath.row].name
         cell.amountLabel.text = String(orderProduct[indexPath.row].amount)
-        cell.totalLabel.text = String(orderProduct[indexPath.row].amount * orderProduct[indexPath.row].unitPrice)
+        cell.totalLabel.text = String((orderProduct[indexPath.row].amount * Float64(orderProduct[indexPath.row].unitPrice)).rounded())
         cell.priceLabel.text = String(orderProduct[indexPath.row].unitPrice)
         return cell
     }

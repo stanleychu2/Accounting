@@ -10,7 +10,7 @@ import UIKit
 import SQLite
 
 @objc protocol popOverReturnDataDelegate {
-    func popOverReturnData(productName: String, amount: Int, unitPrice: Int)
+    func popOverReturnData(productName: String, amount: Float64, unitPrice: Int)
 }
 
 class OrderPopOverView: UIViewController, UITextFieldDelegate {
@@ -21,6 +21,7 @@ class OrderPopOverView: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var totalPriceLabel: UILabel!
     
     var productName: String!
+    var price: String!
     var selectedInput: UITextField!
     weak var delegate: popOverReturnDataDelegate?
 
@@ -28,7 +29,8 @@ class OrderPopOverView: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         productNameLabel.text = productName
-        
+        unitPriceInput.text = price
+        print(price)
         self.orderAmountInput.delegate = self
         self.unitPriceInput.delegate = self
         
@@ -66,8 +68,10 @@ class OrderPopOverView: UIViewController, UITextFieldDelegate {
     
     @IBAction func typeNumber(_ sender: UIButton) {
         
+        
         //  一開始使用者都沒有選 input 元件的話便會造成 selectedInput 為空
         if(selectedInput != nil) {
+            
             switch sender.tag {
                 
                 case 0:
@@ -91,7 +95,9 @@ class OrderPopOverView: UIViewController, UITextFieldDelegate {
                 case 9:
                     selectedInput.text! += "9"
                 case 10:
-                    selectedInput.text! = ""
+                    if(!selectedInput.text!.contains(".") && selectedInput.text!.count > 0 && selectedInput == orderAmountInput){
+                        selectedInput.text! += "."
+                    }
                 case 11:
                     if(selectedInput.text!.count > 0) {
                         selectedInput.text = String(selectedInput.text!.prefix(selectedInput.text!.count - 1))
@@ -101,7 +107,7 @@ class OrderPopOverView: UIViewController, UITextFieldDelegate {
             }
             
             if(orderAmountInput.text != "" && unitPriceInput.text != "") {
-                totalPriceLabel.text = "$ " + String(Int(orderAmountInput.text!)! * Int(unitPriceInput.text!)!)
+                totalPriceLabel.text = "$ " + String((Float64(orderAmountInput.text!)! * Float64(unitPriceInput.text!)!).rounded())
             }
             else {
                 totalPriceLabel.text = "$ 0"
@@ -118,7 +124,7 @@ class OrderPopOverView: UIViewController, UITextFieldDelegate {
         }
         else {
             // 回傳時執行 orderViewController 的 popOverReturnData func
-            delegate?.popOverReturnData(productName: productName, amount: Int(orderAmountInput.text!)!, unitPrice: Int(unitPriceInput.text!)!)
+            delegate?.popOverReturnData(productName: productName, amount: Float64(orderAmountInput.text!)! , unitPrice: Int(unitPriceInput.text!)!)
             // 點擊按鈕之後關閉 popOver 的動畫
             presentingViewController!.dismiss(animated: true, completion: nil)
         }

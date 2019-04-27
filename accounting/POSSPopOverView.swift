@@ -41,7 +41,7 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
     let id = Expression<Int64>("id")
     let contactName = Expression<String>("contactName")
     let productName = Expression<String>("productName")
-    let amount = Expression<Int64>("amount")
+    let amount = Expression<Float64>("amount")
     let money = Expression<Int64>("money")
     let year = Expression<String>("year")
     let month = Expression<String>("month")
@@ -63,7 +63,7 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
             for p in (try? db?.prepare(u))!! {
                unitInput.text = p[unit]
             }
-            totalMoney.text = "$ " + String(Int(amountInput.text!)! * Int(unitPriceInput.text!)!)
+            totalMoney.text = "$ " + String((Float64(amountInput.text!)! * Float64(unitPriceInput.text!)!).rounded())
             deleteBtn.isHidden = false
         }
         
@@ -134,7 +134,9 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
                 case 9:
                     selectedInput.text! += "9"
                 case 10:
-                    selectedInput.text! = ""
+                    if(!selectedInput.text!.contains(".") && selectedInput.text!.count > 0 && selectedInput == amountInput){
+                        selectedInput.text! += "."
+                    }
                 case 11:
                     if(selectedInput.text!.count > 0) {
                         selectedInput.text = String(selectedInput.text!.prefix(selectedInput.text!.count - 1))
@@ -144,7 +146,7 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
             }
             
             if(amountInput.text != "" && unitPriceInput.text != "") {
-                totalMoney.text = "$ " + String(Int(amountInput.text!)! * Int(unitPriceInput.text!)!)
+                totalMoney.text = "$ " + String((Float64(amountInput.text!)! * Float64(unitPriceInput.text!)!).rounded())
             }
             else {
                 totalMoney.text = "$ 0"
@@ -171,7 +173,7 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
                 print("modify")
                 let modify = orderDB.filter(id == Int64(productId))
                 print(modify)
-                if let count = try? db?.run(modify.update(amount <- Int64(amountInput.text!) ?? 0, money <- Int64(unitPriceInput.text!) ?? 0, year <- _year, day <- _day, month <- _month, unit <- unitInput.text ?? "", serialNum <- uuid, finish <- false)) {
+                if let count = try? db?.run(modify.update(amount <- Float64(amountInput.text!) ?? 0, money <- Int64(unitPriceInput.text!) ?? 0, year <- _year, day <- _day, month <- _month, unit <- unitInput.text ?? "", serialNum <- uuid, finish <- false)) {
                     print("修改 row 的個數：\(String(describing: count))")
                 } else {
                     print("修改失敗")
@@ -180,7 +182,7 @@ class POSSPopOverView: UIViewController, UITextFieldDelegate {
                 presentingViewController!.dismiss(animated: true, completion: nil)
             }else{
                 print("insert")
-                let insert = orderDB.insert(contactName <- contact, productName <- product, amount <- Int64(amountInput.text!) ?? 0, money <- Int64(unitPriceInput.text!) ?? 0, year <- _year, day <- _day, month <- _month, unit <- unitInput.text ?? "", serialNum <- uuid, finish <- false)
+                let insert = orderDB.insert(contactName <- contact, productName <- product, amount <- Float64(amountInput.text!) ?? 0, money <- Int64(unitPriceInput.text!) ?? 0, year <- _year, day <- _day, month <- _month, unit <- unitInput.text ?? "", serialNum <- uuid, finish <- false)
                 if let rowId = try? db?.run(insert) {
                     print("插入成功：\(String(describing: rowId))")
                 } else {

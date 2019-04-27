@@ -45,7 +45,7 @@ class TabBarController: UITabBarController {
     // order table 有哪些欄位(某些欄位名稱與 product 共用)
     let contactName = Expression<String>("contactName")
     let productName = Expression<String>("productName")
-    let amount = Expression<Int64>("amount")
+    let amount = Expression<Float64>("amount")
     let money = Expression<Int64>("money")
     let year = Expression<String>("year")
     let month = Expression<String>("month")

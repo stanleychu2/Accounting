@@ -13,7 +13,7 @@ struct OrderProduct {
     
     var id: Int!
     var name: String = ""
-    var amount: Int!
+    var amount: Float64!
     var unitPrice: Int!
    
 }
@@ -32,6 +32,7 @@ class orderProductCell: UITableViewCell {
 }
 
 class OrderViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIPopoverPresentationControllerDelegate, popOverReturnDataDelegate, UITableViewDelegate, UITableViewDataSource, ContactpopOverReturnDataDelegate {
+    
     
     @IBOutlet weak var totalMoneyView: UIView!
     @IBOutlet weak var pagesLabel: UILabel!
@@ -58,7 +59,7 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
     // order table 有哪些欄位(某些欄位名稱與 product 共用)
     let contactName = Expression<String>("contactName")
     let productName = Expression<String>("productName")
-    let amount = Expression<Int64>("amount")
+    let amount = Expression<Float64>("amount")
     let money = Expression<Int64>("money")
     let year = Expression<String>("year")
     let month = Expression<String>("month")
@@ -81,7 +82,7 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
     var selectedType = "蔬菜"
     var timer: Timer!
     var pagesIndex: Int64 = 1
-    
+    var who: String = ""
     // 只有第一次會進入畫面的時候執行
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,12 +151,18 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
             // 設定回傳的代理為自己
             controller?.delegate = self
             controller?.productName = item[(collectionView.indexPathsForSelectedItems?[0].row)!]
+            let a = productDB.filter(name == item[(collectionView.indexPathsForSelectedItems?[0].row)!])
+            for product in (try? db?.prepare(a))!! {
+                controller?.price = String(product[money])
+            }
+            
         }
         else if(segue.identifier == "confirmOrderPopOverSegue") {
             let controller = segue.destination as? OrderContactPopOver
             
             // 設定回傳的代理為自己
             controller?.delegate = self
+            controller?.choose = who
         }
     }
     
@@ -168,7 +175,7 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     // popOver 回傳資料執行的 func
-    func popOverReturnData(productName: String, amount: Int, unitPrice: Int) {
+    func popOverReturnData(productName: String, amount: Float64, unitPrice: Int) {
         
         print("name: \(productName) amount: \(amount) unitPrice: \(unitPrice)")
         
@@ -177,36 +184,13 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
         let index = moneySumLabel.text!.index(moneySumLabel.text!.endIndex, offsetBy: -1 * (moneySumLabel.text!.count - 2))
         let moneySumSubstring = String(moneySumLabel.text![index...])
         tableView.insertRows(at: [tempt], with: .left)
-        moneySumLabel.text = "$ " + String(amount * unitPrice + Int(moneySumSubstring)!)
+        moneySumLabel.text = "$ " + String(Int((amount * Float64(unitPrice)).rounded()) + Int(moneySumSubstring)!)
     }
     
     // contactPopOver 回傳資料執行的func
     func contactPopOverReturnData(contact: String){
         
-        let now = Date()
-        let calendar = Calendar.current
-        
-        let _year = String(calendar.component(.year, from: now))
-        let _month = String(calendar.component(.month, from: now))
-        let _day = String(calendar.component(.day, from: now))
-        
-        print("time zone")
-        print(String(calendar.component(.hour, from: now)))
-        
-        print("contact: \(contact)")
-        let uuid = UUID().uuidString
-        print(uuid)
-        for o in orderProduct{
-            print("name: \(o.name) amount: \(o.amount ?? 0)")
-            print("insert")
-            print(now)
-            let insert = orderDB.insert(contactName <- contact, productName <- o.name, amount <- Int64(o.amount ?? 0), money <- Int64(o.unitPrice ?? 0), year <- _year, day <- _day, month <- _month, unit <- "", serialNum <- uuid, finish <- false)
-            if let rowId = try? db?.run(insert) {
-                print("插入成功：\(String(describing: rowId))")
-            } else {
-                print("插入失敗")
-            }
-        }
+        who =  contact
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -262,7 +246,7 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         cell.productNameLabel.text = orderProduct[indexPath.row].name
         cell.amountLabel.text = String(orderProduct[indexPath.row].amount)
-        cell.totalLabel.text = String(orderProduct[indexPath.row].amount * orderProduct[indexPath.row].unitPrice)
+        cell.totalLabel.text = String((orderProduct[indexPath.row].amount * Float64(orderProduct[indexPath.row].unitPrice)).rounded())
         cell.priceLabel.text = String(orderProduct[indexPath.row].unitPrice)
         return cell
     }
@@ -312,14 +296,44 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
         updateCollection()
     }
     
-    @IBAction func clearOrderProduct(_ sender: UIButton) {
-        orderProduct = [OrderProduct]()
-        moneySumLabel.text = "$ 0"
-        tableView.reloadData()
+    @IBAction func chooseContact(_ sender: Any) {
+        performSegue(withIdentifier: "confirmOrderPopOverSegue", sender: nil)
     }
     
     @IBAction func confirmOrder(_ sender: UIButton) {
-        performSegue(withIdentifier: "confirmOrderPopOverSegue", sender: nil)
+        //performSegue(withIdentifier: "confirmOrderPopOverSegue", sender: nil)
+        if(who == "") {
+            let alertController = UIAlertController(title: "請選擇聯絡人\n", message: "", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }else{
+            let now = Date()
+            let calendar = Calendar.current
+            
+            let _year = String(calendar.component(.year, from: now))
+            let _month = String(calendar.component(.month, from: now))
+            let _day = String(calendar.component(.day, from: now))
+            
+            print("time zone")
+            print(String(calendar.component(.hour, from: now)))
+            
+            print("contact: \(contact)")
+            let uuid = UUID().uuidString
+            print(uuid)
+            for o in orderProduct{
+                print("name: \(o.name) amount: \(o.amount ?? 0)")
+                print("insert")
+                print(now)
+                let insert = orderDB.insert(contactName <- who, productName <- o.name, amount <- Float64(o.amount ?? 0), money <- Int64(o.unitPrice ?? 0), year <- _year, day <- _day, month <- _month, unit <- "", serialNum <- uuid, finish <- false)
+                if let rowId = try? db?.run(insert) {
+                    print("插入成功：\(String(describing: rowId))")
+                } else {
+                    print("插入失敗")
+                }
+            }
+            clearData()
+        }
+        
     }
     
 }

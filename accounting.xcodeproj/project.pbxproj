@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2281020F2206D1BE008E91A5 /* POSSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281020E2206D1BE008E91A5 /* POSSViewController.swift */; };
 		22A1CCB722155A250088A32E /* POSSPopOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A1CCB622155A250088A32E /* POSSPopOverView.swift */; };
+		3373849B2275DE1800E733DA /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3373849A2275DE1800E733DA /* DatePicker.swift */; };
 		337F565E221D505700C51AD3 /* last_item.html in Resources */ = {isa = PBXBuildFile; fileRef = 337F565B221D505700C51AD3 /* last_item.html */; };
 		337F565F221D505700C51AD3 /* single_item.html in Resources */ = {isa = PBXBuildFile; fileRef = 337F565C221D505700C51AD3 /* single_item.html */; };
 		337F5660221D505700C51AD3 /* invoice.html in Resources */ = {isa = PBXBuildFile; fileRef = 337F565D221D505700C51AD3 /* invoice.html */; };
@@ -54,6 +55,7 @@
 		1F13788D4B6209999F607649 /* Pods-accountingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-accountingTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-accountingTests/Pods-accountingTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2281020E2206D1BE008E91A5 /* POSSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POSSViewController.swift; sourceTree = "<group>"; };
 		22A1CCB622155A250088A32E /* POSSPopOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POSSPopOverView.swift; sourceTree = "<group>"; };
+		3373849A2275DE1800E733DA /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		337F565B221D505700C51AD3 /* last_item.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = last_item.html; sourceTree = "<group>"; };
 		337F565C221D505700C51AD3 /* single_item.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = single_item.html; sourceTree = "<group>"; };
 		337F565D221D505700C51AD3 /* invoice.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = invoice.html; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				DD524CDC22030CD40055F986 /* OrderContactPopOver.swift */,
 				DDA4A5AF21FECDCA00F2DB82 /* OrderPopOverView.swift */,
 				DD156CA321F2315F009577E6 /* Record.swift */,
+				3373849A2275DE1800E733DA /* DatePicker.swift */,
 				DDA4A5B12200252500F2DB82 /* Setting.swift */,
 				2281020E2206D1BE008E91A5 /* POSSViewController.swift */,
 				22A1CCB622155A250088A32E /* POSSPopOverView.swift */,
@@ -437,6 +440,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD3B292F21F06B50007A10FB /* OrderViewController.swift in Sources */,
+				3373849B2275DE1800E733DA /* DatePicker.swift in Sources */,
 				2281020F2206D1BE008E91A5 /* POSSViewController.swift in Sources */,
 				DD156CA021F19609009577E6 /* TabBarController.swift in Sources */,
 				DD156CA421F2315F009577E6 /* Record.swift in Sources */,

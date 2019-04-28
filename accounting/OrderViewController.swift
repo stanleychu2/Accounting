@@ -61,9 +61,9 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
     let productName = Expression<String>("productName")
     let amount = Expression<Float64>("amount")
     let money = Expression<Int64>("money")
-    let year = Expression<String>("year")
-    let month = Expression<String>("month")
-    let day = Expression<String>("day")
+    let year = Expression<Int>("year")
+    let month = Expression<Int>("month")
+    let day = Expression<Int>("day")
     let unit = Expression<String>("unit")
     let serialNum = Expression<String>("serialNum")
     let finish = Expression<Bool>("finish")
@@ -310,9 +310,9 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
             let now = Date()
             let calendar = Calendar.current
             
-            let _year = String(calendar.component(.year, from: now))
-            let _month = String(calendar.component(.month, from: now))
-            let _day = String(calendar.component(.day, from: now))
+            let _year = Int(calendar.component(.year, from: now))
+            let _month = Int(calendar.component(.month, from: now))
+            let _day = Int(calendar.component(.day, from: now))
             
             print("time zone")
             print(String(calendar.component(.hour, from: now)))

@@ -79,9 +79,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     let productName = Expression<String>("productName")
     let amount = Expression<Float64>("amount")
     let money = Expression<Int64>("money")
-    let year = Expression<String>("year")
-    let month = Expression<String>("month")
-    let day = Expression<String>("day")
+
     let unit = Expression<String>("unit")
     let serialNum = Expression<String>("serialNum")
     let finish = Expression<Bool>("finish")

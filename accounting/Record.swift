@@ -19,7 +19,7 @@ class recordCell: UITableViewCell {
 }
 
 
-class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, ContactpopOverReturnDataDelegate, UIPopoverPresentationControllerDelegate, UpdateRecordDelegate {
+class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate, DatePopOverReturnDataDelegate {
     
     let id = Expression<Int64>("id")
     let contactName = Expression<String>("contactName")
@@ -27,9 +27,9 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
     let money = Expression<Int64>("money")
     
     //let date = Expression<Date>("date")
-    let year = Expression<String>("year")
-    let month = Expression<String>("month")
-    let day = Expression<String>("day")
+    let year = Expression<Int>("year")
+    let month = Expression<Int>("month")
+    let day = Expression<Int>("day")
     
     let unit = Expression<String>("unit")
     let serialNum = Expression<String>("serialNum")
@@ -61,6 +61,12 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
     var decreaseMonth = 0
     
     var name = "FFFFFF"
+    var sYear = 0
+    var sMonth = 0
+    var sDay = 0
+    var eYear = 0
+    var eMonth = 0
+    var eDay = 0
     
     var filterDate = orderDB
     
@@ -73,6 +79,18 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
     var holdOneRecord = OrderRecord()
     
     let cellReuseIdentifier = "Cell"
+    
+    func pickDate(contact: String!, startYear: Int, startMonth: Int, startDay: Int, endYear: Int, endMonth: Int, endDay: Int) {
+        name = contact
+        sYear = (startYear)
+        sMonth = (startMonth)
+        sDay = (startDay)
+        eYear = (endYear)
+        eMonth = (endMonth)
+        eDay = (endDay) 
+        print(startYear)
+        update()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,13 +142,14 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
         displayName.text = " "
         update()
     }
-    @IBAction func chooseContact(_ sender: UIButton) {
+    @IBAction func printDetail(_ sender: UIButton) {
         performSegue(withIdentifier: "recordPopOverSegue", sender: nil)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    /*
     func contactPopOverReturnData(contact: String){
         total = 0
         totalPrice.text = "0"
@@ -161,12 +180,13 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
         
         self.orderTable.reloadData()
     }
+ */
     func loadDB(){
         // 從資料庫中拿出record
         //顯示當日
-        let _year = String(calendar.component(.year, from: _date))
-        let _month = String(calendar.component(.month, from: _date))
-        let _day = String(calendar.component(.day, from: _date))
+        let _year = Int(calendar.component(.year, from: _date))
+        let _month = Int(calendar.component(.month, from: _date))
+        let _day = Int(calendar.component(.day, from: _date))
         
         
         filterDate = orderDB.filter(year == _year && month == _month && day == _day && finish == true)
@@ -180,17 +200,18 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
                 orderNumber: holdOneRecord[serialNum],
                 orderName: holdOneRecord[contactName],
                 price: Int((holdOneRecord[amount] * Float64(holdOneRecord[money])).rounded()) ))
+
         }
         
         combineSameOrderNumber()
         
-        selectDate.text = _year + "." + _month + "." + _day
+        selectDate.text = String(_year) + "." + String(_month) + "." + String(_day)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if(segue.identifier == "recordPopOverSegue") {
-            let controller = segue.destination as? OrderContactPopOver
+            let controller = segue.destination as? DatePicker
             
             // 設定回傳的代理為自己
             controller?.delegate = self
@@ -201,31 +222,31 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
     func update() {
         total = 0
         
-        let _year = String(calendar.component(.year, from: _date))
-        let _month = String(calendar.component(.month, from: _date))
-        let _day = String(calendar.component(.day, from: _date))
+        let _year = Int(calendar.component(.year, from: _date))
+        let _month = Int(calendar.component(.month, from: _date))
+        let _day = Int(calendar.component(.day, from: _date))
         
+        if(name != "FFFFFF"){
+            filterDate = orderDB.filter(contactName == name)
+            let s = sYear * 365 + sMonth * 30 + sDay
+            let e = eYear * 365 + eMonth * 30 + eDay
+            print("here")
+            filterDate = filterDate.filter(year * 365 + month * 30 + day >= s)
+            filterDate = filterDate.filter(year * 365 + month * 30 + day <= e)
+
+        }
         //顯示整日紀錄或整月紀錄
-        if(dformatter.dateFormat == "YYYY.MM.dd"){
-            selectDate.text = _year + "." + _month + "." + _day
+        else if(dformatter.dateFormat == "YYYY.MM.dd"){
+            selectDate.text = "\(_year)" + "." + "\(_month)" + "." + "\(_day)"
             
-            if(name == "FFFFFF"){
-                filterDate = orderDB.filter(year == _year && month == _month && day == _day && finish == true)
-            }
-            else{
-                filterDate = orderDB.filter(year == _year && month == _month && day == _day && finish == true && contactName == name)
-            }
+            filterDate = orderDB.filter(year == _year && month == _month && day == _day && finish == true)
             
         }
         else if(dformatter.dateFormat == "YYYY.MM"){
-            if(name == "FFFFFF"){
-                filterDate = orderDB.filter(year == _year && month == _month && finish == true)
-            }
-            else{
-                filterDate = orderDB.filter(year == _year && month == _month && finish == true && contactName == name)
-            }
             
-            selectDate.text = _year + "." + _month
+            filterDate = orderDB.filter(year == _year && month == _month && finish == true)
+            
+            selectDate.text = "\(_year)" + "." + "\(_month)"
             
             
         }
@@ -240,6 +261,7 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
                     orderNumber: holdOneRecord[serialNum],
                     orderName: holdOneRecord[contactName],
                     price: Int((holdOneRecord[amount] * Float64(holdOneRecord[money])).rounded()) ))
+
                 
             }
             else if (element < allRecord.count){
@@ -248,6 +270,7 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
                     orderNumber: holdOneRecord[serialNum],
                     orderName: holdOneRecord[contactName],
                     price: Int((holdOneRecord[amount] * Float64(holdOneRecord[money])).rounded()) ))
+
             }
             element += 1
         }

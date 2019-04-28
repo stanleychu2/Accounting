@@ -629,11 +629,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-<<<<<<< Updated upstream
-				DEVELOPMENT_TEAM = QSV9A9BSWN;
-=======
 				DEVELOPMENT_TEAM = L3ZWS47VW2;
->>>>>>> Stashed changes
 				INFOPLIST_FILE = accounting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -652,11 +648,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-<<<<<<< Updated upstream
-				DEVELOPMENT_TEAM = QSV9A9BSWN;
-=======
 				DEVELOPMENT_TEAM = L3ZWS47VW2;
->>>>>>> Stashed changes
 				INFOPLIST_FILE = accounting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

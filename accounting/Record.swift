@@ -23,7 +23,7 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
     
     let id = Expression<Int64>("id")
     let contactName = Expression<String>("contactName")
-    let amount = Expression<Int64>("amount")
+    let amount = Expression<Float64>("amount")
     let money = Expression<Int64>("money")
     
     //let date = Expression<Date>("date")
@@ -154,7 +154,7 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
                 time: timeHold,
                 orderNumber: holdOneRecord[serialNum],
                 orderName: holdOneRecord[contactName],
-                price: Int(holdOneRecord[amount] * holdOneRecord[money])))
+                price: Int((holdOneRecord[amount] * Float64(holdOneRecord[money])).rounded()) ))
         }
         
         combineSameOrderNumber()
@@ -179,7 +179,7 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
                 time: timeHold,
                 orderNumber: holdOneRecord[serialNum],
                 orderName: holdOneRecord[contactName],
-                price: Int(holdOneRecord[amount] * holdOneRecord[money])))
+                price: Int((holdOneRecord[amount] * Float64(holdOneRecord[money])).rounded()) ))
         }
         
         combineSameOrderNumber()
@@ -239,7 +239,7 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
                     time: timeHold,
                     orderNumber: holdOneRecord[serialNum],
                     orderName: holdOneRecord[contactName],
-                    price: Int(holdOneRecord[amount] * holdOneRecord[money])))
+                    price: Int((holdOneRecord[amount] * Float64(holdOneRecord[money])).rounded()) ))
                 
             }
             else if (element < allRecord.count){
@@ -247,7 +247,7 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, Cont
                     time: timeHold,
                     orderNumber: holdOneRecord[serialNum],
                     orderName: holdOneRecord[contactName],
-                    price: Int(holdOneRecord[amount] * holdOneRecord[money])))
+                    price: Int((holdOneRecord[amount] * Float64(holdOneRecord[money])).rounded()) ))
             }
             element += 1
         }

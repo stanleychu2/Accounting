@@ -86,6 +86,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     var invoiceComposer: InvoiceComposer!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -342,6 +343,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     @IBAction func clearData(_ sender: Any) {
         
+        /*
         let cancel = orderDB.filter(contactName == selectedContact && serialNum == selectedUUID)
         if let count = try? db?.run(cancel.delete()) {
             print("刪除 row 個數為：\(String(describing: count))")
@@ -353,6 +355,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         updateContactCollection()
         selectedContact = ""
         selectedUUID = ""
+        */
     }
     
     @IBAction func printOrder(_ sender: Any) {

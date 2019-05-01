@@ -26,12 +26,19 @@ class DatePicker: UIViewController, UITextFieldDelegate, ContactpopOverReturnDat
     @IBOutlet weak var display: UILabel!
 
     @IBAction func finsih(_ sender: Any) {
-        startDate = Calendar.current.dateComponents(in: TimeZone.current, from: start.date)
-        endDate = Calendar.current.dateComponents(in: TimeZone.current, from: end.date)
+        if(name != ""){
+            startDate = Calendar.current.dateComponents(in: TimeZone.current, from: start.date)
+            endDate = Calendar.current.dateComponents(in: TimeZone.current, from: end.date)
 
-        delegate?.pickDate(contact: name, startYear: startDate.year!, startMonth: startDate.month!, startDay: startDate.day!, endYear: endDate.year!, endMonth: endDate.month!, endDay: endDate.day!)
-        presentingViewController!.dismiss(animated: true, completion: nil)
-
+            delegate?.pickDate(contact: name, startYear: startDate.year!, startMonth: startDate.month!, startDay: startDate.day!, endYear: endDate.year!, endMonth: endDate.month!, endDay: endDate.day!)
+            presentingViewController!.dismiss(animated: true, completion: nil)
+        }
+        else{
+            let alertController = UIAlertController(title: "請選擇聯絡人\n", message: "", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+            
+        }
 
     }
     override func viewDidLoad() {

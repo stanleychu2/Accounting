@@ -301,6 +301,9 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPo
         update()
     }
     @IBAction func next(_ sender: Any) {
+        name = "FFFFFF"
+        displayName.text = " "
+        update()
         if(switchDay == true){
             increaseDay += 1
         }
@@ -316,6 +319,9 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPo
         update()
     }
     @IBAction func previous(_ sender: Any) {
+        name = "FFFFFF"
+        displayName.text = " "
+        update()
         if(switchDay == true){
             decreaseDay -= 1
         }

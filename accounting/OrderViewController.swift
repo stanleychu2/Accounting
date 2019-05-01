@@ -172,6 +172,7 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
         orderProduct = [OrderProduct]()
         moneySumLabel.text = "$ 0"
         tableView.reloadData()
+        who = "";
     }
     
     // popOver 回傳資料執行的 func

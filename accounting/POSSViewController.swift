@@ -386,40 +386,56 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let formatter = UIMarkupTextPrintFormatter(markupText: invoiceHTML!)
         formatter.perPageContentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
         printController.printFormatter = formatter
-        
-        // 當成功列印時才更改 Order 的狀態為 finished
-        printController.present(animated: true) { (controller, success, error) -> Void in
-            
-            //if(success){
-                print("列印成功")
-                
-                //通知record更新紀錄
-                self.delegate?.notifyUpdate()
-
-                
-                let modify = self.orderDB.filter(self.contactName == self.selectedContact && self.serialNum == self.selectedUUID)
-       
-            
-                print(modify)
-                if let count = try? db?.run(modify.update(self.finish <- true)) {
-                    print("修改 row 的個數：\(String(describing: count))")
-                } else {
-                    print("修改失敗")
+        if(selectedUUID == ""){
+            let alertController = UIAlertController(title: "請選擇訂單\n", message: "", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "確認", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }else{
+            // 跳出alert 來確定是否要出單
+            let controller = UIAlertController(title: "按下確定出單", message: "", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "確定", style: .default) { (_) in
+                // 當成功列印時才更改 Order 的狀態為 finished
+                printController.present(animated: true) { (controller, success, error) -> Void in
+                    
+                    //if(success){
+                    print("列印成功")
+                    
+                    //通知record更新紀錄
+                    self.delegate?.notifyUpdate()
+                    
+                    
+                    let modify = self.orderDB.filter(self.contactName == self.selectedContact && self.serialNum == self.selectedUUID)
+                    
+                    
+                    print(modify)
+                    if let count = try? db?.run(modify.update(self.finish <- true)) {
+                        print("修改 row 的個數：\(String(describing: count))")
+                    } else {
+                        print("修改失敗")
+                    }
+                    
+                    self.updateOrderTableView(name: self.selectedContact, uuid: self.selectedUUID)
+                    self.updateContactCollection()
+                    self.selectedContact = ""
+                    self.selectedUUID = ""
+                    self.orderProduct = [OrderProduct]()
+                    self.sumMoneyLabel.text = "$ 0"
+                    self.OrderTableView.reloadData()
+                    /* }
+                     else {
+                     print("列印失敗")
+                     }
+                     */
                 }
-                
-                self.updateOrderTableView(name: self.selectedContact, uuid: self.selectedUUID)
-                self.updateContactCollection()
-                self.selectedContact = ""
-                self.selectedUUID = ""
-                self.orderProduct = [OrderProduct]()
-                self.sumMoneyLabel.text = "$ 0"
-                self.OrderTableView.reloadData()
-           /* }
-            else {
-                print("列印失敗")
             }
-             */
+            controller.addAction(okAction)
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+            controller.addAction(cancelAction)
+            present(controller, animated: true, completion: nil)
         }
+        
+        
+        
     }
     
     

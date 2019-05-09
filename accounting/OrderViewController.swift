@@ -45,6 +45,7 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var moneySumLabel: UILabel!
+    @IBOutlet weak var chooseContactBtn: UIButton!
     
     let productDB = Table("product")
     let orderDB = Table("order")
@@ -118,7 +119,7 @@ class OrderViewController: UIViewController, UICollectionViewDelegate, UICollect
         totalMoneyView.layer.borderColor = UIColor.lightGray.cgColor
         
         vegetableBtn.backgroundColor = #colorLiteral(red: 0.663232584, green: 0, blue: 0.4050840328, alpha: 1)
-        
+        chooseContactBtn.setTitle("選擇聯絡人", for: .normal)
         // 每一秒更新一次畫面上的時間
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
             now = Date()

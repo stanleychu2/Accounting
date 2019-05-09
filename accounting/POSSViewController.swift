@@ -55,6 +55,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var meatBtn: UIButton!
     @IBOutlet weak var otherBtn: UIButton!
     @IBOutlet weak var sumMoneyLabel: UILabel!
+    @IBOutlet weak var saveBtn: UIButton!
     
     let productDB = Table("product")
     let orderDB = Table("order")
@@ -115,6 +116,7 @@ class POSSViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.view.addSubview(ProductCollectionView)
 
         vegetableBtn.backgroundColor = #colorLiteral(red: 0.663232584, green: 0, blue: 0.4050840328, alpha: 1)
+        saveBtn.setTitle("儲存", for: .normal)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

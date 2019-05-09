@@ -150,18 +150,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="two"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cqV-j5-r9c">
-                                <rect key="frame" x="690" y="635" width="140" height="65"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.33333333333333331" green="0.69411764705882351" blue="0.12549019607843137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="選擇聯絡人">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="chooseContact:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="y2o-6Q-v8i"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D63-vP-OeO">
                                 <rect key="frame" x="690" y="52" width="310" height="570"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -273,6 +261,18 @@
                                     <accessibilityTraits key="traits" header="YES"/>
                                 </accessibility>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9q-Or-1bD">
+                                <rect key="frame" x="690" y="635" width="140" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.33333333329999998" green="0.69411764710000001" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="選擇聯絡人">
+                                    <color key="titleColor" red="0.9778380203" green="1" blue="0.97188036590000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="confirmOrder:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="DiX-HY-4sq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
@@ -280,6 +280,7 @@
                     <tabBarItem key="tabBarItem" title="訂單" image="order" selectedImage="order" id="TLc-o0-e95"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="chooseContactBtn" destination="h9q-Or-1bD" id="eCJ-cj-MR6"/>
                         <outlet property="collectionView" destination="kZq-lU-hma" id="Gsu-Rb-1WM"/>
                         <outlet property="collectionViewLayout" destination="Xpf-XS-3WT" id="mK0-RI-aSk"/>
                         <outlet property="meatBtn" destination="gno-bG-Tc0" id="WrF-jQ-6Rm"/>
@@ -785,18 +786,6 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wbN-Ux-qbB">
-                                <rect key="frame" x="690" y="635" width="140" height="65"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.33333333333333331" green="0.69411764705882351" blue="0.12549019607843137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="儲存">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="clearData:" destination="9gh-ZS-CyT" eventType="touchUpInside" id="JDj-WS-hIR"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ccb-eG-fHh">
                                 <rect key="frame" x="860" y="635" width="140" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -923,6 +912,18 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YZd-f1-9NQ">
+                                <rect key="frame" x="690" y="635" width="140" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.33333333329999998" green="0.69411764710000001" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="儲存">
+                                    <color key="titleColor" red="0.9778380203" green="1" blue="0.97188036590000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="printOrder:" destination="9gh-ZS-CyT" eventType="touchUpInside" id="rU8-73-yi1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="K2a-qo-V3d"/>
@@ -939,6 +940,7 @@
                         <outlet property="meatBtn" destination="d1B-1V-tto" id="jTY-1s-a4X"/>
                         <outlet property="otherBtn" destination="mhP-Bs-NxV" id="Zeg-K9-qHe"/>
                         <outlet property="pageLabel" destination="dDj-ZG-B0u" id="tAc-0O-huG"/>
+                        <outlet property="saveBtn" destination="YZd-f1-9NQ" id="DUY-aJ-Cqh"/>
                         <outlet property="sumMoneyLabel" destination="x7j-Gd-s48" id="E3X-e7-b5S"/>
                         <outlet property="totalMoneyView" destination="Ezi-LJ-kCD" id="4Xm-Fb-tgU"/>
                         <outlet property="vegetableBtn" destination="uxZ-xi-ez9" id="hJR-rU-QIQ"/>
@@ -2477,6 +2479,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="lZ2-rd-egg"/>
         <segue reference="Dj4-Qf-0gr"/>
-        <segue reference="eiD-GX-zcI"/>
+        <segue reference="OjM-h3-vQ5"/>
     </inferredMetricsTieBreakers>
 </document>

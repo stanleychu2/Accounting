@@ -270,6 +270,7 @@
                                     <color key="titleColor" red="0.9778380203" green="1" blue="0.97188036590000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
+                                    <action selector="chooseContact:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="fus-0X-p3t"/>
                                     <action selector="confirmOrder:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="DiX-HY-4sq"/>
                                 </connections>
                             </button>
@@ -2091,14 +2092,14 @@
                                     <action selector="previous:" destination="1Jj-ht-sip" eventType="touchUpInside" id="ChM-wJ-AEk"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kFS-eJ-0Wh">
-                                <rect key="frame" x="133" y="97" width="211" height="51"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kFS-eJ-0Wh">
+                                <rect key="frame" x="124" y="99" width="223" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <attributedString key="attributedText">
                                     <fragment content="2018.01.01">
                                         <attributes>
                                             <font key="NSFont" size="36" name="PingFangTC-Medium"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
@@ -2331,8 +2332,13 @@
                                     </segue>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4r7-A3-rOZ">
+                                <rect key="frame" x="505" y="108" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y5H-ZV-lXo">
-                                <rect key="frame" x="343" y="86" width="30" height="67"/>
+                                <rect key="frame" x="344" y="89" width="30" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
@@ -2346,11 +2352,6 @@
                                 <connections>
                                     <action selector="next:" destination="1Jj-ht-sip" eventType="touchUpInside" id="bWF-d3-52U"/>
                                 </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4r7-A3-rOZ">
-                                <rect key="frame" x="505" y="108" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

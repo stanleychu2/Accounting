@@ -227,7 +227,8 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPo
         let _day = Int(calendar.component(.day, from: _date))
         
         if(name != "FFFFFF"){
-            filterDate = orderDB.filter(contactName == name)
+            filterDate = orderDB.filter(contactName == name && finish == true)
+            selectDate.text = "\(sYear)" + "." + "\(sMonth)" + "." + "\(sDay)" + "~\(eYear)" + "." + "\(eMonth)" + "." + "\(eDay)"
             let s = sYear * 365 + sMonth * 30 + sDay
             let e = eYear * 365 + eMonth * 30 + eDay
             print("here")

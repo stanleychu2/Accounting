@@ -261,12 +261,10 @@
                                     <accessibilityTraits key="traits" header="YES"/>
                                 </accessibility>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9q-Or-1bD">
-                                <rect key="frame" x="690" y="635" width="140" height="65"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9q-Or-1bD">
+                                <rect key="frame" x="690" y="635" width="142" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.33333333329999998" green="0.69411764710000001" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="選擇聯絡人">
+                                <state key="normal" image="choose_contact">
                                     <color key="titleColor" red="0.9778380203" green="1" blue="0.97188036590000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -796,7 +794,7 @@
                                     <color key="titleColor" red="0.9778380203" green="1" blue="0.97188036590000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="printOrder:" destination="9gh-ZS-CyT" eventType="touchUpInside" id="vRZ-ho-tt2"/>
+                                    <action selector="printOrder:" destination="9gh-ZS-CyT" eventType="touchUpInside" id="Hw0-Ah-3FV"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Ml-4q-epk">
@@ -913,17 +911,12 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YZd-f1-9NQ">
-                                <rect key="frame" x="690" y="635" width="140" height="65"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YZd-f1-9NQ">
+                                <rect key="frame" x="690" y="635" width="142" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.33333333329999998" green="0.69411764710000001" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="儲存">
+                                <state key="normal" image="save">
                                     <color key="titleColor" red="0.9778380203" green="1" blue="0.97188036590000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                                <connections>
-                                    <action selector="printOrder:" destination="9gh-ZS-CyT" eventType="touchUpInside" id="rU8-73-yi1"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -955,7 +948,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MXB-Go-RnE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-678" y="-1687"/>
+            <point key="canvasLocation" x="-678.515625" y="-1687.5"/>
         </scene>
         <!--Product-->
         <scene sceneID="YEg-zB-flj">
@@ -1591,21 +1584,30 @@
                                             <rect key="frame" x="0.0" y="0.0" width="1024" height="69.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nuW-Kt-XFo">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nuW-Kt-XFo">
                                                     <rect key="frame" x="600" y="10" width="226" height="45"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="226" id="NA9-dq-DAh"/>
+                                                    </constraints>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="市話" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbd-FH-Qer">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="市話" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbd-FH-Qer">
                                                     <rect key="frame" x="165" y="0.0" width="61" height="70"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="nuW-Kt-XFo" secondAttribute="bottom" constant="4" id="VsE-Ad-u0Q"/>
+                                                <constraint firstItem="fbd-FH-Qer" firstAttribute="centerY" secondItem="TwL-D4-6WO" secondAttribute="centerY" id="Yrr-TM-ZHX"/>
+                                                <constraint firstItem="fbd-FH-Qer" firstAttribute="top" secondItem="TwL-D4-6WO" secondAttribute="top" id="cCC-qg-BZi"/>
+                                                <constraint firstAttribute="trailing" secondItem="nuW-Kt-XFo" secondAttribute="trailing" constant="198" id="pEm-5a-8st"/>
+                                                <constraint firstItem="fbd-FH-Qer" firstAttribute="leading" secondItem="TwL-D4-6WO" secondAttribute="leading" constant="165" id="r0o-JC-gck"/>
+                                                <constraint firstItem="nuW-Kt-XFo" firstAttribute="top" secondItem="TwL-D4-6WO" secondAttribute="topMargin" constant="-1" id="tBM-AC-Ae8"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="zyY-jd-JuL">
@@ -2470,11 +2472,13 @@
     </scenes>
     <resources>
         <image name="POS" width="32" height="32"/>
+        <image name="choose_contact" width="332" height="154"/>
         <image name="contacts" width="30" height="30"/>
         <image name="edit" width="225" height="226"/>
         <image name="order" width="32" height="32"/>
         <image name="product" width="30" height="30"/>
         <image name="record" width="30" height="30"/>
+        <image name="save" width="279" height="129"/>
         <image name="setting" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>

@@ -105,8 +105,21 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPo
         orderTable.layer.borderColor = UIColor.gray.cgColor
         orderTable.layer.borderWidth = 2.0
         
+        total = 0
         
-        totalPrice.text = String(total)
+        updateTotal()
+        
+    }
+    
+    func updateTotal(){
+        for i in 0 ... allRecord.count {
+            if(i >= allRecord.count){
+                break
+            }
+            let holdPrice: Int = allRecord[i].price
+            total += holdPrice
+            totalPrice.text = String(total)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -129,10 +142,6 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPo
         cell.price.text = String(allRecord[indexPath.row].price)
         
         //計算總價
-        let holdPrice: Int = allRecord[indexPath.row].price
-        total += holdPrice
-        
-        totalPrice.text = String(total)
         
         return cell
     }
@@ -283,7 +292,7 @@ class Record: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPo
         combineSameOrderNumber()
         
         self.orderTable.reloadData()
-        
+        updateTotal()
     }
     
     @IBAction func switchDayOrMonth(_ sender: Any) {

@@ -75,7 +75,7 @@ class OrderContactPopOver: UIViewController,UICollectionViewDelegate, UICollecti
         
         // Configure the cell
         cell.layer.cornerRadius = 3
-        cell.cellLabel.text = people[36 * pagesIndex + indexPath.row].name
+        cell.cellLabel.text = people[36 * pagesIndex + indexPath.row].company
         if(choose != " " && choose == cell.cellLabel.text){
             cell.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
         }else{

@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>Star Sound Convertrer</title>
+    <link href="layout.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+    
+    <!-- Main -->
+    <div id="Main">
+        
+        <h1>Star Sound Converter</h1>
+        <div id="IntroductionText">
+            <p>
+               Star Sound Converter converts sound file format to format that can be used with mC-Sound.
+            </p>
+        </div>
+            <p>&nbsp;</p>
+        
+
+
+        <div class="DocumentSection">
+
+
+        
+            <h3>Star Sound Converter Input and output sound file format</h3>
+            <p>
+                <table class="tbl_4">
+                    <tr>
+                        <th>Item</th>
+                        <th>Input</th>
+                        <th>Output</th>
+                    </tr>
+                    <tr><td class="td3">Sound file format</td><td>WAV (Linear PCM,A-Law,μ-Law, AIFF, MP3)</td><td>WAV (Linear PCM)</td></tr>
+                    <tr><td class="td3">Sampling rate (Hz)</td><td>any</td><td>12,800</td></tr>
+                    <tr><td class="td3">Number of channels (Stereo/Monaural)</td><td>any</td><td>1 (Monaural)</td></tr>
+                    <tr><td class="td3" rowspan="3">Bit depth (bit)</td><td>8</td><td >8</td></tr>
+                    <tr><td>16 (Playback time : Less than 5 seconds)</td><td >16</td>
+                    <tr><td>16 (Playback time : More than 5 seconds)</td><td >8</td></tr>
+                    <tr><td class="td3" rowspan="2">Playback time</td><td>1~10 seconds</td><td>No change</td></tr>
+                    <tr><td>More than 10 seconds</td><td>10 seconds</td></tr>
+                </table>
+            </p>
+
+            
+            <p>&nbsp;</p>
+
+
+            <h3>Supported sound format for mC-Sound</h3>
+            <p>
+                <table class="tbl_4">
+                    <tr><th colspan="2">Sound file format</td><td>WAV (Linear PCM)</td></tr>
+                    <tr><th colspan="2">Sampling rate (Hz)</td><td>12,800</td></tr>
+                    <tr><th colspan="2">Number of channels (Stereo/Monaural)</td><td>1 (Monaural)</td></tr>
+                    <tr><th colspan="2">Bit depth (bit)</td><td >8 / 16</td></tr>
+                    <tr><th rowspan="2">Playback time</th><td class="td-bg-g">Bit depth 8</td><td class="td-bg-w">Within 10 seconds</td></tr>
+                    <tr><td class="td-bg-g">Bit depth 16</td><td class="td-bg-w">Within 5 seconds</td></tr>
+                </table>
+            </p>
+
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            
+            <h3>
+                Supported OS</h3>
+                
+            <h5>For Windows</h5>
+            <ul class="OS_ul">
+                <li>Windows 10 32bit/64bit(except Mobile and Windows 10 IoT Core)</li>
+                <li>Windows 8.1/8 32bit/64bit(except Windows RT)</li>
+                <li>Windows 7 32bit/64bit</li>
+            </ul>
+            <br />
+            <h5>For Mac</h5>
+            <ul class="OS_ul">
+                <li>macOS 10.14</li>
+                <li>macOS 10.13</li>
+            </ul>
+
+            <p>&nbsp;</p>
+
+
+    </div>
+    </div>
+    </div>
+
+</body>
+</html>

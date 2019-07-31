@@ -1,0 +1,93 @@
+
+/* Class = "UINavigationItem"; title = "Combination"; ObjectID = "6rm-rr-pLn"; */
+"6rm-rr-pLn.title" = "Combination";
+
+/* Class = "UINavigationItem"; title = "Main"; ObjectID = "7hR-KA-UbE"; */
+"7hR-KA-UbE.title" = "Main";
+
+/* Class = "UINavigationItem"; title = "Star Micronics Cloud"; ObjectID = "7nE-bo-Dzm"; */
+"7nE-bo-Dzm.title" = "Star Micronics Cloud";
+
+/* Class = "UILabel"; text = "Comment"; ObjectID = "CJ4-AD-hfp"; */
+"CJ4-AD-hfp.text" = "Comment";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "EKG-SD-B3j"; */
+"EKG-SD-B3j.title" = "Back";
+
+/* Class = "UINavigationItem"; title = "Star Micronics Cloud Ext"; ObjectID = "G2n-T1-tDd"; */
+"G2n-T1-tDd.title" = "Star Micronics Cloud Ext";
+
+/* Class = "UINavigationItem"; title = "Cash Drawer"; ObjectID = "LEi-XK-mbS"; */
+"LEi-XK-mbS.title" = "Cash Drawer";
+
+/* Class = "UILabel"; text = "Comment"; ObjectID = "NCN-2H-ohd"; */
+"NCN-2H-ohd.text" = "Comment";
+
+/* Class = "UINavigationItem"; title = "Printer Ext"; ObjectID = "SzB-vD-sbH"; */
+"SzB-vD-sbH.title" = "Printer Ext";
+
+/* Class = "UIButton"; normalTitle = "Print"; ObjectID = "WWO-9h-Jr2"; */
+"WWO-9h-Jr2.normalTitle" = "Print";
+
+/* Class = "UILabel"; text = "Comment"; ObjectID = "Yhn-0G-Dzs"; */
+"Yhn-0G-Dzs.text" = "Comment";
+
+/* Class = "UINavigationItem"; title = "Barcode Reader Ext"; ObjectID = "ZXN-yh-cqR"; */
+"ZXN-yh-cqR.title" = "Barcode Reader Ext";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "aqY-My-tJC"; */
+"aqY-My-tJC.title" = "Back";
+
+/* Class = "UINavigationItem"; title = "Cash Drawer Ext"; ObjectID = "g2u-N8-4JG"; */
+"g2u-N8-4JG.title" = "Cash Drawer Ext";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "iKE-Kd-nko"; */
+"iKE-Kd-nko.title" = "Back";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "j88-vh-0BD"; */
+"j88-vh-0BD.title" = "Back";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "k0K-TB-uPZ"; */
+"k0K-TB-uPZ.title" = "Back";
+
+/* Class = "UINavigationItem"; title = "Combination Ext"; ObjectID = "lWG-T2-r40"; */
+"lWG-T2-r40.title" = "Combination Ext";
+
+/* Class = "UINavigationItem"; title = "Printer"; ObjectID = "ls7-RX-dAl"; */
+"ls7-RX-dAl.title" = "Printer";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "oe3-4u-Bjh"; */
+"oe3-4u-Bjh.title" = "Back";
+
+/* Class = "UILabel"; text = "Comment"; ObjectID = "omG-9I-zKP"; */
+"omG-9I-zKP.text" = "Comment";
+
+/* Class = "UINavigationItem"; title = "Search Port"; ObjectID = "sFA-E4-fsA"; */
+"sFA-E4-fsA.title" = "Search Port";
+
+/* Class = "UIButton"; normalTitle = "Print"; ObjectID = "t07-yZ-ww8"; */
+"t07-yZ-ww8.normalTitle" = "Print";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "t4I-BT-BiP"; */
+"t4I-BT-BiP.title" = "Back";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "uaN-1z-n2P"; */
+"uaN-1z-n2P.title" = "Back";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "uzY-ef-1fC"; */
+"uzY-ef-1fC.title" = "Back";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "v4l-e9-adQ"; */
+"v4l-e9-adQ.title" = "Back";
+
+/* Class = "UILabel"; text = "Comment"; ObjectID = "whX-0T-of5"; */
+"whX-0T-of5.text" = "Comment";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "xMk-g6-VVL"; */
+"xMk-g6-VVL.title" = "Back";
+
+/* Class = "UIButton"; normalTitle = "Print"; ObjectID = "yQP-kS-XBM"; */
+"yQP-kS-XBM.normalTitle" = "Print";
+
+/* Class = "UIButton"; normalTitle = "Open"; ObjectID = "ysw-FF-g5W"; */
+"ysw-FF-g5W.normalTitle" = "Open";

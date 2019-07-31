@@ -1,0 +1,188 @@
+﻿/* organization
+------------------------------------------------------*/
+html
+{ 
+	height: auto;
+}
+
+body     /*PSA mobile より変更*/
+{
+	background-color: #F3F3F3; 
+	font-family: 'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+	line-height: 1.7em;
+	max-width: 1024px;
+	margin: 0 auto;
+	font-size: 90%;
+	height: 100%;
+}
+
+li{
+	font-size:1em;
+}
+
+h1
+{
+    font-weight: bold;
+    line-height: 150%;
+    border-bottom: 3px solid #208DC3;
+}
+
+h2
+{
+    font-weight: bold;
+    font-size: 1.5em;
+    padding: 10px 3px 10px 0px;
+    color: #999;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    position: inherit;
+	
+}
+
+h3
+{
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 0px 1px 0px 10px;
+}
+
+h4
+{
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 5px 1px 0px 0px;
+}
+
+h5
+{
+    font-weight: bold;
+	color: #333333;
+    font-size: 1em;
+    margin-bottom: 0;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
+}
+
+
+
+ul{
+margin:0;
+padding:0 0 0 15px;
+}
+
+
+/* Component
+-----------------------------------------------------*/
+
+#Main
+{
+	background-color:#FFFFFF;
+	padding: 3em 2em;
+	margin-top: -1em;
+	height: 100%;
+}
+
+#Main h2{
+    padding-top: 2em;
+    position: inherit;
+}
+
+#Main h3{
+	margin-top: 1em;
+	margin-bottom: 1em;
+    color: #333333;
+    border-left: 0.5em #6EB7DB solid;
+}
+
+#Main h4{
+    margin: 0.5em 0;
+    padding: 0px;
+    display: inline;
+    color: #333333;
+    border-bottom: 1px #6EB7DB solid;
+    /*border-bottom: 1px silver solid;*/
+}
+
+#Main p{
+	font-size:1em;
+	line-height:1.8em;
+}
+
+#IntroductionText
+{
+    text-align: justify;
+}
+
+
+.h5_contents
+{
+	margin-top: 0.3em;
+}
+
+
+
+
+.forTop
+{
+    text-align: right;
+    margin: 3em;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+
+.td3
+{
+    text-align: center;
+    font-weight: bold;
+}
+
+.td4
+{
+    border-left: 2px solid gray;
+}
+
+
+.tbl_4  /* テーブル４：外罫内罫1px・全センタリング */
+{
+    margin-top: 0px;
+    border: 1px solid gray;
+    font-size: 0.9em;
+    white-space: nowrap;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    empty-cells: show;
+    text-align: center;
+
+}
+
+.tbl_4 th{
+    border: 1px solid gray;
+    padding: 3px 15px;
+    background-color: #EEEEEE;
+    text-align: center;
+    font-weight: bold;
+}
+
+.tbl_4 td{
+    border: 1px solid gray;
+    padding: 3px 15px;
+}
+
+.td-bg-g{
+    background-color: #EEEEEE;
+}
+
+.td-bg-w{
+    background-color: #FFFFFF;
+}
+
+
+/* 対応OSリスト　　*/
+.OS_ul{
+    margin-top: 0.5em;
+    margin-left: 2em;
+}
+
+
+

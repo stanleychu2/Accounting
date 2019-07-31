@@ -32,6 +32,13 @@
 		DDA4A5B021FECDCB00F2DB82 /* OrderPopOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4A5AF21FECDCA00F2DB82 /* OrderPopOverView.swift */; };
 		DDA4A5B22200252600F2DB82 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4A5B12200252500F2DB82 /* Setting.swift */; };
 		DDA4A5B4220030E700F2DB82 /* EditContactTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4A5B3220030E700F2DB82 /* EditContactTableTableViewController.swift */; };
+		DDFED69222F1D3D500FC3D2A /* StarPRNT_iOS_SDK_V5_10_1 in Resources */ = {isa = PBXBuildFile; fileRef = DDFED69122F1D3D500FC3D2A /* StarPRNT_iOS_SDK_V5_10_1 */; };
+		DDFED69422F1D41000FC3D2A /* StarIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDFED69322F1D41000FC3D2A /* StarIO.framework */; };
+		DDFED69622F1D42400FC3D2A /* StarIO_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDFED69522F1D42400FC3D2A /* StarIO_Extension.framework */; };
+		DDFED69822F1D43900FC3D2A /* SMCloudServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDFED69722F1D43900FC3D2A /* SMCloudServices.framework */; };
+		DDFED69A22F1D47100FC3D2A /* SMCloudServicesResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DDFED69922F1D47100FC3D2A /* SMCloudServicesResources.bundle */; };
+		DDFED69C22F1D48500FC3D2A /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDFED69B22F1D48500FC3D2A /* CoreBluetooth.framework */; };
+		DDFED69E22F1D49700FC3D2A /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDFED69D22F1D49600FC3D2A /* ExternalAccessory.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +97,14 @@
 		DDA4A5AF21FECDCA00F2DB82 /* OrderPopOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderPopOverView.swift; sourceTree = "<group>"; };
 		DDA4A5B12200252500F2DB82 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		DDA4A5B3220030E700F2DB82 /* EditContactTableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditContactTableTableViewController.swift; sourceTree = "<group>"; };
+		DDFED69122F1D3D500FC3D2A /* StarPRNT_iOS_SDK_V5_10_1 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = StarPRNT_iOS_SDK_V5_10_1; sourceTree = "<group>"; };
+		DDFED69322F1D41000FC3D2A /* StarIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StarIO.framework; path = "StarPRNT_iOS_SDK_V5_10_1/Software/Swift SDK/StarIO.framework"; sourceTree = "<group>"; };
+		DDFED69522F1D42400FC3D2A /* StarIO_Extension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StarIO_Extension.framework; path = "StarPRNT_iOS_SDK_V5_10_1/Software/Swift SDK/StarIO_Extension.framework"; sourceTree = "<group>"; };
+		DDFED69722F1D43900FC3D2A /* SMCloudServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SMCloudServices.framework; path = "StarPRNT_iOS_SDK_V5_10_1/Software/Swift SDK/SMCloudServices.framework"; sourceTree = "<group>"; };
+		DDFED69922F1D47100FC3D2A /* SMCloudServicesResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SMCloudServicesResources.bundle; path = "StarPRNT_iOS_SDK_V5_10_1/Software/Swift SDK/SMCloudServices.framework/Versions/A/Resources/SMCloudServicesResources.bundle"; sourceTree = "<group>"; };
+		DDFED69B22F1D48500FC3D2A /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		DDFED69D22F1D49600FC3D2A /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		DDFED69F22F1D4AC00FC3D2A /* StarIO_Extension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StarIO_Extension-Bridging-Header.h"; sourceTree = "<group>"; };
 		ED550331ED125361DAF79183 /* Pods-accounting.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-accounting.release.xcconfig"; path = "Pods/Target Support Files/Pods-accounting/Pods-accounting.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +113,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDFED69E22F1D49700FC3D2A /* ExternalAccessory.framework in Frameworks */,
+				DDFED69C22F1D48500FC3D2A /* CoreBluetooth.framework in Frameworks */,
+				DDFED69822F1D43900FC3D2A /* SMCloudServices.framework in Frameworks */,
+				DDFED69622F1D42400FC3D2A /* StarIO_Extension.framework in Frameworks */,
+				DDFED69422F1D41000FC3D2A /* StarIO.framework in Frameworks */,
 				AD8C24EC4E4BD8AC61DB1AE9 /* Pods_accounting.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,6 +167,11 @@
 		B710EFA21223A8115484A927 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DDFED69D22F1D49600FC3D2A /* ExternalAccessory.framework */,
+				DDFED69B22F1D48500FC3D2A /* CoreBluetooth.framework */,
+				DDFED69722F1D43900FC3D2A /* SMCloudServices.framework */,
+				DDFED69522F1D42400FC3D2A /* StarIO_Extension.framework */,
+				DDFED69322F1D41000FC3D2A /* StarIO.framework */,
 				8BCC5C6FC08A9C3967AC08CE /* Pods_accounting.framework */,
 				60D569BBFEA623A59BA0D0A5 /* Pods_accountingTests.framework */,
 				B204C91540D5E1D11ECD4D40 /* Pods_accountingUITests.framework */,
@@ -157,6 +182,9 @@
 		DD3B291E21F06B50007A10FB = {
 			isa = PBXGroup;
 			children = (
+				DDFED69F22F1D4AC00FC3D2A /* StarIO_Extension-Bridging-Header.h */,
+				DDFED69922F1D47100FC3D2A /* SMCloudServicesResources.bundle */,
+				DDFED69122F1D3D500FC3D2A /* StarPRNT_iOS_SDK_V5_10_1 */,
 				337F5661221D505D00C51AD3 /* HTML_Template */,
 				DD3B292921F06B50007A10FB /* accounting */,
 				DD3B294021F06B52007A10FB /* accountingTests */,
@@ -332,9 +360,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDFED69A22F1D47100FC3D2A /* SMCloudServicesResources.bundle in Resources */,
 				337F5660221D505700C51AD3 /* invoice.html in Resources */,
 				DD3B293721F06B52007A10FB /* LaunchScreen.storyboard in Resources */,
 				DD3B293421F06B52007A10FB /* Assets.xcassets in Resources */,
+				DDFED69222F1D3D500FC3D2A /* StarPRNT_iOS_SDK_V5_10_1 in Resources */,
 				DD3B293221F06B50007A10FB /* Main.storyboard in Resources */,
 				337F565E221D505700C51AD3 /* last_item.html in Resources */,
 				337F565F221D505700C51AD3 /* single_item.html in Resources */,
@@ -633,7 +663,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L3ZWS47VW2;
+				DEVELOPMENT_TEAM = QSV9A9BSWN;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/StarPRNT_iOS_SDK_V5_10_1/Software/Swift\\ SDK",
+					"$(PROJECT_DIR)/StarPRNT_iOS_SDK_V5_10_1/Software/Swift\\ SDK",
+					"$(PROJECT_DIR)/StarPRNT_iOS_SDK_V5_10_1/Software/Swift\\ SDK",
+				);
 				INFOPLIST_FILE = accounting/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -642,6 +678,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = CHIACHING.Accounting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/stanleychu/Desktop/swift/Accounting/StarIO_Extension-Bridging-Header.h";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -653,7 +691,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L3ZWS47VW2;
+				DEVELOPMENT_TEAM = QSV9A9BSWN;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/StarPRNT_iOS_SDK_V5_10_1/Software/Swift\\ SDK",
+					"$(PROJECT_DIR)/StarPRNT_iOS_SDK_V5_10_1/Software/Swift\\ SDK",
+					"$(PROJECT_DIR)/StarPRNT_iOS_SDK_V5_10_1/Software/Swift\\ SDK",
+				);
 				INFOPLIST_FILE = accounting/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -662,6 +706,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = CHIACHING.Accounting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/stanleychu/Desktop/swift/Accounting/StarIO_Extension-Bridging-Header.h";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
